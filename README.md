@@ -1,0 +1,1 @@
+UNLPImage será una aplicación de escritorio que además de generar imágenes permitirá clasificarlas. Tambien se podrá acceder a imagenes almacenadas en nuestra computadora a través de información sobre las mismas.
