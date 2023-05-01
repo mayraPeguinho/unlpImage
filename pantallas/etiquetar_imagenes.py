@@ -11,7 +11,7 @@ file_icon = b'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsSAAALEg
 ruta_archivo = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'configuracion.json')
 
 #el siguiente if valida si ya está creado un archivo de configuración. Podría ir en funcionalidad
-#otro problema es que si entra en el else "starting_path" no se crea nunca.
+#otro problema es que si entra en el else "starting_path" no se crea nunca. Solucionar con excepciones
 if os.path.exists(ruta_archivo):
     print("El archivo existe")
     with open(ruta_archivo) as f:
