@@ -30,4 +30,5 @@ while True:
         carpeta_collages = values[1]
         carpeta_memes = values[2]
         guardar_directorios(repo_imagenes, carpeta_collages, carpeta_memes)
+        sys.exit()
 window.close()
