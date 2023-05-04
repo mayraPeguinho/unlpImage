@@ -141,16 +141,13 @@ while True:     # Loop de eventos
 
             ruta_csv = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'etiquetar_imagenes.csv')
 
-            #Verificar que exista el csv, si no existe debo crearlo. 
+            #Verificar que exista el csv, si no existe debo crearlo. ¿Es esto necesario?
             try:
                 with open(ruta_archivo, 'r+') as f:
                     pass
                     
             except FileNotFoundError:
                 open(ruta_archivo, 'w')
-                header = ["ruta", "descripcion", "resolucion", "tamaño", 
-                      "tipo", "tags", "ultimo_perfil", "ultima_actualizacion"]
-                sg.popup(header)
 
            
 window.close()
