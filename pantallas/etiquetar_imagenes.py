@@ -3,21 +3,21 @@ import sys
 import os
 import json
 import PySimpleGUI as sg
+import PIL
 from PIL import Image, ImageTk
+import csv
 folder_icon = b'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsSAAALEgHS3X78AAABnUlEQVQ4y8WSv2rUQRSFv7vZgJFFsQg2EkWb4AvEJ8hqKVilSmFn3iNvIAp21oIW9haihBRKiqwElMVsIJjNrprsOr/5dyzml3UhEQIWHhjmcpn7zblw4B9lJ8Xag9mlmQb3AJzX3tOX8Tngzg349q7t5xcfzpKGhOFHnjx+9qLTzW8wsmFTL2Gzk7Y2O/k9kCbtwUZbV+Zvo8Md3PALrjoiqsKSR9ljpAJpwOsNtlfXfRvoNU8Arr/NsVo0ry5z4dZN5hoGqEzYDChBOoKwS/vSq0XW3y5NAI/uN1cvLqzQur4MCpBGEEd1PQDfQ74HYR+LfeQOAOYAmgAmbly+dgfid5CHPIKqC74L8RDyGPIYy7+QQjFWa7ICsQ8SpB/IfcJSDVMAJUwJkYDMNOEPIBxA/gnuMyYPijXAI3lMse7FGnIKsIuqrxgRSeXOoYZUCI8pIKW/OHA7kD2YYcpAKgM5ABXk4qSsdJaDOMCsgTIYAlL5TQFTyUIZDmev0N/bnwqnylEBQS45UKnHx/lUlFvA3fo+jwR8ALb47/oNma38cuqiJ9AAAAAASUVORK5CYII='
 file_icon = b'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsSAAALEgHS3X78AAABU0lEQVQ4y52TzStEURiHn/ecc6XG54JSdlMkNhYWsiILS0lsJaUsLW2Mv8CfIDtr2VtbY4GUEvmIZnKbZsY977Uwt2HcyW1+dTZvt6fn9557BGB+aaNQKBR2ifkbgWR+cX13ubO1svz++niVTA1ArDHDg91UahHFsMxbKWycYsjze4muTsP64vT43v7hSf/A0FgdjQPQWAmco68nB+T+SFSqNUQgcIbN1bn8Z3RwvL22MAvcu8TACFgrpMVZ4aUYcn77BMDkxGgemAGOHIBXxRjBWZMKoCPA2h6qEUSRR2MF6GxUUMUaIUgBCNTnAcm3H2G5YQfgvccYIXAtDH7FoKq/AaqKlbrBj2trFVXfBPAea4SOIIsBeN9kkCwxsNkAqRWy7+B7Z00G3xVc2wZeMSI4S7sVYkSk5Z/4PyBWROqvox3A28PN2cjUwinQC9QyckKALxj4kv2auK0xAAAAAElFTkSuQmCC'
 
 
 ruta_archivo = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'configuracion.json')
 
-#el siguiente if valida si ya está creado un archivo de configuración. Podría ir en funcionalidad
-#otro problema es que si entra en el else "starting_path" no se crea nunca. Solucionar con excepciones
-if os.path.exists(ruta_archivo):
-    print("El archivo existe")
+#Error de lógica, nunca inicializo starting_path si entro al excep. Ademas, debo implementarlo como función.  
+try:
     with open(ruta_archivo) as f:
         data = json.load(f)
         starting_path = data['repositorio_imagenes']
-else:
+except FileNotFoundError:
     layout= [[sg.Text("¡Parece que aún no has configurado tu repositorio de imágenes! ¿Deseas configurarlo ahora?")],
             [sg.OK(button_text="Si"), sg.Cancel(button_text="No")]]
     window = sg.Window("¡Advertencia!", layout, margins=(100, 50))
@@ -30,7 +30,6 @@ else:
             ruta_pantallaconfig = os.path.abspath(os.path.join(os.path.dirname(__file__), 'configuracion.py'))
             import subprocess
             subprocess.run(["python", ruta_pantallaconfig])
-            sys.exit()
             break
     window.close()
 
@@ -76,18 +75,19 @@ columna_izquierda = [[sg.Text('Repositorio de imagenes')],
 
 columna_derecha = [[sg.Text('La imagen que elegiste:')],
               [sg.Text(size=(40,1), key='-TOUT-')],
-              [sg.Image(key='-IMAGE-')]]
+              [sg.Image(key='-IMAGE-', size= (15, 20))],
+              [sg.Text('Descripción: ', key='-DESCRIPCION-')]]
               
 
 layout = [[sg.Column(columna_izquierda, element_justification='c'), sg.VSeperator(),sg.Column(columna_derecha, element_justification='c')]]
 
-window = sg.Window('Etiquetar Imagenes', layout, resizable=True, finalize=True)
+window = sg.Window('Etiquetar Imagenes', layout, resizable=False, finalize=True)
 
 imagen_seleccionada = {'ruta': '', 'tag': '', 'descripcion': ''}
 ruta_archivo_imagenes = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'etiquetas_imagenes.json')
 
 
-while True:     # Event Loop
+while True:     # Loop de eventos
     event, values = window.read()    
     if event in (sg.WIN_CLOSED, 'Volver'):
         break
@@ -99,33 +99,57 @@ while True:     # Event Loop
             imagen_seleccionada['ruta'] = ruta_imagen
             # Cargar y mostrar la imagen en la columna de la derecha
             if ruta_imagen.endswith(('.png', '.jpg', '.jpeg', '.gif')):
-                imagen = sg.Image(filename=ruta_imagen, size=(300, 300))
+                imagen = sg.Image(filename=ruta_imagen)
                 window['-IMAGE-'].update(imagen)
             # Actualizar la etiqueta de texto de la imagen seleccionada en la columna de la derecha
             window['-TOUT-'].update(os.path.basename(ruta_imagen))
-            imagen = Image.open(os.path.join(ruta_imagen))
-            ruta_imagen = values['-TREE-'][0]
-            imagen = Image.open(ruta_imagen)
-            # convertir la imagen a un formato que pueda mostrar PySimpleGUI
-            tk_img = ImageTk.PhotoImage(imagen)
-            window["-IMAGE-"].update(data=tk_img)
 
+             #Chequear que se pueda abrir la imagen
+            try:
+                imagen = Image.open(os.path.join(ruta_imagen))
+                ruta_imagen = values['-TREE-'][0]
+                imagen = Image.open(ruta_imagen).resize((350, 300))
+                #Extraigo los metadatos de la imagen
+                metadata = imagen.getexif()
+                # convertir la imagen a un formato que pueda mostrar PySimpleGUI
+                tk_img = ImageTk.PhotoImage(imagen)
+                window["-IMAGE-"].update(data=tk_img)
+            except PIL.UnidentifiedImageError:
+                sg.popup("¡No es una imagen!")
+            except PermissionError:
+                sg.popup("¡No tienes permisos para acceder a esa carpeta!")
 
             
+
+
+        #Eventos    
         if event == 'Agregar':
             imagen_seleccionada['tag'] = values['Tag']
             imagen_seleccionada['descripcion'] = values['Texto']
-        if event == 'Guardar':
-            # Obtener el archivo JSON de configuración
-            with open(ruta_archivo) as f:
-                data = json.load(f)
-            # Actualizar los datos de la imagen seleccionada en el archivo JSON
-            data['imagenes'][imagen_seleccionada['ruta']] = {'tag': imagen_seleccionada['tag'], 'descripcion': imagen_seleccionada['descripcion']}
-            # Guardar los cambios en el archivo JSON
-            with open(ruta_archivo_imagenes, 'w') as f:
-                json.dump(data, f)
-            print(event, values)
 
+        #ver como guardar la metadata
+        if event == 'Guardar':
+            # Obtener el archivo CSV de etiquetas y descripciones con:  
+                #Ruta relativa a la imagen (metadata)
+                #Texto descriptivo (lo saco de imagen_seleccionada)
+                #resolucion (metadata)
+                #tamaño (metadata)
+                #tipo (mimetype)
+                #lista de tags(lo saco de imagen_seleccionada)
+                #ultimo perfil que actualizó ---(/!\ ver con Fran como implementar esta funcionalidad)---
+                #Fecha de ultima actualización (extraer del log)
+
+            ruta_csv = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'etiquetar_imagenes.csv')
+
+            #Verificar que exista el csv, si no existe debo crearlo. ¿Es esto necesario?
+            try:
+                with open(ruta_archivo, 'r+') as f:
+                    pass
+                    
+            except FileNotFoundError:
+                open(ruta_archivo, 'w')
+
+           
 window.close()
 
 
