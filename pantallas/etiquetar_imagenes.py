@@ -20,6 +20,7 @@ with open(ruta_archivo) as f:
     starting_path = data['repositorio_imagenes']
 
 #para poder mostrar los archivos en forma de cascada hay que usar un objeto "treedata" incluído en PySimplegui
+#lo extraje de la documentación oficinal de sg
 treedata = sg.TreeData()
 
 
@@ -148,14 +149,14 @@ while True:     # Loop de eventos
             with open(ruta_csv, mode='r+', newline='') as file:
                 # Creo objeto lector
                 reader = csv.DictReader(file)
-                # Leer el contenido del archivo.csv y guardarlo en una lista de diccionarios
+                # Leo el contenido del archivo.csv y guardo la fila 
                 contenido = list(reader)
 
                 # Recorrer los datos
                 for fila in contenido:
                     # Si la ruta de la imagen coincide con la ruta dada
                     if fila['ruta'] == ruta_imagen:
-                        # Actualizar los valores correspondientes
+                        # Actualizo los valores correspondientes
                         fila['descripcion'] = descripcion
                         fila['tags'] = tags
                         fila['resolucion'] = str(resolucion[0]) + 'x' + str(resolucion[1]) #La muestro en un formato mas descriptivo
@@ -165,7 +166,7 @@ while True:     # Loop de eventos
                         #agregar ultimo perfil que actualizó
                         break
                 else:
-                    # Si no se encontró una fila con la ruta dada, agregar una nueva fila (nueva imagen editada)
+                    # Si no se encontró una fila con la ruta dada, agreo una nueva fila (nueva imagen editada)
                     fila_nueva = {'ruta': ruta_imagen,
                                 'descripcion': descripcion,
                                 'tags': tags,
