@@ -9,10 +9,8 @@ import csv
 folder_icon = b'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsSAAALEgHS3X78AAABnUlEQVQ4y8WSv2rUQRSFv7vZgJFFsQg2EkWb4AvEJ8hqKVilSmFn3iNvIAp21oIW9haihBRKiqwElMVsIJjNrprsOr/5dyzml3UhEQIWHhjmcpn7zblw4B9lJ8Xag9mlmQb3AJzX3tOX8Tngzg349q7t5xcfzpKGhOFHnjx+9qLTzW8wsmFTL2Gzk7Y2O/k9kCbtwUZbV+Zvo8Md3PALrjoiqsKSR9ljpAJpwOsNtlfXfRvoNU8Arr/NsVo0ry5z4dZN5hoGqEzYDChBOoKwS/vSq0XW3y5NAI/uN1cvLqzQur4MCpBGEEd1PQDfQ74HYR+LfeQOAOYAmgAmbly+dgfid5CHPIKqC74L8RDyGPIYy7+QQjFWa7ICsQ8SpB/IfcJSDVMAJUwJkYDMNOEPIBxA/gnuMyYPijXAI3lMse7FGnIKsIuqrxgRSeXOoYZUCI8pIKW/OHA7kD2YYcpAKgM5ABXk4qSsdJaDOMCsgTIYAlL5TQFTyUIZDmev0N/bnwqnylEBQS45UKnHx/lUlFvA3fo+jwR8ALb47/oNma38cuqiJ9AAAAAASUVORK5CYII='
 file_icon = b'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsSAAALEgHS3X78AAABU0lEQVQ4y52TzStEURiHn/ecc6XG54JSdlMkNhYWsiILS0lsJaUsLW2Mv8CfIDtr2VtbY4GUEvmIZnKbZsY977Uwt2HcyW1+dTZvt6fn9557BGB+aaNQKBR2ifkbgWR+cX13ubO1svz++niVTA1ArDHDg91UahHFsMxbKWycYsjze4muTsP64vT43v7hSf/A0FgdjQPQWAmco68nB+T+SFSqNUQgcIbN1bn8Z3RwvL22MAvcu8TACFgrpMVZ4aUYcn77BMDkxGgemAGOHIBXxRjBWZMKoCPA2h6qEUSRR2MF6GxUUMUaIUgBCNTnAcm3H2G5YQfgvccYIXAtDH7FoKq/AaqKlbrBj2trFVXfBPAea4SOIIsBeN9kkCwxsNkAqRWy7+B7Z00G3xVc2wZeMSI4S7sVYkSk5Z/4PyBWROqvox3A28PN2cjUwinQC9QyckKALxj4kv2auK0xAAAAAElFTkSuQmCC'
 
-
 ruta_archivo = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'configuracion.json')
-
-#Error de lógica, nunca inicializo starting_path si entro al excep. Ademas, debo implementarlo como función.  
+#se va el tryexcept, trabajar con valores por defecto 
 try:
     with open(ruta_archivo) as f:
         data = json.load(f)
@@ -26,12 +24,15 @@ except FileNotFoundError:
         event, values = window.read()
         if event == sg.WIN_CLOSED or event == 'No':
             break
+            window.close()
         if event == 'Si':
             ruta_pantallaconfig = os.path.abspath(os.path.join(os.path.dirname(__file__), 'configuracion.py'))
             import subprocess
             subprocess.run(["python", ruta_pantallaconfig])
             break
     window.close()
+
+
 
 
 #para poder mostrar los archivos en forma de cascada hay que usar un objeto "treedata" incluído en PySimplegui
@@ -81,6 +82,8 @@ columna_derecha = [[sg.Text('La imagen que elegiste:')],
 
 layout = [[sg.Column(columna_izquierda, element_justification='c'), sg.VSeperator(),sg.Column(columna_derecha, element_justification='c')]]
 
+
+#agregar en window el manejo de usuarios entre ventanas. 
 window = sg.Window('Etiquetar Imagenes', layout, resizable=False, finalize=True)
 
 imagen_seleccionada = {'ruta': '', 'tag': '', 'descripcion': ''}
@@ -139,15 +142,15 @@ while True:     # Loop de eventos
                 #ultimo perfil que actualizó ---(/!\ ver con Fran como implementar esta funcionalidad)---
                 #Fecha de ultima actualización (extraer del log)
 
-            ruta_csv = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'etiquetar_imagenes.csv')
+            ruta_csv = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'imagenes_etiquetadas.csv')
 
             #Verificar que exista el csv, si no existe debo crearlo. ¿Es esto necesario?
             try:
-                with open(ruta_archivo, 'r+') as f:
+                with open('../datos/imagenes_etiquetadas.csv', 'r+') as f:
                     pass
                     
             except FileNotFoundError:
-                open(ruta_archivo, 'w')
+                open('../datos/imagenes_etiquetadas.csv', 'w')
 
            
 window.close()
