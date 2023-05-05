@@ -5,35 +5,19 @@ import json
 import PySimpleGUI as sg
 import PIL
 from PIL import Image, ImageTk
+from datetime import datetime
+import mimetypes
+
 import csv
 folder_icon = b'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsSAAALEgHS3X78AAABnUlEQVQ4y8WSv2rUQRSFv7vZgJFFsQg2EkWb4AvEJ8hqKVilSmFn3iNvIAp21oIW9haihBRKiqwElMVsIJjNrprsOr/5dyzml3UhEQIWHhjmcpn7zblw4B9lJ8Xag9mlmQb3AJzX3tOX8Tngzg349q7t5xcfzpKGhOFHnjx+9qLTzW8wsmFTL2Gzk7Y2O/k9kCbtwUZbV+Zvo8Md3PALrjoiqsKSR9ljpAJpwOsNtlfXfRvoNU8Arr/NsVo0ry5z4dZN5hoGqEzYDChBOoKwS/vSq0XW3y5NAI/uN1cvLqzQur4MCpBGEEd1PQDfQ74HYR+LfeQOAOYAmgAmbly+dgfid5CHPIKqC74L8RDyGPIYy7+QQjFWa7ICsQ8SpB/IfcJSDVMAJUwJkYDMNOEPIBxA/gnuMyYPijXAI3lMse7FGnIKsIuqrxgRSeXOoYZUCI8pIKW/OHA7kD2YYcpAKgM5ABXk4qSsdJaDOMCsgTIYAlL5TQFTyUIZDmev0N/bnwqnylEBQS45UKnHx/lUlFvA3fo+jwR8ALb47/oNma38cuqiJ9AAAAAASUVORK5CYII='
 file_icon = b'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsSAAALEgHS3X78AAABU0lEQVQ4y52TzStEURiHn/ecc6XG54JSdlMkNhYWsiILS0lsJaUsLW2Mv8CfIDtr2VtbY4GUEvmIZnKbZsY977Uwt2HcyW1+dTZvt6fn9557BGB+aaNQKBR2ifkbgWR+cX13ubO1svz++niVTA1ArDHDg91UahHFsMxbKWycYsjze4muTsP64vT43v7hSf/A0FgdjQPQWAmco68nB+T+SFSqNUQgcIbN1bn8Z3RwvL22MAvcu8TACFgrpMVZ4aUYcn77BMDkxGgemAGOHIBXxRjBWZMKoCPA2h6qEUSRR2MF6GxUUMUaIUgBCNTnAcm3H2G5YQfgvccYIXAtDH7FoKq/AaqKlbrBj2trFVXfBPAea4SOIIsBeN9kkCwxsNkAqRWy7+B7Z00G3xVc2wZeMSI4S7sVYkSk5Z/4PyBWROqvox3A28PN2cjUwinQC9QyckKALxj4kv2auK0xAAAAAElFTkSuQmCC'
 
 ruta_archivo = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'configuracion.json')
 #se va el tryexcept, trabajar con valores por defecto 
-try:
-    with open(ruta_archivo) as f:
-        data = json.load(f)
-        starting_path = data['repositorio_imagenes']
-except FileNotFoundError:
-    layout= [[sg.Text("¡Parece que aún no has configurado tu repositorio de imágenes! ¿Deseas configurarlo ahora?")],
-            [sg.OK(button_text="Si"), sg.Cancel(button_text="No")]]
-    window = sg.Window("¡Advertencia!", layout, margins=(100, 50))
 
-    while True:
-        event, values = window.read()
-        if event == sg.WIN_CLOSED or event == 'No':
-            break
-            window.close()
-        if event == 'Si':
-            ruta_pantallaconfig = os.path.abspath(os.path.join(os.path.dirname(__file__), 'configuracion.py'))
-            import subprocess
-            subprocess.run(["python", ruta_pantallaconfig])
-            break
-    window.close()
-
-
-
+with open(ruta_archivo) as f:
+    data = json.load(f)
+    starting_path = data['repositorio_imagenes']
 
 #para poder mostrar los archivos en forma de cascada hay que usar un objeto "treedata" incluído en PySimplegui
 treedata = sg.TreeData()
@@ -104,8 +88,8 @@ while True:     # Loop de eventos
             if ruta_imagen.endswith(('.png', '.jpg', '.jpeg', '.gif')):
                 imagen = sg.Image(filename=ruta_imagen)
                 window['-IMAGE-'].update(imagen)
-            # Actualizar la etiqueta de texto de la imagen seleccionada en la columna de la derecha
-            window['-TOUT-'].update(os.path.basename(ruta_imagen))
+                # Actualizar la etiqueta de texto de la imagen seleccionada en la columna de la derecha
+                window['-TOUT-'].update(os.path.basename(ruta_imagen))
 
              #Chequear que se pueda abrir la imagen
             try:
@@ -117,6 +101,12 @@ while True:     # Loop de eventos
                 # convertir la imagen a un formato que pueda mostrar PySimpleGUI
                 tk_img = ImageTk.PhotoImage(imagen)
                 window["-IMAGE-"].update(data=tk_img)
+
+                #Crear función tostring que me devuelva todos los datos de la imagen
+                #window["-DESCRIPCION-"].update(csv_tostring(ruta_imagen))
+
+                window["-DESCRIPCION-"].update("Esta es una descripción")
+
             except PIL.UnidentifiedImageError:
                 sg.popup("¡No es una imagen!")
             except PermissionError:
@@ -130,29 +120,65 @@ while True:     # Loop de eventos
             imagen_seleccionada['tag'] = values['Tag']
             imagen_seleccionada['descripcion'] = values['Texto']
 
-        #ver como guardar la metadata
+        
         if event == 'Guardar':
-            # Obtener el archivo CSV de etiquetas y descripciones con:  
-                #Ruta relativa a la imagen (metadata)
-                #Texto descriptivo (lo saco de imagen_seleccionada)
-                #resolucion (metadata)
-                #tamaño (metadata)
-                #tipo (mimetype)
-                #lista de tags(lo saco de imagen_seleccionada)
-                #ultimo perfil que actualizó ---(/!\ ver con Fran como implementar esta funcionalidad)---
-                #Fecha de ultima actualización (extraer del log)
+            #Ruta relativa a la imagen (metadata)
+            ruta = ruta_imagen 
+            #Texto descriptivo (lo saco de imagen_seleccionada)
+            descripcion = imagen_seleccionada['descripcion']
+            #lista de tags(lo saco de imagen_seleccionada)
+            tags = imagen_seleccionada['tags']
+            #resolucion (metadata)
+            resolucion = imagen.size
+            #tipo (mimetype)
+            mimetype = mimetypes.guess_type(imagen)[0]
+            #tamaño (metadata)
+            tamaño = os.path.getsize(imagen)
+            #Fecha de ultima actualización (enviar al log)
+            timestamp = datetime.timestamp(datetime.now())
+            ultima_actualizacion = datetime.fromtimestamp(timestamp)
+            #actualizar log  
+            #            
+            #ultimo perfil que actualizó ---(/!\ ver con Fran como implementar esta funcionalidad)---
 
+            #----cargar datos en el csv, buscando por ruta_imagen y reemplazando los valores de forma adecuada----
+
+            # Abro archivo.csv en modo lectura y escritura
             ruta_csv = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'imagenes_etiquetadas.csv')
+            with open(ruta_csv, mode='r+', newline='') as file:
+                # Creo objeto lector
+                reader = csv.DictReader(file)
+                # Leer el contenido del archivo.csv y guardarlo en una lista de diccionarios
+                contenido = list(reader)
 
-            #Verificar que exista el csv, si no existe debo crearlo. ¿Es esto necesario?
-            try:
-                with open('../datos/imagenes_etiquetadas.csv', 'r+') as f:
-                    pass
-                    
-            except FileNotFoundError:
-                open('../datos/imagenes_etiquetadas.csv', 'w')
+                # Recorrer los datos
+                for fila in contenido:
+                    # Si la ruta de la imagen coincide con la ruta dada
+                    if fila['ruta'] == ruta_imagen:
+                        # Actualizar los valores correspondientes
+                        fila['descripcion'] = descripcion
+                        fila['tags'] = tags
+                        fila['resolucion'] = str(resolucion[0]) + 'x' + str(resolucion[1]) #La muestro en un formato mas descriptivo
+                        fila['mimetype'] = mimetype
+                        fila['tamaño'] = round(tamaño / (1024*1024), 2) # tamaño en MB con 2 decimales
+                        fila['ultima_actualizacion'] = ultima_actualizacion()
+                        #agregar ultimo perfil que actualizó
+                        break
+                else:
+                    # Si no se encontró una fila con la ruta dada, agregar una nueva fila (nueva imagen editada)
+                    fila_nueva = {'ruta': ruta_imagen,
+                                'descripcion': descripcion,
+                                'tags': tags,
+                                'resolucion': str(resolucion[0]) + 'x' + str(resolucion[1]), #La muestro en un formato mas descriptivo
+                                'mimetype': mimetype,
+                                'tamaño': round(tamaño / (1024*1024), 2), # tamaño en MB con 2 decimales
+                                'ultima_actualizacion': ultima_actualizacion()
+                                #agregar ultimo perfil que actualizó
+                                
+                                }
+                    contenido.append(fila_nueva)
 
-           
+ 
 window.close()
 
 
