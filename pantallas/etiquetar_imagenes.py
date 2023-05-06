@@ -129,13 +129,13 @@ while True:     # Loop de eventos
             #Texto descriptivo (lo saco de imagen_seleccionada)
             descripcion = imagen_seleccionada['descripcion']
             #lista de tags(lo saco de imagen_seleccionada)
-            tags = imagen_seleccionada['tags']
+            tags = imagen_seleccionada['tag']
             #resolucion (metadata)
             resolucion = imagen.size
             #tipo (mimetype)
-            mimetype = mimetypes.guess_type(imagen)[0]
+            mimetype = mimetypes.guess_type(ruta_imagen)[0]
             #tamaño (metadata)
-            tamaño = os.path.getsize(imagen)
+            tamaño = os.path.getsize(ruta_imagen)
             #Fecha de ultima actualización (enviar al log)
             timestamp = datetime.timestamp(datetime.now())
             ultima_actualizacion = datetime.fromtimestamp(timestamp)
@@ -147,9 +147,10 @@ while True:     # Loop de eventos
 
             # Abro archivo.csv en modo lectura y escritura
             ruta_csv = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'imagenes_etiquetadas.csv')
-            with open(ruta_csv, mode='r+', newline='') as file:
+            with open(ruta_csv, mode='a', newline='') as file:
                 # Creo objeto lector
-                reader = csv.DictReader(file)
+                reader = csv.reader(file)
+                next(reader)
                 # Leo el contenido del archivo.csv y guardo la fila 
                 contenido = list(reader)
 
@@ -160,10 +161,8 @@ while True:     # Loop de eventos
                         # Actualizo los valores correspondientes
                         fila['descripcion'] = descripcion
                         fila['tags'] = tags
-                        fila['resolucion'] = str(resolucion[0]) + 'x' + str(resolucion[1]) #La muestro en un formato mas descriptivo
-                        fila['mimetype'] = mimetype
-                        fila['tamaño'] = round(tamaño / (1024*1024), 2) # tamaño en MB con 2 decimales
                         fila['ultima_actualizacion'] = ultima_actualizacion()
+                        fila['ultimo_perfil'] = "null" #De momento es null porque falta implementar funcionalidad
                         #agregar ultimo perfil que actualizó
                         break
                 else:
@@ -174,13 +173,17 @@ while True:     # Loop de eventos
                                 'resolucion': str(resolucion[0]) + 'x' + str(resolucion[1]), #La muestro en un formato mas descriptivo
                                 'mimetype': mimetype,
                                 'tamaño': round(tamaño / (1024*1024), 2), # tamaño en MB con 2 decimales
-                                'ultima_actualizacion': ultima_actualizacion()
+                                'ultima_actualizacion': ultima_actualizacion,
                                 #agregar ultimo perfil que actualizó
+                                'ultimo_perfil': "null"
                                 
                                 }
-                    contenido.append(fila_nueva)
+                    data = list(fila_nueva.values())
+                
+                # Escribir las filas en el archivo CSV
+                
 
- 
+
 window.close()
 
 
