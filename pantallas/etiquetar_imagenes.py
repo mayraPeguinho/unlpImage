@@ -147,42 +147,34 @@ while True:     # Loop de eventos
 
             # Abro archivo.csv en modo lectura y escritura
             ruta_csv = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'imagenes_etiquetadas.csv')
-            with open(ruta_csv, mode='a', newline='') as file:
+            with open(ruta_csv, mode='r+', newline='') as file:
                 # Creo objeto lector
                 reader = csv.reader(file)
-                next(reader)
+                
+                next(file, reader)
                 # Leo el contenido del archivo.csv y guardo la fila 
                 contenido = list(reader)
 
-                # Recorrer los datos
+                # Recorro los datos
                 for fila in contenido:
                     # Si la ruta de la imagen coincide con la ruta dada
-                    if fila['ruta'] == ruta_imagen:
+                    if fila[0] == ruta_imagen:
                         # Actualizo los valores correspondientes
-                        fila['descripcion'] = descripcion
-                        fila['tags'] = tags
-                        fila['ultima_actualizacion'] = ultima_actualizacion()
-                        fila['ultimo_perfil'] = "null" #De momento es null porque falta implementar funcionalidad
-                        #agregar ultimo perfil que actualizó
+                        fila[1] = descripcion
+                        fila[2] = tags
+                        fila[6] = ultima_actualizacion()
+                        fila[7] = "null" #De momento es null porque falta implementar funcionalidad
+                                         #de agregar ultimo perfil que actualizó
                         break
                 else:
                     # Si no se encontró una fila con la ruta dada, agreo una nueva fila (nueva imagen editada)
-                    fila_nueva = {'ruta': ruta_imagen,
-                                'descripcion': descripcion,
-                                'tags': tags,
-                                'resolucion': str(resolucion[0]) + 'x' + str(resolucion[1]), #La muestro en un formato mas descriptivo
-                                'mimetype': mimetype,
-                                'tamaño': round(tamaño / (1024*1024), 2), # tamaño en MB con 2 decimales
-                                'ultima_actualizacion': ultima_actualizacion,
-                                #agregar ultimo perfil que actualizó
-                                'ultimo_perfil': "null"
-                                
-                                }
-                    data = list(fila_nueva.values())
+                    fila_nueva = (ruta_imagen, descripcion, tags,(str(resolucion[0]) + 'x' + str(resolucion[1])), 
+                                  mimetype, (round(tamaño / (1024*1024), 2)), ultima_actualizacion, "null")
                 
-                # Escribir las filas en el archivo CSV
-                
-
+                    # Escribir la fila en el archivo CSV
+                    writer = csv.writer(file)
+                    
+                    writer.writerow(fila_nueva)
 
 window.close()
 
