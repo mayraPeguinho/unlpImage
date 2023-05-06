@@ -21,5 +21,6 @@ def generar_meme():
         
     window.Close()
 
-generar_meme()
+if __name__ =="__main__":
+    generar_meme()
   

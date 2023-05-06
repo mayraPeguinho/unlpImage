@@ -1,8 +1,16 @@
 import PySimpleGUI as sg
-from generador_memes import generar_meme
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from pantallas import generador_memes
+from pantallas import Generador_collage
 
 def ventana_menu():
-    layout = [[sg.Button(button_text= "Perfil"),sg.Button(button_text= "Configuracion"),sg.Button(button_text= '?',tooltip="Ayuda")],
+
+    layout = [[sg.Text(("Menu"),font=(40),justification="left")],
+             [sg.Button(button_text= "Perfil"),sg.Button(button_text= "Configuracion"),sg.Button(button_text= '?',tooltip="Ayuda")],
              [sg.Button(button_text= "Etiquetar Imagenes")],
              [sg.Button(button_text= "Generar meme")],
              [sg.Button(button_text= "Generar collage")],
@@ -10,7 +18,7 @@ def ventana_menu():
     return sg.Window("Menú principal",layout,margins=(200, 150))
 
 def generar_ventana_de_ayuda(ventana):
-    layout = [[sg.Text("Este es un mensaje de ayuda donde se explica la funcionalidad del programa")],
+    layout = [[sg.Text("UNLPImage es una aplicación de escritorio que permite realizar memes o collages con imagenes almacenadas en el dispositivo.")],
               [sg.Button(button_text= "Volver")]]
     ventana_de_ayuda=sg.Window("Ayuda",layout,margins=(200, 150))
     ventana.hide()
@@ -32,25 +40,21 @@ while True:
             break
         case "?":
             generar_ventana_de_ayuda(menu)
-        case "Generador meme":
-            #mostrar generador de memes
+        case "Generar meme":
             menu.hide()
-            generar_meme() #aca quiero usar la funcion y no puedo
-        case "Generador collage":
-            #mostrar generador de collage
-            x=1
+            if __name__ =="__main__":
+                generador_memes.generar_meme()
+            menu.un_hide() #esta linea dentro de la funcion generardor de memes en boton "Volver"
+        case "Generar collage":
+            menu.hide()
+            if __name__ =="__main__":
+                Generador_collage.generar_collage()
+            menu.un_hide()
         case "Etiquetar imagenes":
             #mostrar etiquetar imagenes
             x=1
-        case "configuracion":
+        case "Configuracion":
             #mostrar configuracion
             x=1
                  
 menu.close()
-
-#Que hacemos si cierra ventana desde otra que no sea la de Inicio? Cerramos todo el programa?
-
-#Con el boton salir tambien cierro el programa?
-
-#Si importo otro archivo.py como generador_memes o cualquier otro me lo ejecuta de primero
-#no me deja usar la funcion
