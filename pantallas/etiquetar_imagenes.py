@@ -100,8 +100,10 @@ while True:     # Loop de eventos
             try:
                 imagen = Image.open(os.path.join(ruta_imagen))
                 ruta_imagen = values['-TREE-'][0]
-                imagen = Image.open(ruta_imagen).resize((350, 300))
-                #Extraigo los metadatos de la imagen
+                imagen = Image.open(ruta_imagen)
+                #Extraigo la resolución antes de cambiarla
+                resolucion = imagen.size
+                imagen = imagen.resize((350, 300))
                 metadata = imagen.getexif()
                 # convertir la imagen a un formato que pueda mostrar PySimpleGUI
                 tk_img = ImageTk.PhotoImage(imagen)
@@ -131,7 +133,7 @@ while True:     # Loop de eventos
             #lista de tags(lo saco de imagen_seleccionada)
             tags = imagen_seleccionada['tag']
             #resolucion (metadata)
-            resolucion = imagen.size
+            # ya resuelta en resolucion = imagen.size
             #tipo (mimetype)
             mimetype = mimetypes.guess_type(ruta_imagen)[0]
             #tamaño (metadata)
@@ -150,8 +152,9 @@ while True:     # Loop de eventos
             with open(ruta_csv, mode='r+', newline='') as file:
                 # Creo objeto lector
                 reader = csv.reader(file)
-                
+                writer = csv.writer(file)
                 next(file, reader)
+                next(file, writer)
                 # Leo el contenido del archivo.csv y guardo la fila 
                 contenido = list(reader)
 
@@ -170,10 +173,7 @@ while True:     # Loop de eventos
                     # Si no se encontró una fila con la ruta dada, agreo una nueva fila (nueva imagen editada)
                     fila_nueva = (ruta_imagen, descripcion, tags,(str(resolucion[0]) + 'x' + str(resolucion[1])), 
                                   mimetype, (round(tamaño / (1024*1024), 2)), ultima_actualizacion, "null")
-                
-                    # Escribir la fila en el archivo CSV
-                    writer = csv.writer(file)
-                    
+                    #escribo la nueva fila
                     writer.writerow(fila_nueva)
 
 window.close()
