@@ -64,6 +64,29 @@ def eventos_menu_principal(menu):
                 #mostrar editar perfil
                 x=1
 
+
+def manejar_eventos_mas_perfiles(keys,ventana_de_inicio,datos):
+    if __name__ =="__main__":
+        mas_perfiles=inicio.mostrar_mas_perfiles(datos)
+    while True:
+        evento, valores = mas_perfiles.read()
+        match evento:
+            case sg.WIN_CLOSED:
+                mas_perfiles.close()
+                break
+            case "Ver menos":
+                mas_perfiles.close()
+                break
+            case "+":
+                #Va la pestaña de nuevo perfil
+                x=1
+        if evento in keys:
+            ventana_de_inicio.metadata["perfil_actual"]=datos[evento]
+            if __name__ =="__main__":
+                menu=menu_principal.ventana_menu(ventana_de_inicio.metadata["perfil_actual"]["-BROWSE-"])
+            mas_perfiles.close()
+            eventos_menu_principal(menu)
+
 if __name__ =="__main__":
      ventana_de_inicio=inicio.generar_ventana_de_inicio(data)
 
@@ -77,7 +100,9 @@ while True:
             #Va la pestaña de nuevo perfil
             x=1
         case "Ver más":
-            print("Hola")
+            ventana_de_inicio.hide()
+            manejar_eventos_mas_perfiles(keys,ventana_de_inicio,data)
+            ventana_de_inicio.un_hide()
     if evento in keys:
         ventana_de_inicio.metadata["perfil_actual"]=data[evento]
         ventana_de_inicio.hide()
