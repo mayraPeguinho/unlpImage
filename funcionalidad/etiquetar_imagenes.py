@@ -1,7 +1,4 @@
-import sys
 import os
-import json
-import PIL
 from PIL import Image, ImageTk
 from datetime import datetime
 import mimetypes
