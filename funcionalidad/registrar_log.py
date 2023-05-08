@@ -18,3 +18,6 @@ def registrar_interaccion(nick, operacion):
              writer_csv.writerow(log)
      except FileNotFoundError:
          print("Archivo no encontrado")
+
+registrar_interaccion("j","l")
+
