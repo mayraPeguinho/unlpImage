@@ -19,5 +19,3 @@ def registrar_interaccion(nick, operacion):
      except FileNotFoundError:
          print("Archivo no encontrado")
 
-registrar_interaccion("j","l")
-
