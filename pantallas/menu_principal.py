@@ -31,35 +31,7 @@ def ventana_menu():
              [sg.Button(button_text= "Generar collage")],
              [sg.Button(button_text= "Salir")]]
     
-    menu=sg.Window("UNLPImage",layout,margins=(150, 150),metadata=None)
-
-    while True:
-        evento, valores = menu.read()
-        match evento:
-            case sg.WIN_CLOSED:
-                menu.close()
-                break
-            case "Salir":
-                menu.close()
-                break
-            case "?":
-                generar_ventana_de_ayuda(menu)
-            case "Generar meme":
-                menu.hide()
-                if __name__ =="__main__":
-                    generador_memes.generar_meme()
-                menu.un_hide() #esta linea dentro de la funcion generardor de memes en boton "Volver"
-            case "Generar collage":
-                menu.hide()
-                if __name__ =="__main__":
-                    Generador_collage.generar_collage()
-                menu.un_hide()
-            case "Etiquetar imagenes":
-                #mostrar etiquetar imagenes
-                x=1
-            case "Configuracion":
-                #mostrar configuracion
-                x=1
+    return sg.Window("UNLPImage",layout,margins=(150, 150),metadata=None)
 
 if __name__ =="__main__":
     ventana_menu()
