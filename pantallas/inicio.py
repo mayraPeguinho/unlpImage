@@ -33,10 +33,10 @@ def layout_inicio(datos,no_desplegar=True):
         layout=[[botones]]
     if (4<perfiles.__len__()) and no_desplegar:
         layout = [[perfiles[0],perfiles[1],perfiles[2],perfiles[3],sg.Button(button_text= "+")]]
-        layout.append([sg.Button(button_text= "Ver más",key="Mostrar")])
+        layout.append([sg.Button(button_text= "Ver más")])
     if (4<perfiles.__len__()) and not(no_desplegar):
         layout = [[perfiles,sg.Button(button_text= "+")]]
-        layout.append([sg.Button(button_text= "Ver menos",key="Mostrar")])
+        layout.append([sg.Button(button_text= "Ver menos")])
     return layout
 
 def generar_ventana_de_inicio(datos,desplegar=True):

@@ -6,6 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from pantallas import generador_memes
 from pantallas import Generador_collage
+from pantallas import rutas
 
 def generar_ventana_de_ayuda(ventana):
     '''Esta funcion define la ventana de ayuda
@@ -22,16 +23,15 @@ def generar_ventana_de_ayuda(ventana):
             ventana.un_hide()
             break
 
-def ventana_menu():
-
-    layout = [[sg.Text(("Menu"),font=("Helvetica",20),justification="left")],
-             [sg.Button(button_text= "Perfil"),sg.Button(button_text= "Configuracion"),sg.Button(button_text= '?',tooltip="Ayuda")],
+def ventana_menu(imagen):
+    layout = [[sg.Button(image_source=os.path.join(rutas.imagenes_perfil,imagen),image_size=(64,64),key="Perfil"),sg.Text(("Menu"),font=("Helvetica",20),justification="left")],
+             [sg.Button(button_text= "Configuracion"),sg.Button(button_text= '?',tooltip="Ayuda")],
              [sg.Button(button_text= "Etiquetar Imagenes")],
              [sg.Button(button_text= "Generar meme")],
              [sg.Button(button_text= "Generar collage")],
              [sg.Button(button_text= "Salir")]]
     
-    return sg.Window("UNLPImage",layout,margins=(150, 150),metadata=None)
+    return sg.Window("UNLPImage",layout,margins=(150, 150),metadata={"perfil_actual":None})
 
 if __name__ =="__main__":
     ventana_menu()

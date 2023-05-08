@@ -23,9 +23,6 @@ except FileNotFoundError:
 except PermissionError:
     x=2
 
-if __name__ =="__main__":
-     ventana_de_inicio=inicio.generar_ventana_de_inicio(data)
-
 keys=[0,1,2,3,4,5,6,7] #Esto no lo deberia hacer a mano
 
 def eventos_menu_principal(menu):
@@ -62,6 +59,8 @@ def eventos_menu_principal(menu):
                 #mostrar editar perfil
                 x=1
 
+if __name__ =="__main__":
+     ventana_de_inicio=inicio.generar_ventana_de_inicio(data)
 
 while True:
     evento, valores = ventana_de_inicio.read()
@@ -72,13 +71,13 @@ while True:
         case "+":
             #Va la pestaña de nuevo perfil
             x=1
-        case "Mostrar":
-            ventana_de_inicio["Mostrar"].update("Ver menos")
+        case "Ver más":
             print("Hola")
     if evento in keys:
         ventana_de_inicio.metadata["perfil_actual"]=data[evento]
         ventana_de_inicio.hide()
         if __name__ =="__main__":
-            menu=menu_principal.ventana_menu()
+           menu=menu_principal.ventana_menu(ventana_de_inicio.metadata["perfil_actual"]["-BROWSE-"])
+        menu.metadata["perfil_actual"]=ventana_de_inicio.metadata["perfil_actual"]
         eventos_menu_principal(menu)
         ventana_de_inicio.un_hide()

@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{"-USUARIO-": "aa", "-NOMBRE-": "aa", "-EDAD-": "aa", "-GENERO-": ["Masculino"], "-ESPECIFICAR_GENERO-": "aa", "-BROWSE-": ""}
-=======
-[{"-USUARIO-": "Si", "-NOMBRE-": "No", "-EDAD-": "Si", "0": ["Masculino"], "-ESPECIFICAR_GENERO-": "", "-BROWSE-": "icon.png"},{"-USUARIO-": "Si", "-NOMBRE-": "No", "-EDAD-": "Si", "0": ["Masculino"], "-ESPECIFICAR_GENERO-": "", "-BROWSE-": "icon.png"},{"-USUARIO-": "Si", "-NOMBRE-": "No", "-EDAD-": "Si", "0": ["Masculino"], "-ESPECIFICAR_GENERO-": "", "-BROWSE-": "icon.png"},{"-USUARIO-": "Si", "-NOMBRE-": "No", "-EDAD-": "Si", "0": ["Masculino"], "-ESPECIFICAR_GENERO-": "", "-BROWSE-": "icon.png"}]
->>>>>>> ab038fe657bb32dd32405c56d0e43e6e37a75f12
+[{"-USUARIO-": "aa", "-NOMBRE-": "aa", "-EDAD-": "aa", "-GENERO-": ["Masculino"], "-ESPECIFICAR_GENERO-": "aa", "-BROWSE-": "avatar.png"}]
