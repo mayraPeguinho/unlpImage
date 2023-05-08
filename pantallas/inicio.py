@@ -17,7 +17,7 @@ def mostrar_perfiles(datos):
     for elemento in datos:
         i=i+1
         keys.append(i)
-        perfiles.append(sg.Button(image_source=os.path.join(ruta_repositorio_imagenes,elemento["-BROWSE-"]),image_size=(64,64),key=i))
+        perfiles.append(sg.Button(image_source=os.path.join(ruta_repositorio_imagenes,elemento["-BROWSE-"]),image_size=(80,80),image_subsample=3,key=i))
     return perfiles
 
 
@@ -39,8 +39,12 @@ def layout_inicio(datos,no_desplegar=True):
         layout.append([sg.Button(button_text= "Ver menos")])
     return layout
 
-def generar_ventana_de_inicio(datos,desplegar=True):
-    layout=layout_inicio(datos,desplegar)
+def mostrar_mas_perfiles(datos):
+    layout=layout_inicio(datos,False)
+    return sg.Window("UNLPImage",layout,margins=(200, 150),metadata={"perfil_actual":None})
+
+def generar_ventana_de_inicio(datos):
+    layout=layout_inicio(datos,True)
     return sg.Window("UNLPImage",layout,margins=(200, 150),metadata={"perfil_actual":None})
 
 if __name__ =="__main__":

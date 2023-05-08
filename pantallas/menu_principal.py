@@ -24,7 +24,7 @@ def generar_ventana_de_ayuda(ventana):
             break
 
 def ventana_menu(imagen):
-    layout = [[sg.Button(image_source=os.path.join(rutas.imagenes_perfil,imagen),image_size=(64,64),key="Perfil"),sg.Text(("Menu"),font=("Helvetica",20),justification="left")],
+    layout = [[sg.Button(image_source=os.path.join(rutas.imagenes_perfil,imagen),image_size=(80,80),image_subsample=3,key="Perfil"),sg.Text(("Menu"),font=("Helvetica",20),justification="left")],
              [sg.Button(button_text= "Configuracion"),sg.Button(button_text= '?',tooltip="Ayuda")],
              [sg.Button(button_text= "Etiquetar Imagenes")],
              [sg.Button(button_text= "Generar meme")],

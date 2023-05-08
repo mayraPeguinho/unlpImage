@@ -1,1 +1,2 @@
-[{"-USUARIO-": "aa", "-NOMBRE-": "aa", "-EDAD-": "aa", "-GENERO-": ["Masculino"], "-ESPECIFICAR_GENERO-": "aa", "-BROWSE-": "avatar.png"}]
+
+[{"-USUARIO-": "Hola", "-NOMBRE-": "Juan", "-EDAD-": "23", "-GENERO-": ["Masculino"], "-ESPECIFICAR_GENERO-": "", "-BROWSE-": "avatar.png"},{"-USUARIO-": "Hola", "-NOMBRE-": "Juan", "-EDAD-": "23", "-GENERO-": ["Masculino"], "-ESPECIFICAR_GENERO-": "", "-BROWSE-": "tierra.png"}]

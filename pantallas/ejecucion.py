@@ -15,15 +15,20 @@ ruta_archivo = rutas.archivo_perfiles_json
 ruta_repositorio_imagenes=rutas.imagenes_perfil
 
 data={}
+keys=[]
 try:
     with open(ruta_archivo,"r") as archivo:
         data = json.load(archivo)
+        i=0
+        for elem in data:
+            keys.append(i)
+            i=i+1
 except FileNotFoundError:
     x=1
 except PermissionError:
     x=2
-
-keys=[0,1,2,3,4,5,6,7] #Esto no lo deberia hacer a mano
+except Exception:
+    x=3
 
 def eventos_menu_principal(menu):
     #Maneja los eventos de la ventana menu prinicipal
@@ -78,6 +83,5 @@ while True:
         ventana_de_inicio.hide()
         if __name__ =="__main__":
            menu=menu_principal.ventana_menu(ventana_de_inicio.metadata["perfil_actual"]["-BROWSE-"])
-        menu.metadata["perfil_actual"]=ventana_de_inicio.metadata["perfil_actual"]
         eventos_menu_principal(menu)
         ventana_de_inicio.un_hide()
