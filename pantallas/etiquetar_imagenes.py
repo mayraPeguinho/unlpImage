@@ -78,7 +78,6 @@ while True:     # Loop de eventos
         break
     else:
         if event == '-TREE-':
-           
             #Chequear que se pueda abrir y tratar la imagen
             try:
                 imagen_data = etiquetar_imagenes.traer_data(values)
@@ -88,12 +87,10 @@ while True:     # Loop de eventos
                 window["-IMAGE-"].update(data=datavisual_imagen)
                 window["-DESCRIPCION-"].update(etiquetar_imagenes.imagen_tostring(imagen_data))  
             except PIL.UnidentifiedImageError:
-                sg.popup("¡No es una imagen!")
+                sg.popup_error("¡No es una imagen!")
             except PermissionError:
-                sg.popup("¡No tienes permisos para acceder a esa carpeta!")
-
-        #Eventos
-        window["-DESCRIPCION-"].update(etiquetar_imagenes.imagen_tostring(imagen_data))    
+                sg.popup_error("¡No tienes permisos para acceder a esa carpeta!")
+                        
         if event == 'Modificar':
             tags = values['Tag']
             descripcion = values['Texto']
