@@ -15,7 +15,7 @@ columna_izquierda = [
     [sg.Text("Nombre:")],
     [sg.InputText(key="-NOMBRE-")],
     [sg.Text("Edad:")],
-    [sg.Input(key="-EDAD-", size=(10,))],
+    [sg.InputText(key="-EDAD-", size=(10,))],
     [sg.Text("Genero:")],
     [
         sg.Listbox(
@@ -62,23 +62,35 @@ layout = [
 window = sg.Window("Nuevo perfil", layout)
 
 
-def verificar_edad(values):
+def verificar_edad(edad):
+    '''Chequea que la edad ingresada sea un numero entero entre 0-99'''
     try:
-        int(values["-EDAD-"])
-    except ValueError:
-        sg.popup("Debes ingresar un número entero.")
-    except TypeError:
-        sg.popup("Debes ingresar un número entero.")
+        int(edad)
+        return (edad < 0) or (edad > 99)
+    except (TypeError, ValueError):
+        return False
+    
+        
 
 
-def verificar_nombre(values):
-    with open(ruta_archivo, "r") as archivo:
-        datos_perfil = archivo.read()
+def existe_nombre(alias):
+    '''Chequea si ya existe el alias en el archivo JSON.'''
+    x = True
+    try:
+        with open(ruta_archivo, 'r', encoding="UTF-8") as archivo:
+            datos_perfil = json.load(archivo)     
+            x = True if alias in datos_perfil else False
+    except (FileNotFoundError, PermissionError):
+        x = False
+    return x 
 
-    while values["-USUARIO-"] in datos_perfil:
-        sg.popup("Usuario existente, ingrese otro nombre de usuario")
-        values = window.read()
+    
+def crear_usuario(usuario):
+    with open(ruta_archivo, "a") as archivo:
 
+        datos_perfiles = list(json.dump(values, archivo))
+
+        print("Se creo el perfil")
 
 while True:
     event, values = window.read()
@@ -93,24 +105,19 @@ while True:
             size=(60, 60),
         )
 
-   # elif event == "-VALIDAR-":
-   #     with open(ruta_archivo, "r") as archivo:
-   #         datos_perfil = archivo.read()
 
-   #     if values["-USUARIO-"] in datos_perfil:
-   #         sg.popup("Usuario existente, ingrese otro nombre de usuario")
+    elif event == '-GUARDAR-':
+        if not existe_nombre(values['-USUARIO-']):
+            if verificar_edad(values["-EDAD-"]):
+                valores = list(values)
+                #hacer una lista vacía, a medida que agregas perfiles abris el json, lo pasas a lista, editas esa lista y escribis
+                crear_usuario(values) #tomas los valores ingresados de values y llamas a alguna funcion que te cree el usuario
+                        # guardar usuario_nuevo en el archivo JSON de usuarios
+                window.close()
 
-    elif event == "-GUARDAR-":
-        verificar_edad(values["-EDAD-"])
-
-        verificar_nombre(values["-USUARIO-"])
-
-        if "" in values.values():
-            sg.popup("Falta llenar el formulario")
+            else:
+                        sg.popup('Ingresa una edad valida')
         else:
-            with open(ruta_archivo, "a") as archivo:
-                json.dump(values, archivo)
-                print("Se creo el perfil")
-
+                    sg.popup('Usuario existente, ingrese otro nombre de usuario')
 
 window.close()
