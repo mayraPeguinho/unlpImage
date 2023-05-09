@@ -9,7 +9,7 @@ from pantallas import inicio
 from pantallas import rutas
 from pantallas import menu_principal
 from pantallas import generador_memes
-from pantallas import Generador_collage
+from pantallas import generador_collage
 
 ruta_archivo = rutas.archivo_perfiles_json
 ruta_repositorio_imagenes=rutas.imagenes_perfil
@@ -34,33 +34,30 @@ def eventos_menu_principal(menu):
     #Maneja los eventos de la ventana menu prinicipal
     while True:
         evento, valores = menu.read()
+        if evento==sg.WIN_CLOSED or evento=="-SALIR-":
+            menu.close()
+            break
         match evento:
-            case sg.WIN_CLOSED:
-                menu.close()
-                break
-            case "Salir":
-                menu.close()
-                break
-            case "?":
+            case "-VENTANA AYUDA-":
                 if __name__ =="__main__":
                     menu_principal.generar_ventana_de_ayuda(menu)
-            case "Generar meme":
+            case "-VENTANA MEME-":
                 menu.hide()
                 if __name__ =="__main__":
                     generador_memes.generar_meme()
                 menu.un_hide()
-            case "Generar collage":
+            case "-VENTANA COLLAGE-":
                 menu.hide()
                 if __name__ =="__main__":
-                    Generador_collage.generar_collage()
+                    generador_collage.generar_collage()
                 menu.un_hide()
-            case "Etiquetar imagenes":
+            case "-VENTANA ETIQUETAR-":
                 #mostrar etiquetar imagenes
                 x=1
-            case "Configuracion":
+            case "-VENTANA CONFIGURACION-":
                 #mostrar configuracion
                 x=1
-            case "Perfil":
+            case "-VENTANA EDITAR PERFIL-":
                 #mostrar editar perfil
                 x=1
 
@@ -70,17 +67,13 @@ def manejar_eventos_mas_perfiles(keys,ventana_de_inicio,datos):
         mas_perfiles=inicio.mostrar_mas_perfiles(datos)
     while True:
         evento, valores = mas_perfiles.read()
-        match evento:
-            case sg.WIN_CLOSED:
-                mas_perfiles.close()
-                break
-            case "Ver menos":
-                mas_perfiles.close()
-                break
-            case "+":
+        if evento==sg.WIN_CLOSED or evento=="-VER MENOS-":
+            mas_perfiles.close()
+            break
+        elif evento=="-AGREGAR PERFIL-":
                 #Va la pestaña de nuevo perfil
                 x=1
-        if evento in keys:
+        elif evento in keys:
             ventana_de_inicio.metadata["perfil_actual"]=datos[evento]
             if __name__ =="__main__":
                 menu=menu_principal.ventana_menu(ventana_de_inicio.metadata["perfil_actual"]["-BROWSE-"])
@@ -96,10 +89,10 @@ while True:
         case sg.WIN_CLOSED:
             ventana_de_inicio.close()
             break
-        case "+":
+        case "-AGREGAR PERFIL-":
             #Va la pestaña de nuevo perfil
             x=1
-        case "Ver más":
+        case "-VER MAS-":
             ventana_de_inicio.hide()
             manejar_eventos_mas_perfiles(keys,ventana_de_inicio,data)
             ventana_de_inicio.un_hide()
