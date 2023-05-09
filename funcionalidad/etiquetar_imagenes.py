@@ -3,6 +3,9 @@ from PIL import Image, ImageTk
 from datetime import datetime
 import mimetypes
 import csv
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from funcionalidad import registrar_log as log
 
 
 def imagen_tostring(datos):
@@ -41,11 +44,13 @@ def guardar_data(ruta, data):
                                         #de agregar ultimo perfil que actualizó
                 #Modifico el csv con los datos modificados de imagen existente
                 contenido_csv[posicion] = datos_imagen
+                log.registrar_interaccion(datos_imagen[7], "Imagen editada")
             else:
                 # Si no se encontró una fila con la ruta dada, agreo una nueva fila (nueva imagen editada)
                 fila_nueva = (data[0], data[1], data[2],data[3], data[4], data[5], data[6], "null")
                 #Modifico el csv con los datos agregados de una imagen nueva
                 contenido_csv.append(fila_nueva)
+                log.registrar_interaccion(data[7], "Imagen agregada")
 
             with open(ruta, 'w',newline='') as file:
                 writer = csv.writer(file)
@@ -79,6 +84,7 @@ def traer_data(values):
     return datos
 
 def mostrar_imagen(ruta):
+    """Procesa la imagen para poder mostrarla en PySimpleGUI"""
     imagen = Image.open(ruta)
     #Modifico el tamaño para mostrarla en la pantalla
     imagen = imagen.resize((350, 300))

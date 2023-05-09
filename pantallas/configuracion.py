@@ -26,6 +26,9 @@ layout = [[sg.Text('Repositorio de imagenes')],
 
 window = sg.Window("Configuración", layout, margins=(200, 150))
 
+#guardar usuario
+usuario = "null" 
+
 while True:
     event, values = window.read()
     if event == sg.WIN_CLOSED or event == 'Volver':
@@ -42,7 +45,7 @@ while True:
         else:
             conf.guardar_directorios(os.path.relpath(repo_imagenes, DIRECTORIO_PADRE),
                                  os.path.relpath(carpeta_collages, DIRECTORIO_PADRE),
-                                 os.path.relpath(carpeta_memes, DIRECTORIO_PADRE), DIRECTORIO_PADRE)
+                                 os.path.relpath(carpeta_memes, DIRECTORIO_PADRE), DIRECTORIO_PADRE, usuario)
             sys.exit()
 
 window.close()

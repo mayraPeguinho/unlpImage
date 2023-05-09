@@ -13,6 +13,7 @@ file_icon = b'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsSAAALEg
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from funcionalidad import etiquetar_imagenes
 
+
 #Leo desde el archivo de configuración, donde ir a buscar mi repositorio de imagenes
 ruta_archivo = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'configuracion.json')
 with open(ruta_archivo) as f:
@@ -98,7 +99,7 @@ while True:     # Loop de eventos
             imagen_data = etiquetar_imagenes.traer_data(values)
             ruta_csv = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'imagenes_etiquetadas.csv')
             etiquetar_imagenes.guardar_data(ruta_csv, imagen_data)
-            #actualizar log   
+            
 
 
 
