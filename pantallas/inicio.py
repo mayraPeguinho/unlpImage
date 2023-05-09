@@ -15,7 +15,7 @@ def mostrar_perfiles(datos):
     perfiles=[]
     i=0
     for elemento in datos:
-        perfiles.append(sg.Button(image_source=os.path.join(ruta_repositorio_imagenes,elemento["-BROWSE-"]),image_size=(80,80),image_subsample=3,key=i))
+        perfiles.append(sg.Column([[sg.Button(image_source=os.path.join(ruta_repositorio_imagenes,elemento["-BROWSE-"]),image_size=(80,80),image_subsample=3,key=i)],[sg.Text(elemento["-USUARIO-"])]]))
         i=i+1
     return perfiles
 
@@ -25,19 +25,17 @@ def layout_inicio(datos,no_desplegar=True):
        dependiendo de cuantos perfiles cargados previamente haya.'''
     perfiles=mostrar_perfiles(datos)
     if(perfiles==[]):
-         layout=[[sg.Button(button_text= "+")]]
-    if(perfiles.__len__()<=4):
-        botones=[]
-        for elemento in perfiles:
-            botones.append(elemento)
-        botones.append(sg.Button(button_text= "+"))
-        layout=[[botones]]
-    if (4<perfiles.__len__()) and no_desplegar:
-        layout = [[perfiles[0],perfiles[1],perfiles[2],perfiles[3],sg.Button(button_text= "+")]]
-        layout.append([sg.Button(button_text= "Ver más")])
-    if (4<perfiles.__len__()) and not(no_desplegar):
-        layout = [[perfiles,sg.Button(button_text= "+")]]
-        layout.append([sg.Button(button_text= "Ver menos")])
+         layout=[[sg.Button("+",key="-AGREGAR PERFIL-")]]
+    elif(perfiles.__len__()<=4):
+        perfiles.append(sg.Button("+",key="-AGREGAR PERFIL-"))
+        layout=[[perfiles]]
+    elif (4<perfiles.__len__()) and no_desplegar:
+        layout = [[perfiles[0],perfiles[1],perfiles[2],perfiles[3],sg.Button("+",key="-AGREGAR PERFIL-")]]
+        layout.append([sg.Button("Ver más",key="-VER MAS-")])
+    elif (4<perfiles.__len__()) and not(no_desplegar):
+        perfiles.append(sg.Button("+",key="-AGREGAR PERFIL-"))
+        layout = [[perfiles]]
+        layout.append([sg.Button("Ver menos",key="-VER MENOS-")])
     return layout
 
 def mostrar_mas_perfiles(datos):

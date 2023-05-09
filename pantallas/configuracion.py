@@ -3,15 +3,14 @@ import sys
 import os
 import json
 
+
+
 # Obtengo la ruta del directorio padre de este archivo
 DIRECTORIO_PADRE = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-def guardar_directorios(repositorio_imagenes, directorio_collages, directorio_memes):
-    data = {'repositorio_imagenes': repositorio_imagenes,
-            'directorio_collages': directorio_collages,
-            'directorio_memes': directorio_memes}
-    with open(os.path.join(DIRECTORIO_PADRE, 'datos', 'configuracion.json'), 'w') as archivo:
-        json.dump(data, archivo)
+# Agrego el directorio raiz a la ruta de búsqueda de módulos
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from funcionalidad import configuracion as conf 
 
 layout = [[sg.Text('Repositorio de imagenes')],
           # En este directorio se encuentran las imagenes que podemos utilizar en la aplicación
@@ -27,6 +26,9 @@ layout = [[sg.Text('Repositorio de imagenes')],
 
 window = sg.Window("Configuración", layout, margins=(200, 150))
 
+#guardar usuario
+usuario = "null" 
+
 while True:
     event, values = window.read()
     if event == sg.WIN_CLOSED or event == 'Volver':
@@ -41,9 +43,9 @@ while True:
         if os.path.commonpath([DIRECTORIO_PADRE, repo_imagenes]) != DIRECTORIO_PADRE:
             sg.popup_error('La carpeta seleccionada debe estar dentro de {}'.format(DIRECTORIO_PADRE))
         else:
-            guardar_directorios(os.path.relpath(repo_imagenes, DIRECTORIO_PADRE),
+            conf.guardar_directorios(os.path.relpath(repo_imagenes, DIRECTORIO_PADRE),
                                  os.path.relpath(carpeta_collages, DIRECTORIO_PADRE),
-                                 os.path.relpath(carpeta_memes, DIRECTORIO_PADRE))
+                                 os.path.relpath(carpeta_memes, DIRECTORIO_PADRE), DIRECTORIO_PADRE, usuario)
             sys.exit()
 
 window.close()
