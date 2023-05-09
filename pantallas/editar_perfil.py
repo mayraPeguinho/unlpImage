@@ -9,9 +9,7 @@ ruta_imagen = os.path.join(os.getcwd(), "imagenes", "imagenes_perfil", "avatar.p
 ruta_archivo = os.path.join(os.getcwd(), "datos", "perfil_nuevo.json")
 
 columna_izquierda = [
-    [sg.Text("Nuevo perfil")],
-    [sg.Text("Usuario:")],
-    [sg.InputText(key="-USUARIO-"), sg.Button("Validar", key="-VALIDAR-")],
+    [sg.Text("Editar perfil")],
     [sg.Text("Nombre:")],
     [sg.InputText(key="-NOMBRE-")],
     [sg.Text("Edad:")],
@@ -59,26 +57,7 @@ layout = [
     ]
 ]
 
-window = sg.Window("Nuevo perfil", layout)
-
-
-def verificar_edad(values):
-    try:
-        int(values["-EDAD-"])
-    except ValueError:
-        sg.popup("Debes ingresar un número entero.")
-    except TypeError:
-        sg.popup("Debes ingresar un número entero.")
-
-
-def verificar_nombre(values):
-    with open(ruta_archivo, "r") as archivo:
-        datos_perfil = archivo.read()
-
-    while values["-USUARIO-"] in datos_perfil:
-        sg.popup("Usuario existente, ingrese otro nombre de usuario")
-        values = window.read()
-
+window = sg.Window("Editar perfil", layout)
 
 while True:
     event, values = window.read()
@@ -93,24 +72,14 @@ while True:
             size=(60, 60),
         )
 
-   # elif event == "-VALIDAR-":
-   #     with open(ruta_archivo, "r") as archivo:
-   #         datos_perfil = archivo.read()
-
-   #     if values["-USUARIO-"] in datos_perfil:
-   #         sg.popup("Usuario existente, ingrese otro nombre de usuario")
-
     elif event == "-GUARDAR-":
-        verificar_edad(values["-EDAD-"])
-
-        verificar_nombre(values["-USUARIO-"])
-
+        
+        
         if "" in values.values():
             sg.popup("Falta llenar el formulario")
         else:
-            with open(ruta_archivo, "a") as archivo:
+            with open(ruta_archivo, "w") as archivo:
                 json.dump(values, archivo)
-                print("Se creo el perfil")
-
+                print("Se modifico el perfil")
 
 window.close()
