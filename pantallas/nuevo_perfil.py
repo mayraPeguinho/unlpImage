@@ -9,13 +9,14 @@ ruta_imagen = os.path.join(os.getcwd(),'imagenes','imagenes_perfil', 'avatar.png
 ruta_archivo = os.path.join(os.getcwd(),'datos', 'perfil_nuevo.json')
 
 columna_izquierda = [[sg.Text('Nuevo perfil')],
-          [sg.Text('Usuario:')],[sg.InputText(key='-USUARIO-'), sg.Button('Validar', key='-VALIDAR-')], 
-          [sg.Text('Nombre:')],[sg.InputText(key='-NOMBRE-')],
-          [sg.Text('Edad:')],[sg.InputText(key='-EDAD-')],
-          [sg.Text('Genero:')],
-          [sg.Listbox(['Masculino', 'Femenino', 'Otro'],no_scrollbar=False, s=(15,3),key='-GENERO-')],
-             [sg.InputText(key='-ESPECIFICAR_GENERO-')],
-          [sg.Button('Guardar', key='-GUARDAR-'), sg.Button('Volver', key='-VOLVER-')]]
+            [sg.Text('Usuario:')],[sg.InputText(key='-USUARIO-'), sg.Button('Validar', key='-VALIDAR-')], 
+            [sg.Text('Nombre:')],[sg.InputText(key='-NOMBRE-')],
+            [sg.Text('Edad:')],
+            [sg.InputText(key='-EDAD-')],
+            [sg.Text('Genero:')],
+            [sg.Listbox(['Masculino', 'Femenino', 'Otro'],no_scrollbar=False, s=(15,3),key='-GENERO-')],
+            [sg.Text('Especificar genero:')],[sg.InputText(key='-ESPECIFICAR_GENERO-')],
+            [sg.Button('Guardar', key='-GUARDAR-'), sg.Button('Volver', key='-VOLVER-')]]
 
 
 
@@ -45,26 +46,31 @@ window = sg.Window('Nuevo perfil', layout)
 
 while True:
     event, values = window.read()
-    print(values)
+
     if event == '-VOLVER-' or event == sg.WIN_CLOSED:
         break
+
     elif event == '-BROWSE-':
         filename = values['-BROWSE-']
         window['-AVATAR-'].update(
            source=filename,
            size=(60,60),
         )
+        
     elif event == '-VALIDAR-':
         with open(ruta_archivo, 'r') as archivo:
-            datos_perfil = json.load(archivo)
-        mostrar_datos = json.dumps(datos_perfil, indent=4)
-        print(mostrar_datos)
-        #mostrar_datos[0] == '-USUARIO-':
-        #   sg.popup('Usuario existente, ingrese otro usuario')
-    elif event == '-GUARDAR-':      
-       with open(ruta_archivo, 'a') as archivo:
-           json.dump(values, archivo)
-           print('Se creo el archivo')
-            
+            datos_perfil = archivo.read()
+        
+        if values['-USUARIO-'] in datos_perfil:
+            sg.popup('Usuario existente, ingrese otro nombre de usuario')
+
+    elif event == '-GUARDAR-':
+        if '' in values.values():
+            sg.popup('Falta llenar el formulario')      
+        else:
+            with open(ruta_archivo, 'a') as archivo:
+                json.dump(values, archivo)
+            print('Se creo el perfil')
+                   
 
 window.close()
