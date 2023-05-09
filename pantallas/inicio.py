@@ -36,7 +36,11 @@ def layout_inicio(datos,no_desplegar=True):
         layout = [[perfiles[0],perfiles[1],perfiles[2],perfiles[3],sg.Button(button_text= "+")]]
         layout.append([sg.Button(button_text= "Ver más")])
     if (4<perfiles.__len__()) and not(no_desplegar):
-        layout = [[perfiles,sg.Button(button_text= "+")]]
+        botones=[]
+        for elemento in perfiles:
+            botones.append(elemento)
+        botones.append(sg.Button(button_text= "+"))
+        layout = [[botones]]
         layout.append([sg.Button(button_text= "Ver menos")])
     return layout
 
