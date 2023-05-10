@@ -14,21 +14,17 @@ from pantallas import generador_collage
 ruta_archivo = rutas.archivo_perfiles_json
 ruta_repositorio_imagenes=rutas.imagenes_perfil
 
-data={}
+data=[]
 keys=[]
 try:
-    with open(ruta_archivo,"r") as archivo:
+    with open(ruta_archivo,"r",encoding="UTF-8") as archivo:
         data = json.load(archivo)
         i=0
         for elem in data:
             keys.append(i)
             i=i+1
-except FileNotFoundError:
-    x=1
-except PermissionError:
-    x=2
-except Exception:
-    x=3
+except (FileNotFoundError,PermissionError,json.JSONDecodeError):
+    pass
 
 def eventos_menu_principal(menu):
     #Maneja los eventos de la ventana menu prinicipal
@@ -40,7 +36,7 @@ def eventos_menu_principal(menu):
         match evento:
             case "-VENTANA AYUDA-":
                 if __name__ =="__main__":
-                    menu_principal.generar_ventana_de_ayuda(menu)
+                    menu_principal.generar_ventana_de_ayuda()
             case "-VENTANA MEME-":
                 menu.hide()
                 if __name__ =="__main__":
@@ -53,16 +49,17 @@ def eventos_menu_principal(menu):
                 menu.un_hide()
             case "-VENTANA ETIQUETAR-":
                 #mostrar etiquetar imagenes
-                x=1
+                pass
             case "-VENTANA CONFIGURACION-":
                 #mostrar configuracion
-                x=1
+                pass
             case "-VENTANA EDITAR PERFIL-":
                 #mostrar editar perfil
-                x=1
+                pass
 
 
 def manejar_eventos_mas_perfiles(keys,ventana_de_inicio,datos):
+    #Maneja los eventos de la ventana que muestra todos los perfiles
     if __name__ =="__main__":
         mas_perfiles=inicio.mostrar_mas_perfiles(datos)
     while True:
@@ -71,8 +68,8 @@ def manejar_eventos_mas_perfiles(keys,ventana_de_inicio,datos):
             mas_perfiles.close()
             break
         elif evento=="-AGREGAR PERFIL-":
-                #Va la pestaña de nuevo perfil
-                x=1
+            #Va la pestaña de nuevo perfil
+            pass
         elif evento in keys:
             ventana_de_inicio.metadata["perfil_actual"]=datos[evento]
             if __name__ =="__main__":
@@ -90,8 +87,8 @@ while True:
             ventana_de_inicio.close()
             break
         case "-AGREGAR PERFIL-":
-            #Va la pestaña de nuevo perfil
-            x=1
+            #Va la pestaña de nuevo perfil, cuando aprieta guardar, se despliega el  menu con ese perfil
+            pass
         case "-VER MAS-":
             ventana_de_inicio.hide()
             manejar_eventos_mas_perfiles(keys,ventana_de_inicio,data)
@@ -100,6 +97,6 @@ while True:
         ventana_de_inicio.metadata["perfil_actual"]=data[evento]
         ventana_de_inicio.hide()
         if __name__ =="__main__":
-           menu=menu_principal.ventana_menu(ventana_de_inicio.metadata["perfil_actual"]["-BROWSE-"])
+           menu=menu_principal.ventana_menu(ventana_de_inicio.metadata["perfil_actual"]["-BROWSE-"],ventana_de_inicio.metadata["perfil_actual"]["-USUARIO-"])
         eventos_menu_principal(menu)
         ventana_de_inicio.un_hide()

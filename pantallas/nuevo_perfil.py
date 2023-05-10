@@ -69,26 +69,21 @@ window = sg.Window("Nuevo perfil", layout)
 
 def verificar_edad(edad):
     """Chequea que la edad ingresada sea un numero entero entre 0-99"""
-
     try:
         return 99 > int(edad) > 0
     except (TypeError, ValueError):
         return False
-
 
 def existe_nombre(alias):
     '''Chequea si ya existe el alias en el archivo JSON.'''
     try:
         with open(ruta_archivo, 'r', encoding="UTF-8") as archivo:
             datos_perfil = json.load(archivo)
-
         for nombre_usuario in datos_perfil:
             if nombre_usuario['-USUARIO-'] == alias:
                 return True
-
     except (FileNotFoundError, PermissionError, json.JSONDecodeError):
         return False
-
 
 def crear_usuario(usuario):
     '''Le paso el usuario y lo agregar al archivo JSON'''
@@ -131,5 +126,3 @@ while True:
                 sg.popup("Ingresa una edad valida")
         else:
             sg.popup("Usuario existente, ingrese otro nombre de usuario")
-
-window.close()
