@@ -71,46 +71,35 @@ def verificar_edad(edad):
     """Chequea que la edad ingresada sea un numero entero entre 0-99"""
 
     try:
-        int(edad)
-        return (edad < 0) or (edad > 99)
+        return 99 > int(edad) > 0
     except (TypeError, ValueError):
         return False
 
 
-"""
 def existe_nombre(alias):
     '''Chequea si ya existe el alias en el archivo JSON.'''
-    x = True
     try:
         with open(ruta_archivo, 'r', encoding="UTF-8") as archivo:
-            datos_perfil = json.load(archivo)     
-            x = True if alias in datos_perfil else False
-    except (FileNotFoundError, PermissionError):
-        x = False
-    return x 
-"""
-
-
-def existe_nombre(alias):
-    """Chequea si ya existe el alias en el archivo JSON."""
-
-    try:
-        with open(ruta_archivo, "r", encoding="UTF-8") as archivo:
             datos_perfil = json.load(archivo)
 
-    except (FileNotFoundError, PermissionError):
+        for nombre_usuario in datos_perfil:
+            if nombre_usuario['-USUARIO-'] == alias:
+                return True
+
+    except (FileNotFoundError, PermissionError, json.JSONDecodeError):
         return False
-
-    return True if alias in datos_perfil else False
-
 
 
 def crear_usuario(usuario):
-    with open(ruta_archivo, "r", encoding="UTF-8") as archivo:
-        datos_agregar = json.load(archivo)
-
+    '''Le paso el usuario y lo agregar al archivo JSON'''
+    datos_agregar= []
+    try:
+        with open(ruta_archivo, "r", encoding="UTF-8") as archivo:
+            datos_agregar = json.load(archivo)
+    except(FileNotFoundError,PermissionError,json.JSONDecodeError):
+        pass 
     datos_agregar.append(usuario)
-
+    return datos_agregar
 
 
 while True:
@@ -129,15 +118,13 @@ while True:
 
     elif event == "-GUARDAR-":
         if not existe_nombre(values["-USUARIO-"]):
-            if verificar_edad(values["-EDAD-"]):
-                # valores = usuario(values)
-                # hacer una lista vacía, a medida que agregas perfiles abris el json, lo pasas a lista, editas esa lista y escribis
-                usuario_nuevo = crear_usuario(values)  # tomas los valores ingresados de values y llamas a alguna funcion que te cree el usuario
-                # guardar usuario_nuevo en el archivo JSON de usuarios
+            if verificar_edad(values["-EDAD-"]):  
+                usuario_nuevo = crear_usuario(values) 
+                    
                 with open(ruta_archivo, "w") as archivo:
                     json.dump(usuario_nuevo, archivo)
                     print("Se creo el perfil")
-                
+                    
                 window.close()
 
             else:
