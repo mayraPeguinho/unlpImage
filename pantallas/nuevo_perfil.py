@@ -8,10 +8,14 @@ ruta_imagen = os.path.join(os.getcwd(), "imagenes", "imagenes_perfil", "avatar.p
 
 ruta_archivo = os.path.join(os.getcwd(), "datos", "perfil_nuevo.json")
 
+extensiones_incluidas = ['jpg', 'jpeg', 'png', 'gif']
+nombres_archivos = [fn for fn in os.listdir(os.path.join(os.getcwd(), 'imagenes'))
+                    if any(fn.endswith(ext) for ext in extensiones_incluidas)]
+
 columna_izquierda = [
     [sg.Text("Nuevo perfil")],
     [sg.Text("Usuario:")],
-    [sg.InputText(key="-USUARIO-"), sg.Button("Validar", key="-VALIDAR-")],
+    [sg.InputText(key="-USUARIO-")],
     [sg.Text("Nombre:")],
     [sg.InputText(key="-NOMBRE-")],
     [sg.Text("Edad:")],
@@ -36,7 +40,8 @@ columna_derecha = [
         sg.Image(
             source=ruta_imagen,
             key=("-AVATAR-"),
-            size=(60, 60),
+            size=(300, 300),
+            subsample=3,
             pad=((125, 125), (0, 0)),
         )
     ],
@@ -63,16 +68,16 @@ window = sg.Window("Nuevo perfil", layout)
 
 
 def verificar_edad(edad):
-    '''Chequea que la edad ingresada sea un numero entero entre 0-99'''
+    """Chequea que la edad ingresada sea un numero entero entre 0-99"""
+
     try:
         int(edad)
         return (edad < 0) or (edad > 99)
     except (TypeError, ValueError):
         return False
-    
-        
 
 
+"""
 def existe_nombre(alias):
     '''Chequea si ya existe el alias en el archivo JSON.'''
     x = True
@@ -83,14 +88,30 @@ def existe_nombre(alias):
     except (FileNotFoundError, PermissionError):
         x = False
     return x 
+"""
 
-    
+
+def existe_nombre(alias):
+    """Chequea si ya existe el alias en el archivo JSON."""
+
+    try:
+        with open(ruta_archivo, "r", encoding="UTF-8") as archivo:
+            datos_perfil = json.load(archivo)
+
+    except (FileNotFoundError, PermissionError):
+        return False
+
+    return True if alias in datos_perfil else False
+
+
+
 def crear_usuario(usuario):
-    with open(ruta_archivo, "a") as archivo:
+    with open(ruta_archivo, "r", encoding="UTF-8") as archivo:
+        datos_agregar = json.load(archivo)
 
-        datos_perfiles = list(json.dump(values, archivo))
+    datos_agregar.append(usuario)
 
-        print("Se creo el perfil")
+
 
 while True:
     event, values = window.read()
@@ -102,22 +123,26 @@ while True:
         filename = values["-BROWSE-"]
         window["-AVATAR-"].update(
             source=filename,
-            size=(60, 60),
+            size=(300,300),
+            subsample=3,
         )
 
-
-    elif event == '-GUARDAR-':
-        if not existe_nombre(values['-USUARIO-']):
+    elif event == "-GUARDAR-":
+        if not existe_nombre(values["-USUARIO-"]):
             if verificar_edad(values["-EDAD-"]):
-                valores = list(values)
-                #hacer una lista vacía, a medida que agregas perfiles abris el json, lo pasas a lista, editas esa lista y escribis
-                crear_usuario(values) #tomas los valores ingresados de values y llamas a alguna funcion que te cree el usuario
-                        # guardar usuario_nuevo en el archivo JSON de usuarios
+                # valores = usuario(values)
+                # hacer una lista vacía, a medida que agregas perfiles abris el json, lo pasas a lista, editas esa lista y escribis
+                usuario_nuevo = crear_usuario(values)  # tomas los valores ingresados de values y llamas a alguna funcion que te cree el usuario
+                # guardar usuario_nuevo en el archivo JSON de usuarios
+                with open(ruta_archivo, "w") as archivo:
+                    json.dump(usuario_nuevo, archivo)
+                    print("Se creo el perfil")
+                
                 window.close()
 
             else:
-                        sg.popup('Ingresa una edad valida')
+                sg.popup("Ingresa una edad valida")
         else:
-                    sg.popup('Usuario existente, ingrese otro nombre de usuario')
+            sg.popup("Usuario existente, ingrese otro nombre de usuario")
 
 window.close()
