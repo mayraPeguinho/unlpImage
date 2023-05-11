@@ -14,7 +14,7 @@ def mostrar_perfiles(datos):
     ruta_repositorio_imagenes=rutas.imagenes_perfil
     perfiles=[]
     i=0
-    for elemento in datos:
+    for elemento in datos: 
         perfiles.append(sg.Column([[sg.Button(image_source=os.path.join(ruta_repositorio_imagenes,elemento["-BROWSE-"]),image_size=(80,80),image_subsample=3,key=i)],[sg.Text(elemento["-USUARIO-"])]]))
         i=i+1
     return perfiles

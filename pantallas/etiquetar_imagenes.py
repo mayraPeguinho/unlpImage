@@ -20,6 +20,9 @@ with open(ruta_archivo) as f:
     datos = json.load(f)
     starting_path = datos['repositorio_imagenes']
 
+#Declaro la ruta del csv de donde leo y guardo los datos de las imagenes
+ruta_csv = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'imagenes_etiquetadas.csv')
+
 #para poder mostrar los archivos en forma de cascada hay que usar un objeto "treedata" incluído en PySimplegui
 #lo extraje de la documentación oficinal de sg
 treedata = sg.TreeData()
@@ -81,7 +84,7 @@ while True:     # Loop de eventos
         if event == '-TREE-':
             #Chequear que se pueda abrir y tratar la imagen
             try:
-                imagen_data = etiquetar_imagenes.traer_data(values)
+                imagen_data = etiquetar_imagenes.traer_data(values,ruta_csv)
                 ruta_imagen = imagen_data[0]
                 #Muestro la imagen
                 datavisual_imagen = etiquetar_imagenes.mostrar_imagen(ruta_imagen)
@@ -96,8 +99,7 @@ while True:     # Loop de eventos
             tags = values['Tag']
             descripcion = values['Texto']
         if event == 'Guardar':
-            imagen_data = etiquetar_imagenes.traer_data(values)
-            ruta_csv = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'imagenes_etiquetadas.csv')
+            imagen_data = etiquetar_imagenes.traer_data(values, ruta_csv)
             etiquetar_imagenes.guardar_data(ruta_csv, imagen_data)
             
 

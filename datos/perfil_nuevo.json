@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"Usuario": "asd", "Nombre": "qwe", "Edad": "22", "Genero": ["Masculino"], "Especificar_genero": "ewq", "Browse": "/home/usuario/Escritorio/grupo06/imagenes/imagenes_perfil/tierra.png"}
+=======
+[{"-USUARIO-": "fran", "-NOMBRE-": "", "-EDAD-": "21", "-GENERO-": [], "-ESPECIFICAR_GENERO-": "", "-BROWSE-": "tierra.png"}, {"-USUARIO-": "", "-NOMBRE-": "", "-EDAD-": "2", "-GENERO-": [], "-ESPECIFICAR_GENERO-": "", "-BROWSE-": "tierra.png"}, {"-USUARIO-": "dsa", "-NOMBRE-": "", "-EDAD-": "2", "-GENERO-": [], "-ESPECIFICAR_GENERO-": "", "-BROWSE-": "tierra.png"}, {"-USUARIO-": "j", "-NOMBRE-": "", "-EDAD-": "2", "-GENERO-": [], "-ESPECIFICAR_GENERO-": "", "-BROWSE-": "tierra.png"}, {"-USUARIO-": "sa", "-NOMBRE-": "dsa", "-EDAD-": "21", "-GENERO-": ["Femenino"], "-ESPECIFICAR_GENERO-": "", "-BROWSE-": "tierra.png"}]
+>>>>>>> 893805fdd404df8420d619d5a86c0c3fae9eba39
