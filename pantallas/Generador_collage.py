@@ -1,10 +1,7 @@
 import PySimpleGUI as sg
 
+from funcionalidad.verificar_input import falta_completar_campos
 
-def falta_completar_campos(valores):
-    """Esta funcion verifica que todos los campos esten completos."""
-
-    return any(map(lambda elem: elem == "" or elem == [], valores.values()))
 
 def generar_collage():
      '''Esta funcion define una ventana 
@@ -37,7 +34,7 @@ def generar_collage():
                    
              else:
                  #funcion para crear un collage
-                 sg.popup("Se genero un nuevo collage!")
+                 sg.popup_animated("Se genero un nuevo collage!")
                  break
      window.close()
 
