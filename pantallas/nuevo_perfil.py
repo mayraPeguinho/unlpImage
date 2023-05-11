@@ -155,7 +155,7 @@ while True:
                         print("Se creo el perfil")
 
                     window.close()
-                    window.un_hide(menu_principal)
+                    #window.un_hide(menu_principal)
                 else:
                     sg.popup("Ingresa una edad valida")
             else:

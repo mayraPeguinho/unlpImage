@@ -48,7 +48,7 @@ def eventos_menu_principal(menu):
                     generador_collage.generar_collage()
                 menu.un_hide()
             case "-VENTANA ETIQUETAR-":
-                #mostrar etiquetar imagenes
+                os.system('python //pantallas/etiquetar_imagenes.py') 
                 pass
             case "-VENTANA CONFIGURACION-":
                 #mostrar configuracion
