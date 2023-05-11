@@ -94,7 +94,7 @@ def traer_data(values, csv_archivo):
     tags = values['Tag']
     #tipo (mimetype)
     #invoco a una función que actualiza la descripcion y los tags trayendolos del csv
-    tags, descripcion = actualizar_descytags(csv_archivo, ruta_imagen)
+    #    tags, descripcion = actualizar_descytags(csv_archivo, ruta_imagen)
     
     #tipo (mimetype)
     mimetype = mimetypes.guess_type(ruta_imagen)[0]
