@@ -18,7 +18,7 @@ def imagen_tostring(datos):
 
 
 
-def guardar_data(ruta, data, tags, desc):
+def guardar_data(ruta, data):
     """Guarda los datos de la imagen en el archivo csv"""
     ruta
     with open(ruta, mode='r+') as file:
@@ -37,8 +37,8 @@ def guardar_data(ruta, data, tags, desc):
                     break
             if encontre:
                 datos_imagen = datos_previos_modificar[:]
-                datos_imagen[1] = desc
-                datos_imagen[2] = tags
+                datos_imagen[1] = data[1]
+                datos_imagen[2] = data[2]
                 datos_imagen[6] = data[6]
                 datos_imagen[7] = "null" #De momento es null porque falta implementar funcionalidad
                                         #de agregar ultimo perfil que actualizó
@@ -47,7 +47,7 @@ def guardar_data(ruta, data, tags, desc):
                 log.registrar_interaccion(datos_imagen[7], "Imagen editada")
             else:
                 # Si no se encontró una fila con la ruta dada, agreo una nueva fila (nueva imagen editada)
-                fila_nueva = (data[0], desc, tags, data[3], data[4], data[5], data[6], "null")
+                fila_nueva = (data[0], data[1], data[2], data[3], data[4], data[5], data[6], "null")
                 #Modifico el csv con los datos agregados de una imagen nueva
                 contenido_csv.append(fila_nueva)
                 log.registrar_interaccion(data[7], "Imagen agregada")

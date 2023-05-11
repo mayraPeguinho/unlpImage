@@ -98,9 +98,11 @@ while True:     # Loop de eventos
         if event == 'Modificar':
             tags = values['Tag']
             descripcion = values['Texto']
-        if event == 'Guardar':
             imagen_data = etiquetar_imagenes.traer_data(values, ruta_csv)
+        if event == 'Guardar':
             etiquetar_imagenes.guardar_data(ruta_csv, imagen_data)
+            imagen_data = etiquetar_imagenes.traer_data(values, ruta_csv)
+            window["-DESCRIPCION-"].update(etiquetar_imagenes.imagen_tostring(imagen_data))
             
 
 
