@@ -48,10 +48,10 @@ def eventos_menu_principal(menu):
                     generador_collage.generar_collage()
                 menu.un_hide()
             case "-VENTANA ETIQUETAR-":
-                os.system('python //pantallas/etiquetar_imagenes.py') 
+                #ABRIR PANTALLA Y ENVIAR COMO PARÁMETRO EL NOMBRE DEL USUARIO EN FORMATO STRING
                 pass
             case "-VENTANA CONFIGURACION-":
-                #mostrar configuracion
+                #ABRIR PANTALLA Y ENVIAR COMO PARÁMETRO EL NOMBRE DEL USUARIO EN FORMATO STRING
                 pass
             case "-VENTANA EDITAR PERFIL-":
                 #mostrar editar perfil
