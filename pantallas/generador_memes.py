@@ -1,5 +1,10 @@
 import PySimpleGUI as sg
 
+def falta_completar_campos(valores):
+    """Esta funcion verifica que todos los campos esten completos."""
+
+    return any(map(lambda elem: elem == "" , valores.values()))
+
 def generar_meme():
     '''Esta funcion define una ventana 
        para generar memes a partir de una imágen y un seleccionados por el usuario. '''
@@ -7,23 +12,28 @@ def generar_meme():
              [ sg.Text("Generar Meme", font=("Helvetica", 20), justification="left"),
              sg.Column([[sg.Button("Volver ➡", key="-VOLVER-")]],expand_x=True,element_justification="right"),],
              [sg.Text('Seleccionar imagen:')],
-             [sg.Input(), sg.FolderBrowse(button_text= "Seleccionar imagen")],
+             [sg.Input(), sg.FileBrowse("Seleccionar Imagen",file_types=(("Image Files", "*.png;*.jpg;*.jpeg;*.gif"),))],
              [sg.Text('Introducir el texto:')],
              [sg.InputText()],
-             [sg.Column([[sg.Button("Generar", "-GENERAR-")]], expand_x=True, element_justification="right")],
+             [sg.Column([[sg.Button("Generar", key="-GENERAR-")]], expand_x=True, element_justification="right")],
+
             
            ]
     window = sg.Window('Generador de memes',layout, margins=(60, 80), finalize=True, resizable=True)
 
     while True:
          evento, valores = window.Read()
-    
-         if evento == "-GENERAR-":
-             pass   
+         if evento == "-GENERAR-" :
+             if not falta_completar_campos(valores) :  
+                 #genero el meme
+                 sg.popup("Se generó un meme!")
+                 break
+             else:
+                 sg.popup("No se completaron los campos necesarios")
          elif evento == "-VOLVER-" or evento== sg.WIN_CLOSED:
              break
-        
-    window.Close()
+         print("evento", evento)
+    window.close()
 
 if __name__ =="__main__":
     generar_meme()
