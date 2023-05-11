@@ -107,11 +107,5 @@ def pantalla_etiquetar(usuario):
 
 
     window.close()
-p = "null"
 if __name__ =="__main__":
-    pantalla_etiquetar(p)
-
-
-
-p = "null"
-pantalla_etiquetar(p)
+    pantalla_etiquetar("null")
