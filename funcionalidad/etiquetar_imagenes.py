@@ -56,29 +56,30 @@ def guardar_data(ruta, data, usuario_actual):
                 writer.writerows(contenido_csv)
 
 #la siguiente función, no funciona. No se porqué.     
-def actualizar_descytags(csv_archivo, ruta):
+def actualizar_descytags(csv_archivo, ruta, desc_original, tags_original):
     """Chequeo si la imagen ya fué editada para poder mostras sus tags y descripción correctamente""" 
 
     with open(csv_archivo, "r") as archivo:
         reader = csv.reader(archivo)
         next(reader)
         contenido_csv = list(reader)
+        descripcion = desc_original
+        tags = tags_original 
         #Busco la fila en el csv
         for datos_fila in contenido_csv:
             #si encuentro la fila
             try: 
                 if (ruta == datos_fila[0]):
                     # me guardo los datos de la imagen y dejo de recorrer el csv
-                    desc = datos_fila[1] 
-                    tag = datos_fila[2]
+                    descripcion = datos_fila[1] 
+                    tags = datos_fila[2]
                     break
-            #si no encuentro la fila, asigno valores por defecto. 
+            #si no encuentro la fila, quedan los valores por defecto
             except: 
-                descripcion = "Sin descripción"
-                tags = "Sin tags"  
+                pass
     return descripcion, tags
 
-def traer_data(values, csv_archivo):
+def traer_data(values, csv_archivo, mode):
     """Retorna y actualiza los valores de la imagen que deben mostrarse y/o editarse."""
     # traigo la ruta de la imagen
     ruta_imagen = values['-TREE-'][0]
@@ -93,7 +94,8 @@ def traer_data(values, csv_archivo):
     tags = values['Tag']
     #tipo (mimetype)
     #invoco a una función que actualiza la descripcion y los tags trayendolos del csv
-    #    tags, descripcion = actualizar_descytags(csv_archivo, ruta_imagen)
+    if mode == "r":
+        descripcion, tags = actualizar_descytags(csv_archivo, ruta_imagen, descripcion, tags)
     
     #tipo (mimetype)
     mimetype = mimetypes.guess_type(ruta_imagen)[0]
