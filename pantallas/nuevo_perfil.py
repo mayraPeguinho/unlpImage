@@ -3,14 +3,19 @@ import os
 import json
 import PySimpleGUI as sg
 from PIL import Image
+import menu_principal
+
 
 ruta_imagen = os.path.join(os.getcwd(), "imagenes", "imagenes_perfil", "avatar.png")
 
 ruta_archivo = os.path.join(os.getcwd(), "datos", "perfil_nuevo.json")
 
-extensiones_incluidas = ['jpg', 'jpeg', 'png', 'gif']
-nombres_archivos = [fn for fn in os.listdir(os.path.join(os.getcwd(), 'imagenes'))
-                    if any(fn.endswith(ext) for ext in extensiones_incluidas)]
+extensiones_incluidas = ["jpg", "jpeg", "png", "gif"]
+nombres_archivos = [
+    fn
+    for fn in os.listdir(os.path.join(os.getcwd(), "imagenes"))
+    if any(fn.endswith(ext) for ext in extensiones_incluidas)
+]
 
 columna_izquierda = [
     [sg.Text("Nuevo perfil")],
@@ -64,6 +69,17 @@ layout = [
     ]
 ]
 
+
+def valor_vacio(valores):
+    """Chequeo que todos los valroes del formulario esten llenos"""
+
+    for elem in valores.values():
+        if elem == "" or elem == []:
+            return True
+        else:
+            return False
+
+
 window = sg.Window("Nuevo perfil", layout)
 
 
@@ -77,34 +93,49 @@ def verificar_edad(edad):
 
 
 def existe_nombre(alias):
-    '''Chequea si ya existe el alias en el archivo JSON.'''
+    """Chequea si ya existe el alias en el archivo JSON."""
     try:
-        with open(ruta_archivo, 'r', encoding="UTF-8") as archivo:
+        with open(ruta_archivo, "r", encoding="UTF-8") as archivo:
             datos_perfil = json.load(archivo)
 
         for nombre_usuario in datos_perfil:
-            if nombre_usuario['-USUARIO-'] == alias:
+            if nombre_usuario["-USUARIO-"] == alias:
                 return True
 
     except (FileNotFoundError, PermissionError, json.JSONDecodeError):
         return False
 
 
-def crear_usuario(usuario):
-    '''Le paso el usuario y lo agregar al archivo JSON'''
-    datos_agregar= []
+def crear_json(usuario):
+    """Le paso el usuario y lo agregar al archivo JSON"""
+    datos_agregar = []
     try:
         with open(ruta_archivo, "r", encoding="UTF-8") as archivo:
             datos_agregar = json.load(archivo)
-    except(FileNotFoundError,PermissionError,json.JSONDecodeError):
-        pass 
+    except (FileNotFoundError, PermissionError, json.JSONDecodeError):
+        pass
     datos_agregar.append(usuario)
     return datos_agregar
 
 
+def crear_perfil(values):
+    perfil = {
+        "Usuario": values["-USUARIO-"],
+        "Nombre": values["-NOMBRE-"],
+        "Edad": values["-EDAD-"],
+        "Genero": values["-GENERO-"],
+        "Especificar_genero": values["-ESPECIFICAR_GENERO-"],
+        "Browse": values["-BROWSE-"],
+    }
+    return perfil
+
+
 while True:
     event, values = window.read()
-
+    """
+    nombre_imagen = ruta_imagen.split("/")[-1]
+    window["-AVATAR-"].update(nombre_imagen)
+    """
     if event == "-VOLVER-" or event == sg.WIN_CLOSED:
         break
 
@@ -112,24 +143,28 @@ while True:
         filename = values["-BROWSE-"]
         window["-AVATAR-"].update(
             source=filename,
-            size=(300,300),
+            size=(300, 300),
             subsample=3,
         )
 
     elif event == "-GUARDAR-":
-        if not existe_nombre(values["-USUARIO-"]):
-            if verificar_edad(values["-EDAD-"]):  
-                usuario_nuevo = crear_usuario(values) 
-                    
-                with open(ruta_archivo, "w") as archivo:
-                    json.dump(usuario_nuevo, archivo)
-                    print("Se creo el perfil")
-                    
-                window.close()
+        if not valor_vacio(values):
+            if not existe_nombre(values["-USUARIO-"]):
+                if verificar_edad(values["-EDAD-"]):
+                    usuario_nuevo = crear_perfil(values)
+                    crear_json(usuario_nuevo)
 
+                    with open(ruta_archivo, "w") as archivo:
+                        json.dump(usuario_nuevo, archivo)
+                        print("Se creo el perfil")
+
+                    window.close()
+                    window.un_hide(menu_principal)
+                else:
+                    sg.popup("Ingresa una edad valida")
             else:
-                sg.popup("Ingresa una edad valida")
+                sg.popup("Usuario existente, ingrese otro nombre de usuario")
         else:
-            sg.popup("Usuario existente, ingrese otro nombre de usuario")
+            sg.popup("Falta llenar el formulario")
 
 window.close()

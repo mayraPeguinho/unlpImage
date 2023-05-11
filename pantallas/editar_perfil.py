@@ -57,6 +57,11 @@ layout = [
     ]
 ]
 
+def modifcar_perfil(perfil):
+    pass
+
+
+
 window = sg.Window("Editar perfil", layout)
 
 while True:
@@ -74,12 +79,9 @@ while True:
 
     elif event == "-GUARDAR-":
         
-        
-        if "" in values.values():
-            sg.popup("Falta llenar el formulario")
-        else:
-            with open(ruta_archivo, "w") as archivo:
-                json.dump(values, archivo)
-                print("Se modifico el perfil")
+        perfil_modificado = modifcar_perfil(perfil)
+        with open(ruta_archivo, "w") as archivo:
+            json.dump(values, archivo)
+            print("Se modifico el perfil")
 
 window.close()
