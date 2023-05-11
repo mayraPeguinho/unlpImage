@@ -18,7 +18,7 @@ def imagen_tostring(datos):
 
 
 
-def guardar_data(ruta, data):
+def guardar_data(ruta, data, tags, desc):
     """Guarda los datos de la imagen en el archivo csv"""
     ruta
     with open(ruta, mode='r+') as file:
@@ -37,8 +37,8 @@ def guardar_data(ruta, data):
                     break
             if encontre:
                 datos_imagen = datos_previos_modificar[:]
-                datos_imagen[1] = data[1]
-                datos_imagen[2] = data[2]
+                datos_imagen[1] = desc
+                datos_imagen[2] = tags
                 datos_imagen[6] = data[6]
                 datos_imagen[7] = "null" #De momento es null porque falta implementar funcionalidad
                                         #de agregar ultimo perfil que actualizó
@@ -47,7 +47,7 @@ def guardar_data(ruta, data):
                 log.registrar_interaccion(datos_imagen[7], "Imagen editada")
             else:
                 # Si no se encontró una fila con la ruta dada, agreo una nueva fila (nueva imagen editada)
-                fila_nueva = (data[0], data[1], data[2],data[3], data[4], data[5], data[6], "null")
+                fila_nueva = (data[0], desc, tags, data[3], data[4], data[5], data[6], "null")
                 #Modifico el csv con los datos agregados de una imagen nueva
                 contenido_csv.append(fila_nueva)
                 log.registrar_interaccion(data[7], "Imagen agregada")
@@ -55,20 +55,47 @@ def guardar_data(ruta, data):
             with open(ruta, 'w',newline='') as file:
                 writer = csv.writer(file)
                 writer.writerows(contenido_csv)
-    
 
+#la siguiente función, no funciona. No se porqué.     
+def actualizar_descytags(csv_archivo, ruta):
+    """Chequeo si la imagen ya fué editada para poder mostras sus tags y descripción correctamente""" 
 
-def traer_data(values):
+    with open(csv_archivo, "r") as archivo:
+        reader = csv.reader(archivo)
+        next(reader)
+        contenido_csv = list(reader)
+        #Busco la fila en el csv
+        for datos_fila in contenido_csv:
+            #si encuentro la fila
+            try: 
+                if (ruta == datos_fila[0]):
+                    # me guardo los datos de la imagen y dejo de recorrer el csv
+                    desc = datos_fila[1] 
+                    tag = datos_fila[2]
+                    break
+            #si no encuentro la fila, asigno valores por defecto. 
+            except: 
+                descripcion = "Sin descripción"
+                tags = "Sin tags"  
+    return descripcion, tags
+
+def traer_data(values, csv_archivo):
     """Retorna y actualiza los valores de la imagen que deben mostrarse y/o editarse."""
     # traigo la ruta de la imagen
     ruta_imagen = values['-TREE-'][0]
+    print("ruta imagen: ", ruta_imagen)
     # la abro
     imagen = Image.open(ruta_imagen)
     #Extraigo la resolución antes de cambiarla
     resolucion = imagen.size
+    #actualizo la descripción
     descripcion = values['Texto']
     #lista de tags(lo saco de imagen_seleccionada)
     tags = values['Tag']
+    #tipo (mimetype)
+    #invoco a una función que actualiza la descripcion y los tags trayendolos del csv
+    tags, descripcion = actualizar_descytags(csv_archivo, ruta_imagen)
+    
     #tipo (mimetype)
     mimetype = mimetypes.guess_type(ruta_imagen)[0]
     #tamaño (metadata)
