@@ -96,7 +96,7 @@ def existe_nombre(alias):
         with open(ruta_archivo, "r", encoding="UTF-8") as archivo:
             datos_perfil = json.load(archivo)
         for nombre_usuario in datos_perfil:
-            if nombre_usuario["-USUARIO-"] == alias:
+            if nombre_usuario["Usuario"] == alias:
                 return True
     except (FileNotFoundError, PermissionError, json.JSONDecodeError):
         return False
@@ -115,6 +115,7 @@ def crear_json(usuario):
 
 
 def crear_perfil(values):
+    print(type(values))
     perfil = {
         "Usuario": values["-USUARIO-"],
         "Nombre": values["-NOMBRE-"],
@@ -144,18 +145,19 @@ while True:
         )
 
     elif event == "-GUARDAR-":
+        print(values['-AVATAR-'])
         if not valor_vacio(values):
             if not existe_nombre(values["-USUARIO-"]):
                 if verificar_edad(values["-EDAD-"]):
                     usuario_nuevo = crear_perfil(values)
-                    crear_json(usuario_nuevo)
+                    perfil_json = crear_json(usuario_nuevo)
 
                     with open(ruta_archivo, "w") as archivo:
-                        json.dump(usuario_nuevo, archivo)
+                        json.dump(perfil_json, archivo)
                         print("Se creo el perfil")
 
                     window.close()
-                    window.un_hide(menu_principal)
+               #     window.un_hide(menu_principal)
                 else:
                     sg.popup("Ingresa una edad valida")
             else:

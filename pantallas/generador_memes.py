@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 def falta_completar_campos(valores):
     """Esta funcion verifica que todos los campos esten completos."""
 
-    return any(map(lambda elem: elem == "" , valores.values()))
+    return any(map(lambda elem: elem == "" or elem == [], valores.values()))
 
 def generar_meme():
     '''Esta funcion define una ventana 
