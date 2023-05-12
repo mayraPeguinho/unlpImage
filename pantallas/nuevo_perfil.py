@@ -1,7 +1,10 @@
 import os
+import sys
 import PySimpleGUI as sg
 from PIL import Image
-import menu_principal
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from funcionalidad.verificar_input import falta_completar_campos
 from funcionalidad.nuevo_perfil import *
 
@@ -63,7 +66,7 @@ def ventana_nuevo_perfil():
     ]
 
 
-    window = sg.Window("Nuevo perfil", layout,metadata=)
+    window = sg.Window("Nuevo perfil", layout,metadata={"perfil_actual":None})
 
     while True:
         event, values = window.read()
@@ -98,6 +101,7 @@ def ventana_nuevo_perfil():
                     sg.popup("Usuario existente, ingrese otro nombre de usuario")
             else:
                 sg.popup("Falta llenar el formulario")
+
 
     window.close()
 
