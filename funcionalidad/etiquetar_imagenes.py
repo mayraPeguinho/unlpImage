@@ -49,7 +49,7 @@ def guardar_data(ruta, data, usuario_actual):
                 fila_nueva = (data[0], data[1], data[2], data[3], data[4], data[5], data[6], usuario_actual)
                 #Modifico el csv con los datos agregados de una imagen nueva
                 contenido_csv.append(fila_nueva)
-                log.registrar_interaccion(data[7], "Imagen agregada")
+                log.registrar_interaccion(usuario_actual, "Imagen agregada")
 
             with open(ruta, 'w',newline='') as file:
                 writer = csv.writer(file)
