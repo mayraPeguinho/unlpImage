@@ -1,168 +1,105 @@
-import sys
 import os
-import json
 import PySimpleGUI as sg
 from PIL import Image
 import menu_principal
+from funcionalidad.verificar_input import falta_completar_campos
+from funcionalidad.nuevo_perfil import *
 
+def ventana_nuevo_perfil():
 
-ruta_imagen = os.path.join(os.getcwd(), "imagenes", "imagenes_perfil", "avatar.png")
+    ruta_imagen = os.path.join(os.getcwd(), "imagenes", "imagenes_perfil", "avatar.png")
 
-ruta_archivo = os.path.join(os.getcwd(), "datos", "perfil_nuevo.json")
-
-extensiones_incluidas = ["jpg", "jpeg", "png", "gif"]
-nombres_archivos = [
-    fn
-    for fn in os.listdir(os.path.join(os.getcwd(), "imagenes"))
-    if any(fn.endswith(ext) for ext in extensiones_incluidas)
-]
-
-columna_izquierda = [
-    [sg.Text("Nuevo perfil")],
-    [sg.Text("Usuario:")],
-    [sg.InputText(key="-USUARIO-")],
-    [sg.Text("Nombre:")],
-    [sg.InputText(key="-NOMBRE-")],
-    [sg.Text("Edad:")],
-    [sg.InputText(key="-EDAD-", size=(10,))],
-    [sg.Text("Genero:")],
-    [
-        sg.Listbox(
-            ["Masculino", "Femenino", "Otro"],
-            no_scrollbar=False,
-            s=(15, 3),
-            key="-GENERO-",
-        )
-    ],
-    [sg.Text("Especificar genero:")],
-    [sg.InputText(key="-ESPECIFICAR_GENERO-")],
-    [sg.Button("Guardar", key="-GUARDAR-"), sg.Button("Volver", key="-VOLVER-")],
-]
-
-
-columna_derecha = [
-    [
-        sg.Image(
-            source=ruta_imagen,
-            key=("-AVATAR-"),
-            size=(300, 300),
-            subsample=3,
-            pad=((125, 125), (0, 0)),
-        )
-    ],
-    [
-        sg.FileBrowse(
-            "Seleccionar Imagen",
-            key=("-BROWSE-"),
-            enable_events=True,
-            change_submits=True,
-            size=(20, 2),
-        ),
-    ],
-]
-
-layout = [
-    [
-        sg.Column(columna_izquierda, element_justification="c"),
-        sg.VSeperator(),
-        sg.Column(columna_derecha, element_justification="c"),
+    columna_izquierda = [
+        [sg.Text("Nuevo perfil")],
+        [sg.Text("Usuario:")],
+        [sg.InputText(key="-USUARIO-")],
+        [sg.Text("Nombre:")],
+        [sg.InputText(key="-NOMBRE-")],
+        [sg.Text("Edad:")],
+        [sg.InputText(key="-EDAD-", size=(10,))],
+        [sg.Text("Genero:")],
+        [
+            sg.Listbox(
+                ["Masculino", "Femenino", "Otro"],
+                no_scrollbar=False,
+                s=(15, 3),
+                key="-GENERO-",
+            )
+        ],
+        [sg.Text("Especificar genero:")],
+        [sg.InputText(key="-ESPECIFICAR_GENERO-")],
+        [sg.Button("Guardar", key="-GUARDAR-"), sg.Button("Volver", key="-VOLVER-")],
     ]
-]
 
 
-def valor_vacio(valores):
-    """Chequeo que todos los valroes del formulario esten llenos"""
+    columna_derecha = [
+        [
+            sg.Image(
+                source=ruta_imagen,
+                key=("-AVATAR-"),
+                size=(300, 300),
+                subsample=3,
+                pad=((125, 125), (0, 0)),
+            )
+        ],
+        [
+            sg.FileBrowse(
+                "Seleccionar Imagen",
+                file_types=(("Image Files", "*.png;*.jpg;*.jpeg;*.gif"),),
+                key=("-BROWSE-"),
+                enable_events=True,
+                change_submits=True,
+                size=(20, 2),
+            ),
+        ],
+    ]
 
-    for elem in valores.values():
-        if elem == "" or elem == []:
-            return True
-        else:
-            return False
-
-
-window = sg.Window("Nuevo perfil", layout)
-
-
-def verificar_edad(edad):
-    """Chequea que la edad ingresada sea un numero entero entre 0-99"""
-    try:
-        return 99 > int(edad) > 0
-    except (TypeError, ValueError):
-        return False
-
-def existe_nombre(alias):
-    """Chequea si ya existe el alias en el archivo JSON."""
-    try:
-        with open(ruta_archivo, "r", encoding="UTF-8") as archivo:
-            datos_perfil = json.load(archivo)
-        for nombre_usuario in datos_perfil:
-            if nombre_usuario["Usuario"] == alias:
-                return True
-    except (FileNotFoundError, PermissionError, json.JSONDecodeError):
-        return False
-
-
-def crear_json(usuario):
-    """Le paso el usuario y lo agregar al archivo JSON"""
-    datos_agregar = []
-    try:
-        with open(ruta_archivo, "r", encoding="UTF-8") as archivo:
-            datos_agregar = json.load(archivo)
-    except (FileNotFoundError, PermissionError, json.JSONDecodeError):
-        pass
-    datos_agregar.append(usuario)
-    return datos_agregar
+    layout = [
+        [
+            sg.Column(columna_izquierda, element_justification="c"),
+            sg.VSeperator(),
+            sg.Column(columna_derecha, element_justification="c"),
+        ]
+    ]
 
 
-def crear_perfil(values):
-    print(type(values))
-    perfil = {
-        "Usuario": values["-USUARIO-"],
-        "Nombre": values["-NOMBRE-"],
-        "Edad": values["-EDAD-"],
-        "Genero": values["-GENERO-"],
-        "Especificar_genero": values["-ESPECIFICAR_GENERO-"],
-        "Browse": values["-BROWSE-"],
-    }
-    return perfil
+    window = sg.Window("Nuevo perfil", layout,metadata=)
 
+    while True:
+        event, values = window.read()
 
-while True:
-    event, values = window.read()
-    """
-    nombre_imagen = ruta_imagen.split("/")[-1]
-    window["-AVATAR-"].update(nombre_imagen)
-    """
-    if event == "-VOLVER-" or event == sg.WIN_CLOSED:
-        break
+        if event == "-VOLVER-" or event == sg.WIN_CLOSED:
+            break
 
-    elif event == "-BROWSE-":
-        filename = values["-BROWSE-"]
-        window["-AVATAR-"].update(
-            source=filename,
-            size=(300, 300),
-            subsample=3,
-        )
+        elif event == "-BROWSE-":
+            filename = values["-BROWSE-"]
+            window["-AVATAR-"].update(
+                source=filename,
+                size=(300, 300),
+                subsample=3,
+            )
 
-    elif event == "-GUARDAR-":
-        print(values['-AVATAR-'])
-        if not valor_vacio(values):
-            if not existe_nombre(values["-USUARIO-"]):
-                if verificar_edad(values["-EDAD-"]):
-                    usuario_nuevo = crear_perfil(values)
-                    perfil_json = crear_json(usuario_nuevo)
+        elif event == "-GUARDAR-":
+            if not falta_completar_campos(values):
+                if not existe_nombre(values["-USUARIO-"]):
+                    if verificar_edad(values["-EDAD-"]):
+                        usuario_nuevo = crear_perfil(values)
+                        perfil_json = crear_json(usuario_nuevo)
 
-                    with open(ruta_archivo, "w") as archivo:
-                        json.dump(perfil_json, archivo)
-                        print("Se creo el perfil")
+                        with open(ruta_archivo, "w") as archivo:
+                            json.dump(perfil_json, archivo)
+                            print("Se creo el perfil")
 
-                    window.close()
-               #     window.un_hide(menu_principal)
+                        window.close()
+
+                    else:
+                        sg.popup("Ingresa una edad valida")
                 else:
-                    sg.popup("Ingresa una edad valida")
+                    sg.popup("Usuario existente, ingrese otro nombre de usuario")
             else:
-                sg.popup("Usuario existente, ingrese otro nombre de usuario")
-        else:
-            sg.popup("Falta llenar el formulario")
+                sg.popup("Falta llenar el formulario")
 
-window.close()
+    window.close()
+
+if __name__ =="__main__":
+    ventana_nuevo_perfil()
