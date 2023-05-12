@@ -13,6 +13,7 @@ from pantallas import Generador_collage
 from pantallas import etiquetar_imagenes
 from pantallas import configuracion
 from pantallas import nuevo_perfil
+#from pantallas import editar_perfil
 
 ruta_archivo = rutas.archivo_perfiles_json
 ruta_repositorio_imagenes=rutas.imagenes_perfil
@@ -56,8 +57,10 @@ def eventos_menu_principal(menu):
                     configuracion.pantalla_configuracion(menu.metadata["perfil_actual"]["Usuario"])
                 menu.un_hide()
             case "-VENTANA EDITAR PERFIL-":
-                #mostrar editar perfil
-                pass
+                menu.hide()
+                #if __name__ =="__main__":
+                #    editar_perfil(menu.metadata["perfil_actual"])
+                menu.un_hide()
 
 
 def manejar_eventos_mas_perfiles(keys,datos):
@@ -73,6 +76,7 @@ def manejar_eventos_mas_perfiles(keys,datos):
             ventana_de_inicio.hide()
             if __name__ =="__main__":
                 nuevo_perfil.ventana_nuevo_perfil()
+            ventana_de_inicio.un_hide()
         elif evento in keys:
             if __name__ =="__main__":
                 menu=menu_principal.ventana_menu(datos[evento])
