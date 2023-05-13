@@ -28,5 +28,45 @@
         ],
         "Especificar genero": "no binario",
         "Avatar": "tierra.png"
+    },
+    {
+        "Usuario": "otro",
+        "Nombre": "sad",
+        "Edad": "12",
+        "Genero": [
+            "Masculino"
+        ],
+        "Especificar genero": "-",
+        "Avatar": "avatar.png"
+    },
+    {
+        "Usuario": "ad",
+        "Nombre": "dsa",
+        "Edad": "2",
+        "Genero": [
+            "Masculino"
+        ],
+        "Especificar genero": "-",
+        "Avatar": "avatar.png"
+    },
+    {
+        "Usuario": "nuevo_perfil",
+        "Nombre": "ad",
+        "Edad": "11",
+        "Genero": [
+            "Masculino"
+        ],
+        "Especificar genero": "-",
+        "Avatar": "tierra.png"
+    },
+    {
+        "Usuario": "dd",
+        "Nombre": "dd",
+        "Edad": "11",
+        "Genero": [
+            "Femenino"
+        ],
+        "Especificar genero": "-",
+        "Avatar": "avatar.png"
     }
 ]
