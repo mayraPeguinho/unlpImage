@@ -35,7 +35,7 @@ def generar_collage():
                    
              else:
                  #funcion para crear un collage
-                 sg.popup_animated("Se genero un nuevo collage!")
+                 sg.popup("Se genero un nuevo collage!")
                  break
      window.close()
 
