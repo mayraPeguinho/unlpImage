@@ -17,7 +17,7 @@ def generar_collage():
         ),
      ],
      [sg.Text("Seleccionar imágenes")],
-     [sg.Input(), sg.FileBrowse("Seleccionar Imagenes",file_types=(("Image Files", "*.png;*.jpg;*.jpeg;*.gif"),))],
+    [sg.Input(), sg.FilesBrowse("Seleccionar Imagenes",key="-FILES-",file_types=(("Image Files", "*.png;*.jpg;*.jpeg;*.gif"),),files_delimiter=";",)],
      [sg.Text("Seleccionar plantilla")],
      [sg.Combo(["Plantilla 1", "Plantilla 2", "Plantilla 3", "Plantilla 4", "Plantilla 5"], key="Listar Plantillas")],
      [sg.Column([[sg.Button("Generar Collage", key="-GENERAR COLLAGE-")]], expand_x=True, element_justification="right")],
