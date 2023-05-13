@@ -31,10 +31,11 @@ def generar_meme():
                  break
              else:
                  sg.popup("No se completaron los campos necesarios")
-         elif evento == "-VOLVER-" or evento== sg.WIN_CLOSED:
+         elif evento == "-VOLVER-":
+             window.close()
              break
-         print("evento", evento)
-     window.close()
+         elif evento== sg.WIN_CLOSED:
+             sys.exit()
 
 if __name__ =="__main__":
      generar_meme()

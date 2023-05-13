@@ -27,8 +27,11 @@ def generar_collage():
 
      while True:
          evento, valores = window.read()
-         if evento == sg.WIN_CLOSED or evento == "-VOLVER-":
+         if evento == "-VOLVER-":
+             window.close()
              break
+         elif evento == sg.WIN_CLOSED:
+             sys.exit()
          elif evento == "-GENERAR COLLAGE-":
              if falta_completar_campos(valores):
                  sg.popup("Falta completar los campos necesarios")
@@ -37,7 +40,6 @@ def generar_collage():
                  #funcion para crear un collage
                  sg.popup("Se genero un nuevo collage!")
                  break
-     window.close()
 
 
 if __name__ =="__main__":
