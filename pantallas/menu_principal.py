@@ -21,7 +21,7 @@ def generar_ventana_de_ayuda():
 
 def ventana_menu(perfil_actual):
     '''Esta funcion define la ventana de menu. '''
-    columna1=[[sg.Button(image_source=os.path.join(rutas.imagenes_perfil,perfil_actual["Browse"]),image_size=(80,80),image_subsample=3,key="VENTANA EDITAR PERFIL")],
+    columna1=[[sg.Button(image_source=os.path.join(rutas.imagenes_perfil,perfil_actual["Avatar"]),image_size=(80,80),image_subsample=3,key="VENTANA EDITAR PERFIL")],
               [sg.Text(perfil_actual["Usuario"])]
              ]
     columna2=[[sg.Button("Configuracion",key="-VENTANA CONFIGURACION-")]]

@@ -1,8 +1,6 @@
 import PySimpleGUI as sg
-import json
 import os
 import sys
-from PIL import Image
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -15,7 +13,7 @@ def mostrar_perfiles(datos):
     perfiles=[]
     i=0
     for elemento in datos: 
-        perfiles.append(sg.Column([[sg.Button(image_source=os.path.join(ruta_repositorio_imagenes,elemento["Browse"]),image_size=(80,80),image_subsample=3,key=i)],[sg.Text(elemento["Usuario"])]]))
+        perfiles.append(sg.Column([[sg.Button(image_source=os.path.join(ruta_repositorio_imagenes,elemento["Avatar"]),image_size=(80,80),image_subsample=3,key=i)],[sg.Text(elemento["Usuario"])]]))
         i=i+1
     return perfiles
 
