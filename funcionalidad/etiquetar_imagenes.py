@@ -21,7 +21,7 @@ def imagen_tostring(datos):
 def guardar_data(ruta, data, usuario_actual):
     """Guarda los datos de la imagen en el archivo csv"""
     ruta
-    with open(ruta, mode='r+') as file:
+    with open(ruta, mode='r+', encoding="utf-8") as file:
             # Creo objeto lector
             reader = csv.reader(file)
             contenido_csv = list(reader)
@@ -51,7 +51,7 @@ def guardar_data(ruta, data, usuario_actual):
                 contenido_csv.append(fila_nueva)
                 log.registrar_interaccion(usuario_actual, "Imagen agregada")
 
-            with open(ruta, 'w',newline='') as file:
+            with open(ruta, 'w',newline='', encoding="utf-8") as file:
                 writer = csv.writer(file)
                 writer.writerows(contenido_csv)
 
@@ -59,7 +59,7 @@ def guardar_data(ruta, data, usuario_actual):
 def actualizar_descytags(csv_archivo, ruta):
     """Chequeo si la imagen ya fué editada para poder mostras sus tags y descripción correctamente""" 
 
-    with open(csv_archivo, "r") as archivo:
+    with open(csv_archivo, "r", encoding="utf-8") as archivo:
         reader = csv.reader(archivo)
         next(reader)
         contenido_csv = list(reader)

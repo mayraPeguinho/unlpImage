@@ -99,8 +99,8 @@ def pantalla_etiquetar(usuario):
             if event == 'Modificar':
                 imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, "r")
             if event == 'Guardar':
-                etiquetar_imagenes.guardar_data(ruta_csv, imagen_data, usuario)
                 imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, "w")
+                etiquetar_imagenes.guardar_data(ruta_csv, imagen_data, usuario)
                 window["-DESCRIPCION-"].update(etiquetar_imagenes.imagen_tostring(imagen_data))
                 
 
