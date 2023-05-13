@@ -7,6 +7,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from funcionalidad.verificar_input import falta_completar_campos
 from funcionalidad.nuevo_perfil import *
+from pantallas import menu_principal
 
 
 def ventana_nuevo_perfil():
@@ -71,8 +72,12 @@ def ventana_nuevo_perfil():
     while True:
         event, values = window.read()
 
-        if event == "-VOLVER-" or event == sg.WIN_CLOSED:
+        if event == "-VOLVER-":
+            window.close()
             break
+
+        elif event == sg.WIN_CLOSED:
+            sys.exit()
 
         elif event == "-BROWSE-":
             filename = values["-BROWSE-"]
@@ -96,6 +101,8 @@ def ventana_nuevo_perfil():
                                 print("Se creo el perfil")
 
                             window.close()
+                            menu=menu_principal.ventana_menu(usuario_nuevo)
+                            menu_principal.eventos_menu_principal(menu)
 
                         else:
                             sg.popup("Ingresa una edad valida")

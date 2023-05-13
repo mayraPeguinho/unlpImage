@@ -31,8 +31,11 @@ def pantalla_configuracion(usuario):
 
     while True:
         event, values = window.read()
-        if event == sg.WIN_CLOSED or event == 'Volver':
+        if event == 'Volver':
+            window.close()
             break
+        elif event == sg.WIN_CLOSED:
+            sys.exit()
         if event == 'Guardar':
             # Obtengo la ruta absoluta de la carpeta seleccionada
             repo_imagenes = os.path.abspath(values[0])
@@ -46,9 +49,6 @@ def pantalla_configuracion(usuario):
                 conf.guardar_directorios(os.path.relpath(repo_imagenes, DIRECTORIO_PADRE),
                                     os.path.relpath(carpeta_collages, DIRECTORIO_PADRE),
                                     os.path.relpath(carpeta_memes, DIRECTORIO_PADRE), DIRECTORIO_PADRE, usuario_actual)
-                
-
-    window.close()
 
 if __name__ =="__main__":
     pantalla_configuracion(usuario)

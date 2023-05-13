@@ -5,6 +5,8 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from pantallas import rutas
+from pantallas import nuevo_perfil
+from pantallas import menu_principal
 
 def mostrar_perfiles(datos):
     '''Esta funcion carga los diferentes perfiles creados previamente
@@ -16,7 +18,6 @@ def mostrar_perfiles(datos):
         perfiles.append(sg.Column([[sg.Button(image_source=os.path.join(ruta_repositorio_imagenes,elemento["Avatar"]),image_size=(80,80),image_subsample=3,key=i)],[sg.Text(elemento["Usuario"])]]))
         i=i+1
     return perfiles
-
 
 def layout_inicio(datos,no_desplegar=True):
     '''Esta funcion crea el layout de la ventana de inicio
@@ -39,14 +40,33 @@ def layout_inicio(datos,no_desplegar=True):
 def mostrar_mas_perfiles(datos):
     '''Esta funcion crea la ventana en donde se muestran los perfiles restantes'''
     layout=layout_inicio(datos,False)
-    return sg.Window("UNLPImage",layout,margins=(200, 150),metadata={"perfil_actual":None})
+    return sg.Window("UNLPImage",layout,margins=(200, 150))
 
 def generar_ventana_de_inicio(datos):
     '''Esta funcion muestra hasta un maximo de cuatro perfiles,
     que pasada esa cantidad estara hablitado el boton "Ver mas"
     para ver los restantes perfiles creados'''
     layout=layout_inicio(datos,True)
-    return sg.Window("UNLPImage",layout,margins=(200, 150),metadata={"perfil_actual":None})
+    return sg.Window("UNLPImage",layout,margins=(200, 150))
+
+def manejar_eventos_mas_perfiles(keys,datos):
+    '''Maneja los eventos de la ventana que muestra todos los perfiles'''
+    mas_perfiles=mostrar_mas_perfiles(datos)
+    while True:
+        evento, valores = mas_perfiles.read()
+        match evento:
+            case sg.WIN_CLOSED:
+                sys.exit()
+            case "-VER MENOS-":
+                mas_perfiles.close()
+                break
+            case "-AGREGAR PERFIL-":
+                mas_perfiles.hide()
+                nuevo_perfil.ventana_nuevo_perfil()
+        if evento in keys:
+            menu=menu_principal.ventana_menu(datos[evento])
+            mas_perfiles.close()
+            menu_principal.eventos_menu_principal(menu)
 
 if __name__ =="__main__":
-     generar_ventana_de_inicio({})
+     generar_ventana_de_inicio([])
