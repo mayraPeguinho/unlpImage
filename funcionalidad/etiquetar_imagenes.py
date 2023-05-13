@@ -56,15 +56,15 @@ def guardar_data(ruta, data, usuario_actual):
                 writer.writerows(contenido_csv)
 
 #la siguiente función, no funciona. No se porqué.     
-def actualizar_descytags(csv_archivo, ruta, desc_original, tags_original):
+def actualizar_descytags(csv_archivo, ruta):
     """Chequeo si la imagen ya fué editada para poder mostras sus tags y descripción correctamente""" 
 
     with open(csv_archivo, "r") as archivo:
         reader = csv.reader(archivo)
         next(reader)
         contenido_csv = list(reader)
-        descripcion = desc_original
-        tags = tags_original 
+        descripcion = "Sin desripción"
+        tags = "Sin tags"
         #Busco la fila en el csv
         for datos_fila in contenido_csv:
             #si encuentro la fila
@@ -79,7 +79,7 @@ def actualizar_descytags(csv_archivo, ruta, desc_original, tags_original):
                 pass
     return descripcion, tags
 
-def traer_data(values, csv_archivo, mode):
+def traer_data(usuario, values, csv_archivo, mode):
     """Retorna y actualiza los valores de la imagen que deben mostrarse y/o editarse."""
     # traigo la ruta de la imagen
     ruta_imagen = values['-TREE-'][0]
@@ -88,15 +88,15 @@ def traer_data(values, csv_archivo, mode):
     imagen = Image.open(ruta_imagen)
     #Extraigo la resolución antes de cambiarla
     resolucion = imagen.size
-    #actualizo la descripción
-    descripcion = values['Texto']
-    #lista de tags(lo saco de imagen_seleccionada)
-    tags = values['Tag']
     #tipo (mimetype)
     #invoco a una función que actualiza la descripcion y los tags trayendolos del csv
     if mode == "r":
-        descripcion, tags = actualizar_descytags(csv_archivo, ruta_imagen, descripcion, tags)
-    
+        descripcion, tags = actualizar_descytags(csv_archivo, ruta_imagen)
+    else:
+        #actualizo la descripción
+        descripcion = values['Texto']
+        #lista de tags(lo saco de imagen_seleccionada)
+        tags = values['Tag']
     #tipo (mimetype)
     mimetype = mimetypes.guess_type(ruta_imagen)[0]
     #tamaño (metadata)
@@ -104,11 +104,9 @@ def traer_data(values, csv_archivo, mode):
     #Fecha de ultima actualización (enviar al log)
     timestamp = datetime.timestamp(datetime.now())
     ultima_actualizacion = datetime.fromtimestamp(timestamp)  
-    #----------------------------------------------------------------
-    #ultimo perfil que actualizó ---(/!\ ver con Fran como implementar esta funcionalidad)---
-    #----------------------------------------------------------------
+    usuario = usuario
     datos = (ruta_imagen, descripcion, tags,(str(resolucion[0]) + 'x' + str(resolucion[1])), 
-                    mimetype, (round(tamaño / (1024*1024), 2)), ultima_actualizacion, "null")
+                    mimetype, (round(tamaño / (1024*1024), 2)), ultima_actualizacion, usuario)
     return datos
 
 def mostrar_imagen(ruta):

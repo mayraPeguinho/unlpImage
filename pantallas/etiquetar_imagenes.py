@@ -85,7 +85,7 @@ def pantalla_etiquetar(usuario):
             if event == '-TREE-':
                 #Chequear que se pueda abrir y tratar la imagen
                 try:
-                    imagen_data = etiquetar_imagenes.traer_data(values,ruta_csv, "r")
+                    imagen_data = etiquetar_imagenes.traer_data(usuario, values,ruta_csv, "r")
                     ruta_imagen = imagen_data[0]
                     #Muestro la imagen
                     datavisual_imagen = etiquetar_imagenes.mostrar_imagen(ruta_imagen)
@@ -97,10 +97,10 @@ def pantalla_etiquetar(usuario):
                     sg.popup_error("¡No tienes permisos para acceder a esa carpeta!")
                             
             if event == 'Modificar':
-                imagen_data = etiquetar_imagenes.traer_data(values, ruta_csv, "w")
+                imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, "r")
             if event == 'Guardar':
                 etiquetar_imagenes.guardar_data(ruta_csv, imagen_data, usuario)
-                imagen_data = etiquetar_imagenes.traer_data(values, ruta_csv, "w")
+                imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, "w")
                 window["-DESCRIPCION-"].update(etiquetar_imagenes.imagen_tostring(imagen_data))
                 
 
