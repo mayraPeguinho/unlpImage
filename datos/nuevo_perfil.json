@@ -1,0 +1,32 @@
+[
+    {
+        "Usuario": "fran",
+        "Nombre": "fran",
+        "Edad": "23",
+        "Genero": [
+            "Masculino"
+        ],
+        "Especificar genero": "-",
+        "Avatar": "avatar.png"
+    },
+    {
+        "Usuario": "aa",
+        "Nombre": "fran",
+        "Edad": "23",
+        "Genero": [
+            "Femenino"
+        ],
+        "Especificar genero": "-",
+        "Avatar": "avatar.png"
+    },
+    {
+        "Usuario": "fds",
+        "Nombre": "asd",
+        "Edad": "11",
+        "Genero": [
+            "Otro"
+        ],
+        "Especificar genero": "no binario",
+        "Avatar": "tierra.png"
+    }
+]
