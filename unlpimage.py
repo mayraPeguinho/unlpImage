@@ -9,7 +9,7 @@ from pantallas import inicio
 from pantallas import rutas
 from pantallas import menu_principal
 from pantallas import generador_memes
-from pantallas import Generador_collage
+from pantallas import generador_collage
 from pantallas import etiquetar_imagenes
 from pantallas import configuracion
 from pantallas import nuevo_perfil
@@ -44,7 +44,7 @@ def eventos_menu_principal(menu):
             case "-VENTANA COLLAGE-":
                 menu.hide()
                 if __name__ =="__main__":
-                    Generador_collage.generar_collage()
+                    generador_collage.generar_collage()
                 menu.un_hide()
             case "-VENTANA ETIQUETAR-":
                 menu.hide()
