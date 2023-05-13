@@ -1,13 +1,16 @@
 import os
 import PySimpleGUI as sg
-from PIL import Image
+from PIL import Image, ImageTk
 import menu_principal
 from funcionalidad.verificar_input import falta_completar_campos
 from funcionalidad.nuevo_perfil import *
 
+
 def ventana_nuevo_perfil():
 
-    ruta_imagen = os.path.join(os.getcwd(), "imagenes", "imagenes_perfil", "avatar.png")
+    avatar_imagen = 'avatar.png'
+    ruta_avatares = os.path.join(os.getcwd(), "imagenes", "imagenes_perfil", avatar_imagen)
+
 
     columna_izquierda = [
         [sg.Text("Nuevo perfil")],
@@ -31,11 +34,10 @@ def ventana_nuevo_perfil():
         [sg.Button("Guardar", key="-GUARDAR-"), sg.Button("Volver", key="-VOLVER-")],
     ]
 
-
     columna_derecha = [
         [
             sg.Image(
-                source=ruta_imagen,
+                source=ruta_avatares,
                 key=("-AVATAR-"),
                 size=(300, 300),
                 subsample=3,
@@ -45,10 +47,9 @@ def ventana_nuevo_perfil():
         [
             sg.FileBrowse(
                 "Seleccionar Imagen",
-                file_types=(("Image Files", "*.png;*.jpg;*.jpeg;*.gif"),),
                 key=("-BROWSE-"),
+               # file_types=(("Image Files", "*.png;*.jpg;*.jpeg;*.gif"),),
                 enable_events=True,
-                change_submits=True,
                 size=(20, 2),
             ),
         ],
@@ -62,8 +63,7 @@ def ventana_nuevo_perfil():
         ]
     ]
 
-
-    window = sg.Window("Nuevo perfil", layout,metadata=)
+    window = sg.Window("Nuevo perfil", layout, metadata=None)
 
     while True:
         event, values = window.read()
@@ -80,26 +80,29 @@ def ventana_nuevo_perfil():
             )
 
         elif event == "-GUARDAR-":
-            if not falta_completar_campos(values):
-                if not existe_nombre(values["-USUARIO-"]):
-                    if verificar_edad(values["-EDAD-"]):
-                        usuario_nuevo = crear_perfil(values)
-                        perfil_json = crear_json(usuario_nuevo)
+                llenar_solo(values)
+                print(values)
+                if not falta_completar_campos(values):
+                    if not existe_nombre(values["-USUARIO-"]):
+                        if verificar_edad(values["-EDAD-"]):
+                            usuario_nuevo = crear_perfil(values)
+                            perfil_json = crear_json(usuario_nuevo)
 
-                        with open(ruta_archivo, "w") as archivo:
-                            json.dump(perfil_json, archivo)
-                            print("Se creo el perfil")
+                            with open(ruta_archivo, "w") as archivo:
+                                json.dump(perfil_json, archivo)
+                                print("Se creo el perfil")
 
-                        window.close()
+                            window.close()
 
+                        else:
+                            sg.popup("Ingresa una edad valida")
                     else:
-                        sg.popup("Ingresa una edad valida")
+                        sg.popup("Usuario existente, ingrese otro nombre de usuario")
                 else:
-                    sg.popup("Usuario existente, ingrese otro nombre de usuario")
-            else:
-                sg.popup("Falta llenar el formulario")
+                    sg.popup("Falta llenar el formulario")
 
     window.close()
 
-if __name__ =="__main__":
+
+if __name__ == "__main__":
     ventana_nuevo_perfil()

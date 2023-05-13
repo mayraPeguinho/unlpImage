@@ -1,6 +1,9 @@
 import json
 import os
 
+avatar_imagen = 'avatar.png'
+ruta_avatares = os.path.join(os.getcwd(), "imagenes", "imagenes_perfil", avatar_imagen)
+
 ruta_archivo = os.path.join(os.getcwd(), "datos", "perfil_nuevo.json")
 
 def crear_perfil(values):
@@ -48,3 +51,9 @@ def verificar_edad(edad):
     except (TypeError, ValueError):
         return False
     
+def llenar_solo(values):
+    """Auto completa valores por defecto """
+    if values['-BROWSE-'] == '':
+        values['-BROWSE-'] = avatar_imagen
+    if values['-GENERO-'] == ['Masculino'] or values['-GENERO-'] == ['Femenino']:
+        values['-ESPECIFICAR_GENERO-'] = '-'
