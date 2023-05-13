@@ -46,7 +46,7 @@ def pantalla_configuracion(usuario):
                 conf.guardar_directorios(os.path.relpath(repo_imagenes, DIRECTORIO_PADRE),
                                     os.path.relpath(carpeta_collages, DIRECTORIO_PADRE),
                                     os.path.relpath(carpeta_memes, DIRECTORIO_PADRE), DIRECTORIO_PADRE, usuario_actual)
-                sys.exit()
+                
 
     window.close()
 

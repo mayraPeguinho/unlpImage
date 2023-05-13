@@ -19,10 +19,10 @@ def generar_ventana_de_ayuda():
             ventana_de_ayuda.close()
             break
 
-def ventana_menu(imagen,usuario):
+def ventana_menu(perfil_actual):
     '''Esta funcion define la ventana de menu. '''
-    columna1=[[sg.Button(image_source=os.path.join(rutas.imagenes_perfil,imagen),image_size=(80,80),image_subsample=3,key="VENTANA EDITAR PERFIL")],
-              [sg.Text(usuario)]
+    columna1=[[sg.Button(image_source=os.path.join(rutas.imagenes_perfil,perfil_actual["Browse"]),image_size=(80,80),image_subsample=3,key="VENTANA EDITAR PERFIL")],
+              [sg.Text(perfil_actual["Usuario"])]
              ]
     columna2=[[sg.Button("Configuracion",key="-VENTANA CONFIGURACION-")]]
     
@@ -35,7 +35,7 @@ def ventana_menu(imagen,usuario):
               [sg.Button("Salir",key="-SALIR-")]
             ]
     
-    return sg.Window("UNLPImage",layout,margins=(150, 150),metadata={"perfil_actual":None})
+    return sg.Window("UNLPImage",layout,margins=(150, 150),metadata={"perfil_actual":perfil_actual})
 
 if __name__ =="__main__":
     ventana_menu()

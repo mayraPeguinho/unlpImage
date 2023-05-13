@@ -9,25 +9,24 @@ from pantallas import inicio
 from pantallas import rutas
 from pantallas import menu_principal
 from pantallas import generador_memes
-from pantallas import generador_collage
+from pantallas import Generador_collage
+from pantallas import etiquetar_imagenes
+from pantallas import configuracion
+from pantallas import nuevo_perfil
+#from pantallas import editar_perfil
 
 ruta_archivo = rutas.archivo_perfiles_json
 ruta_repositorio_imagenes=rutas.imagenes_perfil
 
-data=[]
-keys=[]
 try:
     with open(ruta_archivo,"r",encoding="UTF-8") as archivo:
         data = json.load(archivo)
-        i=0
-        for elem in data:
-            keys.append(i)
-            i=i+1
+        keys=list(map(lambda i: i, range(data.__len__())))
 except (FileNotFoundError,PermissionError,json.JSONDecodeError):
-    pass
+    data=[]
 
 def eventos_menu_principal(menu):
-    #Maneja los eventos de la ventana menu prinicipal
+    '''Maneja los eventos de la ventana menu prinicipal'''
     while True:
         evento, valores = menu.read()
         if evento==sg.WIN_CLOSED or evento=="-SALIR-":
@@ -45,21 +44,27 @@ def eventos_menu_principal(menu):
             case "-VENTANA COLLAGE-":
                 menu.hide()
                 if __name__ =="__main__":
-                    generador_collage.generar_collage()
+                    Generador_collage.generar_collage()
                 menu.un_hide()
             case "-VENTANA ETIQUETAR-":
-                #ABRIR PANTALLA Y ENVIAR COMO PARÁMETRO EL NOMBRE DEL USUARIO EN FORMATO STRING
-                pass
+                menu.hide()
+                if __name__ =="__main__":
+                    etiquetar_imagenes.pantalla_etiquetar(menu.metadata["perfil_actual"]["Usuario"])
+                menu.un_hide()
             case "-VENTANA CONFIGURACION-":
-                #ABRIR PANTALLA Y ENVIAR COMO PARÁMETRO EL NOMBRE DEL USUARIO EN FORMATO STRING
-                pass
+                menu.hide()
+                if __name__ =="__main__":
+                    configuracion.pantalla_configuracion(menu.metadata["perfil_actual"]["Usuario"])
+                menu.un_hide()
             case "-VENTANA EDITAR PERFIL-":
-                #mostrar editar perfil
-                pass
+                menu.hide()
+                #if __name__ =="__main__":
+                #    editar_perfil(menu.metadata["perfil_actual"])
+                menu.un_hide()
 
 
-def manejar_eventos_mas_perfiles(keys,ventana_de_inicio,datos):
-    #Maneja los eventos de la ventana que muestra todos los perfiles
+def manejar_eventos_mas_perfiles(keys,datos):
+    '''Maneja los eventos de la ventana que muestra todos los perfiles'''
     if __name__ =="__main__":
         mas_perfiles=inicio.mostrar_mas_perfiles(datos)
     while True:
@@ -68,12 +73,13 @@ def manejar_eventos_mas_perfiles(keys,ventana_de_inicio,datos):
             mas_perfiles.close()
             break
         elif evento=="-AGREGAR PERFIL-":
-            #Va la pestaña de nuevo perfil
-            pass
-        elif evento in keys:
-            ventana_de_inicio.metadata["perfil_actual"]=datos[evento]
+            ventana_de_inicio.hide()
             if __name__ =="__main__":
-                menu=menu_principal.ventana_menu(ventana_de_inicio.metadata["perfil_actual"]["-BROWSE-"])
+                nuevo_perfil.ventana_nuevo_perfil()
+            ventana_de_inicio.un_hide()
+        elif evento in keys:
+            if __name__ =="__main__":
+                menu=menu_principal.ventana_menu(datos[evento])
             mas_perfiles.close()
             eventos_menu_principal(menu)
 
@@ -87,16 +93,17 @@ while True:
             ventana_de_inicio.close()
             break
         case "-AGREGAR PERFIL-":
-            #Va la pestaña de nuevo perfil, cuando aprieta guardar, se despliega el  menu con ese perfil
-            pass
+            ventana_de_inicio.hide()
+            if __name__ =="__main__":
+                nuevo_perfil.ventana_nuevo_perfil()
+            ventana_de_inicio.un_hide()
         case "-VER MAS-":
             ventana_de_inicio.hide()
-            manejar_eventos_mas_perfiles(keys,ventana_de_inicio,data)
+            manejar_eventos_mas_perfiles(keys,data)
             ventana_de_inicio.un_hide()
     if evento in keys:
-        ventana_de_inicio.metadata["perfil_actual"]=data[evento]
         ventana_de_inicio.hide()
         if __name__ =="__main__":
-           menu=menu_principal.ventana_menu(ventana_de_inicio.metadata["perfil_actual"]["-BROWSE-"],ventana_de_inicio.metadata["perfil_actual"]["-USUARIO-"])
+           menu=menu_principal.ventana_menu(data[evento])
         eventos_menu_principal(menu)
         ventana_de_inicio.un_hide()
