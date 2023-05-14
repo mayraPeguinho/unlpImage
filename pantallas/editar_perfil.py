@@ -27,6 +27,7 @@ def ventana_editar_perfil(perfil_actual):
             sg.Listbox(
                 ["Masculino", "Femenino", "Otro"],
                 no_scrollbar=False,
+                default_values=[perfil_actual['Genero']],
                 s=(15, 3),
                 key="Genero",
             )
@@ -98,16 +99,15 @@ def ventana_editar_perfil(perfil_actual):
             perfil_modificado = modificar_perfil(perfil_actual,values)
             #print(type(perfil_modificado))
 
-            for usuarios in perfiles:
-                if usuarios['Usuario'] == perfil_modificado['Usuario']:      
-                    usuarios = perfil_modificado
-
+            for index, perfil in enumerate(perfiles):
+                if perfil['Usuario'] == perfil_modificado['Usuario']:      
+                    perfiles[index] = perfil_modificado
+                    break
+            
             with open(ruta_archivo, "w") as archivo:
                 json.dump(perfiles, archivo, indent=4)
                 print("Se modifico el perfil")
 
-            print(perfiles)
-            
 
             return perfil_modificado
         

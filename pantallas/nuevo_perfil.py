@@ -26,7 +26,8 @@ def ventana_nuevo_perfil():
         [sg.Text("Genero:")],
         [
             sg.Listbox(
-                ["Masculino", "Femenino", "Otro"],
+                ['Masculino','Femenino','Otro'],
+                select_mode='multiple',
                 no_scrollbar=False,
                 s=(15, 3),
                 key="-GENERO-",

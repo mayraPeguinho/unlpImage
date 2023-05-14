@@ -2,7 +2,12 @@ import os
 
 def mostrar_perfil(perfil_actual,window):
     """ Guardo los valores del perfil"""
-        
+    genero_opciones=['Masculino','Femenino','Otro']
+    
+    for opcion in genero_opciones:
+        if opcion not in perfil_actual['Genero']:
+            perfil_actual['Genero'].append(opcion)   
+
     window['Nombre'].update(perfil_actual['Nombre']),
     window['Edad'].update(perfil_actual['Edad']),
     window['Genero'].update(perfil_actual['Genero']),
@@ -15,10 +20,16 @@ def mostrar_perfil(perfil_actual,window):
 def modificar_perfil(perfil_actual,cambios_perfil):
     """ Le asigno al perfil actual los nuevo valores actualizados"""
 
+    if cambios_perfil['-BROWSE-'] != '':
+            perfil_actual['Avatar'] = os.path.basename(cambios_perfil['-BROWSE-'])
+    elif perfil_actual['Avatar'] == '':
+            perfil_actual['Avatar'] = cambios_perfil['-BROWSE-']
+
+    if cambios_perfil['Genero'] != '':
+            perfil_actual['Genero'] = cambios_perfil['Genero']
+
     perfil_actual['Nombre'] = cambios_perfil['Nombre']
     perfil_actual['Edad'] = cambios_perfil['Edad']
-    perfil_actual['Genero'] = cambios_perfil['Genero']
     perfil_actual['Especificar genero'] = cambios_perfil['Especificar genero']
-    perfil_actual['Avatar'] = os.path.basename(cambios_perfil['-BROWSE-'])
     
     return perfil_actual
