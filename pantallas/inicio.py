@@ -13,10 +13,16 @@ def mostrar_perfiles(datos):
        en diferentes botones que seran mostrados luego en la ventana de inicio.'''
     ruta_repositorio_imagenes=rutas.imagenes_perfil
     perfiles=[]
-    i=0
-    for elemento in datos: 
-        perfiles.append(sg.Column([[sg.Button(image_source=os.path.join(ruta_repositorio_imagenes,elemento["Avatar"]),image_size=(80,80),image_subsample=3,key=i)],[sg.Text(elemento["Usuario"])]]))
-        i=i+1
+    for numero,elemento in enumerate(datos): 
+        perfiles.append(sg.Column([[sg.Button(image_source=os.path.join(ruta_repositorio_imagenes,elemento["Avatar"]),
+                                              image_size=(80,80),
+                                              image_subsample=3,
+                                              key=numero)],
+                                   [sg.Text(elemento["Usuario"],justification="center")]
+                                  ])
+                        )
+
+    #perfiles=list(map(lambda numero,elemento: sg.Column([[sg.Button(image_source=os.path.join(ruta_repositorio_imagenes,elemento["Avatar"]),image_size=(80,80),image_subsample=3,key=numero)],[sg.Text(elemento["Usuario"])]]), enumerate(datos())))
     return perfiles
 
 def layout_inicio(datos,no_desplegar=True):

@@ -4,6 +4,10 @@ import json
 import PySimpleGUI as sg
 from PIL import Image
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+#from pantallas import menu_principal
+
 ruta_imagen = os.path.join(os.getcwd(), "imagenes", "imagenes_perfil", "avatar.png")
 
 ruta_archivo = os.path.join(os.getcwd(), "datos", "perfil_nuevo.json")
@@ -67,9 +71,11 @@ window = sg.Window("Editar perfil", layout)
 while True:
     event, values = window.read()
 
-    if event == "-VOLVER-" or event == sg.WIN_CLOSED:
+    if event == "-VOLVER-":
+        window.close()
         break
-
+    elif event == sg.WIN_CLOSED:
+        sys.exit()
     elif event == "-BROWSE-":
         filename = values["-BROWSE-"]
         window["-AVATAR-"].update(
@@ -83,5 +89,4 @@ while True:
         with open(ruta_archivo, "w") as archivo:
             json.dump(values, archivo)
             print("Se modifico el perfil")
-
-window.close()
+        #return perfil_modificado (para cuando se haga funcion)

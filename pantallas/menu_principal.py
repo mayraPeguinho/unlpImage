@@ -26,7 +26,10 @@ def generar_ventana_de_ayuda():
 
 def ventana_menu(perfil_actual):
     '''Esta funcion define la ventana de menu. '''
-    columna1=[[sg.Button(image_source=os.path.join(rutas.imagenes_perfil,perfil_actual["Avatar"]),image_size=(80,80),image_subsample=3,key="VENTANA EDITAR PERFIL")],
+    columna1=[[sg.Button(image_source=os.path.join(rutas.imagenes_perfil,perfil_actual["Avatar"]),
+                         image_size=(80,80),
+                         image_subsample=3,
+                         key="VENTANA EDITAR PERFIL")],
               [sg.Text(perfil_actual["Usuario"])]
              ]
     columna2=[[sg.Button("Configuracion",key="-VENTANA CONFIGURACION-")]]
@@ -38,7 +41,7 @@ def ventana_menu(perfil_actual):
               [sg.Button("Generar meme",key="-VENTANA MEME-")],
               [sg.Button("Generar collage",key="-VENTANA COLLAGE-")],
               [sg.Button("Salir",key="-SALIR-")]
-            ]
+             ]
     
     return sg.Window("UNLPImage",layout,margins=(150, 150),metadata={"perfil_actual":perfil_actual})
 
@@ -71,7 +74,7 @@ def eventos_menu_principal(menu):
                 configuracion.pantalla_configuracion(menu.metadata["perfil_actual"]["Usuario"])
                 menu.un_hide()
             case "-VENTANA EDITAR PERFIL-":
-                menu.hide()
+                #menu.hide()
                 #editar_perfil(menu.metadata["perfil_actual"])
                 menu.un_hide()
 
