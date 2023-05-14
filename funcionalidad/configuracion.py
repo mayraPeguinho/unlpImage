@@ -13,5 +13,7 @@ def guardar_directorios(repositorio_imagenes, directorio_collages, directorio_me
             'directorio_collages': directorio_collages,
             'directorio_memes': directorio_memes}
     with open(os.path.join(directorio_raiz, 'datos', 'configuracion.json'), 'w') as archivo:
-        json.dump(data, archivo)
+        json.dump(data, archivo, indent=4)
         log.registrar_interaccion(usuario, "Cambio en configuración")
+
+    
