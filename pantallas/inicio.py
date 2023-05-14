@@ -4,17 +4,16 @@ import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from pantallas import rutas
 from pantallas import nuevo_perfil
 from pantallas import menu_principal
 
 def mostrar_perfiles(datos):
     '''Esta funcion carga los diferentes perfiles creados previamente
        en diferentes botones que seran mostrados luego en la ventana de inicio.'''
-    ruta_repositorio_imagenes=rutas.imagenes_perfil
+    ruta_imagenes_perfil=os.path.join(os.getcwd(),'imagenes','imagenes_perfil')
     perfiles=[]
     for numero,elemento in enumerate(datos): 
-        perfiles.append(sg.Column([[sg.Button(image_source=os.path.join(ruta_repositorio_imagenes,elemento["Avatar"]),
+        perfiles.append(sg.Column([[sg.Button(image_source=os.path.join(ruta_imagenes_perfil,elemento["Avatar"]),
                                               image_size=(80,80),
                                               image_subsample=3,
                                               key=numero)],
@@ -71,8 +70,9 @@ def manejar_eventos_mas_perfiles(keys,datos):
                 nuevo_perfil.ventana_nuevo_perfil()
         if evento in keys:
             menu=menu_principal.ventana_menu(datos[evento])
-            mas_perfiles.close()
+            mas_perfiles.hide()
             menu_principal.eventos_menu_principal(menu)
+            mas_perfiles.un_hide()
 
 if __name__ =="__main__":
      generar_ventana_de_inicio([])

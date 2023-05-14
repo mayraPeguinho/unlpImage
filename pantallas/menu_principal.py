@@ -4,7 +4,6 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from pantallas import rutas
 from pantallas import menu_principal
 from pantallas import generador_memes
 from pantallas import generador_collage
@@ -27,7 +26,8 @@ def generar_ventana_de_ayuda():
 
 def ventana_menu(perfil_actual):
     '''Esta funcion define la ventana de menu. '''
-    columna1=[[sg.Button(image_source=os.path.join(rutas.imagenes_perfil,perfil_actual["Avatar"]),
+    ruta_imagenes_perfil=os.path.join(os.getcwd(),'imagenes','imagenes_perfil')
+    columna1=[[sg.Button(image_source=os.path.join(ruta_imagenes_perfil,perfil_actual["Avatar"]),
                          image_size=(80,80),
                          image_subsample=3,
                          key="-VENTANA EDITAR PERFIL-")],

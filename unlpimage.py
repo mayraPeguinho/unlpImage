@@ -6,15 +6,13 @@ import json
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from pantallas import inicio
-from pantallas import rutas
 from pantallas import menu_principal
 from pantallas import nuevo_perfil
 
-ruta_archivo = rutas.archivo_perfiles_json
-ruta_repositorio_imagenes=rutas.imagenes_perfil
+archivo_perfiles_json = os.path.join(os.getcwd(),'datos', 'nuevo_perfil.json')
 
 try:
-    with open(ruta_archivo,"r",encoding="UTF-8") as archivo:
+    with open(archivo_perfiles_json,"r",encoding="UTF-8") as archivo:
         data = json.load(archivo)
     keys=list(map(lambda i: i, range(data.__len__())))
 except (FileNotFoundError,PermissionError,json.JSONDecodeError):

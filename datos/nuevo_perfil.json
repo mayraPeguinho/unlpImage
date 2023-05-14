@@ -1,12 +1,10 @@
-[
-    {
-        "Usuario": "fran",
-        "Nombre": "fran",
-        "Edad": "12",
-        "Genero": [
-            "Masculino"
-        ],
-        "Especificar genero": "-",
-        "Avatar": "avatar.png"
-    }
-]
+[{
+    "Usuario": "fran",
+    "Nombre": "Mateo",
+    "Edad": "12",
+    "Genero": [
+        "Masculino"
+    ],
+    "Especificar genero": "-",
+    "Avatar": "tierra.png"
+}]
