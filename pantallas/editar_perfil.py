@@ -92,7 +92,7 @@ def ventana_editar_perfil(perfil_actual):
                 print("Se modifico el perfil")
             return perfil_modificado
         
-        #return perfil_actual
+    return perfil_actual
 
 if __name__ == "__main__":
-    ventana_editar_perfil(menu_principal.perfil_actual)
+    ventana_editar_perfil()

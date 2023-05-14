@@ -30,7 +30,7 @@ def ventana_menu(perfil_actual):
     columna1=[[sg.Button(image_source=os.path.join(rutas.imagenes_perfil,perfil_actual["Avatar"]),
                          image_size=(80,80),
                          image_subsample=3,
-                         key="VENTANA EDITAR PERFIL")],
+                         key="-VENTANA EDITAR PERFIL-")],
               [sg.Text(perfil_actual["Usuario"])]
              ]
     columna2=[[sg.Button("Configuracion",key="-VENTANA CONFIGURACION-")]]
@@ -76,7 +76,7 @@ def eventos_menu_principal(menu):
                 menu.un_hide()
             case "-VENTANA EDITAR PERFIL-":
                 menu.hide()
-                editar_perfil.ventana_editar_perfil(menu.metadata["perfil_actual"])
+                menu.metadata["perfil_actual"]=editar_perfil.ventana_editar_perfil(menu.metadata["perfil_actual"])
                 menu.un_hide()
 
 if __name__ =="__main__":
