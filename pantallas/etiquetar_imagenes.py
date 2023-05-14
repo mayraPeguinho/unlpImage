@@ -79,8 +79,11 @@ def pantalla_etiquetar(usuario):
 
     while True:     # Loop de eventos
         event, values = window.read()    
-        if event in (sg.WIN_CLOSED, 'Volver'):
-            break           
+        if event == 'Volver':
+            window.close()
+            break
+        elif event == sg.WIN_CLOSED:
+            sys.exit()           
         else:
             if event == '-TREE-':
                 #Chequear que se pueda abrir y tratar la imagen
