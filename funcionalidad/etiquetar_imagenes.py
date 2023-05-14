@@ -25,7 +25,6 @@ def guardar_data(ruta, data, usuario_actual):
             # Creo objeto lector
             reader = csv.reader(file)
             contenido_csv = list(reader)
-
             encontre = False
             #Busco la fila en el csv
             for pos, datos_fila in enumerate(contenido_csv):
@@ -68,8 +67,13 @@ def actualizar_descytags(csv_archivo, ruta):
         #Busco la fila en el csv
         for datos_fila in contenido_csv:
             #si encuentro la fila
+            
             try: 
+                print(ruta)
+                print(datos_fila[0])
                 if (ruta == datos_fila[0]):
+                    print(ruta)
+                    print(datos_fila[0])
                     # me guardo los datos de la imagen y dejo de recorrer el csv
                     descripcion = datos_fila[1] 
                     tags = datos_fila[2]
@@ -82,7 +86,7 @@ def actualizar_descytags(csv_archivo, ruta):
 def traer_data(usuario, values, csv_archivo, mode):
     """Retorna y actualiza los valores de la imagen que deben mostrarse y/o editarse."""
     # traigo la ruta de la imagen
-    ruta_imagen = values['-TREE-'][0]
+    ruta_imagen = values['-TREE-'][0].replace("\\", "/")
     print("ruta imagen: ", ruta_imagen)
     # la abro
     imagen = Image.open(ruta_imagen)
