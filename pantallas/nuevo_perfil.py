@@ -8,6 +8,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from funcionalidad.verificar_input import falta_completar_campos
 from funcionalidad.nuevo_perfil import *
 from pantallas import menu_principal
+from pantallas import inicio
 
 
 def ventana_nuevo_perfil():
@@ -75,6 +76,7 @@ def ventana_nuevo_perfil():
 
         if event == "-VOLVER-":
             window.close()
+            inicio.eventos_inicio()
             break
 
         elif event == sg.WIN_CLOSED:

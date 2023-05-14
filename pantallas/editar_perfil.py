@@ -97,6 +97,7 @@ def ventana_editar_perfil(perfil_actual):
                 pass
             
             perfil_modificado = modificar_perfil(perfil_actual,values)
+<<<<<<< HEAD
             #print(type(perfil_modificado))
 
             for index, perfil in enumerate(perfiles):
@@ -108,7 +109,14 @@ def ventana_editar_perfil(perfil_actual):
                 json.dump(perfiles, archivo, indent=4)
                 print("Se modifico el perfil")
 
+=======
+            print(perfil_modificado)
+            
+>>>>>>> a65f213aca53362ae5fefc23c9769bbf3cac75aa
 
+            with open(ruta_archivo, "w") as archivo:
+                json.dump(perfil_modificado, archivo, indent=4)
+                print("Se modifico el perfil")
             return perfil_modificado
         
         return perfil_actual
