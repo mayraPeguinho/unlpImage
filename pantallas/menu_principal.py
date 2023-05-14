@@ -10,6 +10,7 @@ from pantallas import generador_collage
 from pantallas import etiquetar_imagenes
 from pantallas import configuracion
 from pantallas import editar_perfil
+from pantallas import inicio
 
 def generar_ventana_de_ayuda():
     '''Esta funcion define la ventana de ayuda
@@ -31,7 +32,7 @@ def ventana_menu(perfil_actual):
                          image_size=(80,80),
                          image_subsample=3,
                          key="-VENTANA EDITAR PERFIL-")],
-              [sg.Text(perfil_actual["Usuario"])]
+              [sg.Text(perfil_actual["Usuario"],key="-USUARIO-")]
              ]
     columna2=[[sg.Button("Configuracion",key="-VENTANA CONFIGURACION-")]]
     
@@ -55,6 +56,7 @@ def eventos_menu_principal(menu):
                 sys.exit()
             case "-SALIR-":
                 menu.close()
+                inicio.eventos_inicio()
                 break
             case "-VENTANA AYUDA-":
                 menu_principal.generar_ventana_de_ayuda()
@@ -77,6 +79,7 @@ def eventos_menu_principal(menu):
             case "-VENTANA EDITAR PERFIL-":
                 menu.hide()
                 menu.metadata["perfil_actual"]=editar_perfil.ventana_editar_perfil(menu.metadata["perfil_actual"])
+                menu["-VENTANA EDITAR PERFIL-"].update("")
                 menu.un_hide()
 
 if __name__ =="__main__":

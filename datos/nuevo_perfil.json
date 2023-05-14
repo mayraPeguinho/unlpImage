@@ -1,0 +1,20 @@
+[
+    {
+        "Usuario": "Hola",
+        "Nombre": "Pato",
+        "Edad": "12",
+        "Genero": [],
+        "Especificar genero": "-",
+        "Avatar": "tierra.png"
+    },
+    {
+        "Usuario": "Buenos Dias",
+        "Nombre": "Soy",
+        "Edad": "12",
+        "Genero": [
+            "Femenino"
+        ],
+        "Especificar genero": "-",
+        "Avatar": "avatar.png"
+    }
+]

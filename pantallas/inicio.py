@@ -1,9 +1,11 @@
 import PySimpleGUI as sg
 import os
 import sys
+import json
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from funcionalidad import actualizar_datos
 from pantallas import nuevo_perfil
 from pantallas import menu_principal
 
@@ -54,7 +56,7 @@ def generar_ventana_de_inicio(datos):
     layout=layout_inicio(datos,True)
     return sg.Window("UNLPImage",layout,margins=(200, 150))
 
-def manejar_eventos_mas_perfiles(keys,datos):
+def manejar_eventos_mas_perfiles(datos,keys):
     '''Maneja los eventos de la ventana que muestra todos los perfiles'''
     mas_perfiles=mostrar_mas_perfiles(datos)
     while True:
@@ -64,15 +66,45 @@ def manejar_eventos_mas_perfiles(keys,datos):
                 sys.exit()
             case "-VER MENOS-":
                 mas_perfiles.close()
+                eventos_inicio()
                 break
             case "-AGREGAR PERFIL-":
-                mas_perfiles.hide()
+                mas_perfiles.close()
                 nuevo_perfil.ventana_nuevo_perfil()
+                break
         if evento in keys:
             menu=menu_principal.ventana_menu(datos[evento])
-            mas_perfiles.hide()
+            mas_perfiles.close()
             menu_principal.eventos_menu_principal(menu)
-            mas_perfiles.un_hide()
+
+def eventos_inicio():
+    '''Maneja los eventos de la ventana de inicio, cuando se invoca se lee
+    el archivo json de perfiles para mostrar correctamente los perfiles en
+    la pantalla de inicio
+    '''
+    datos,keys=actualizar_datos.actulizar_data()
+
+    ventana_de_inicio=generar_ventana_de_inicio(datos)
+
+    while True:
+        evento, valores = ventana_de_inicio.read()
+        match evento:
+            case sg.WIN_CLOSED:
+                ventana_de_inicio.close()
+                break
+            case "-AGREGAR PERFIL-":
+                ventana_de_inicio.close()
+                nuevo_perfil.ventana_nuevo_perfil()
+                break
+            case "-VER MAS-":
+                ventana_de_inicio.close()
+                manejar_eventos_mas_perfiles(datos,keys)
+                break
+        if evento in keys:
+            ventana_de_inicio.close()
+            menu=menu_principal.ventana_menu(datos[evento])
+            menu_principal.eventos_menu_principal(menu)
+            break
 
 if __name__ =="__main__":
-     generar_ventana_de_inicio([])
+     eventos_inicio()
