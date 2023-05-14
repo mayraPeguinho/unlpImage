@@ -100,7 +100,10 @@ def pantalla_etiquetar(usuario):
                     sg.popup_error("¡No tienes permisos para acceder a esa carpeta!")
                             
             if event == 'Modificar':
-                imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, "r")
+                try:
+                    imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, "r")
+                except:
+                    sg.popup_error("¡No has seleccionado ninguna imagen!")
             if event == 'Guardar':
                 try:
                     imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, "w")
