@@ -10,123 +10,13 @@
         "Avatar": "avatar.png"
     },
     {
-        "Usuario": "aa",
-        "Nombre": "fran",
-        "Edad": "23",
-        "Genero": [
-            "Femenino"
-        ],
-        "Especificar genero": "-",
-        "Avatar": "avatar.png"
-    },
-    {
-        "Usuario": "fds",
-        "Nombre": "asd",
-        "Edad": "11",
-        "Genero": [
-            "Otro"
-        ],
-        "Especificar genero": "no binario",
-        "Avatar": "tierra.png"
-    },
-    {
-        "Usuario": "otro",
-        "Nombre": "sad",
-        "Edad": "12",
-        "Genero": [
-            "Masculino"
-        ],
-        "Especificar genero": "-",
-        "Avatar": "avatar.png"
-    },
-    {
-        "Usuario": "ad",
-        "Nombre": "dsa",
-        "Edad": "2",
-        "Genero": [
-            "Masculino"
-        ],
-        "Especificar genero": "-",
-        "Avatar": "avatar.png"
-    },
-    {
-        "Usuario": "nuevo_perfil",
-        "Nombre": "ad",
-        "Edad": "11",
-        "Genero": [
-            "Masculino"
-        ],
-        "Especificar genero": "-",
-        "Avatar": "tierra.png"
-    },
-    {
-        "Usuario": "dd",
-        "Nombre": "dd",
-        "Edad": "11",
-        "Genero": [
-            "Femenino"
-        ],
-        "Especificar genero": "-",
-        "Avatar": "avatar.png"
-    },
-    {
-        "Usuario": "Hola",
-        "Nombre": "Si",
-        "Edad": "32",
-        "Genero": [
-            "Femenino"
-        ],
-        "Especificar genero": "-",
-        "Avatar": "avatar.png"
-    },
-    {
-        "Usuario": "df",
-        "Nombre": "saf",
-        "Edad": "2",
-        "Genero": [
-            "Masculino"
-        ],
-        "Especificar genero": "-",
-        "Avatar": "avatar.png"
-    },
-    {
-        "Usuario": "dsa",
-        "Nombre": "das",
+        "Usuario": "otro fran",
+        "Nombre": "otro",
         "Edad": "12",
         "Genero": [
             "Femenino"
         ],
         "Especificar genero": "-",
-        "Avatar": "tierra.png"
-    },
-    {
-        "Usuario": "dsasd",
-        "Nombre": "32",
-        "Edad": "21",
-        "Genero": [
-            "Masculino"
-        ],
-        "Especificar genero": "-",
-        "Avatar": "tierra.png"
-    },
-    {
-        "Usuario": "13",
-        "Nombre": "dsz",
-        "Edad": "21",
-        "Genero": [
-            "Otro"
-        ],
-        "Especificar genero": "das",
-        "Avatar": "tierra.png"
-    },
-    {
-        "Usuario": "dsasda",
-        "Nombre": "13",
-        "Edad": "12",
-        "Genero": [
-            "Masculino"
-        ],
-        "Especificar genero": "-",
-        "Avatar": "tierra.png"
+        "Avatar": "avatar.png"
     }
 ]

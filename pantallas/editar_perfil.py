@@ -13,25 +13,25 @@ def ventana_editar_perfil(perfil_actual):
 
     ruta_imagen = os.path.join(os.getcwd(), "imagenes", "imagenes_perfil", "avatar.png")
 
-    ruta_archivo = os.path.join(os.getcwd(), "datos", "perfil_nuevo.json")
+    ruta_archivo = os.path.join(os.getcwd(), "datos", "nuevo_perfil.json")
 
     columna_izquierda = [
         [sg.Text("Editar perfil")],
         [sg.Text("Nombre:")],
-        [sg.InputText(key="-NOMBRE-")],
+        [sg.InputText(key='Nombre')],
         [sg.Text("Edad:")],
-        [sg.Input(key="-EDAD-", size=(10,))],
+        [sg.Input(key="Edad", size=(10,))],
         [sg.Text("Genero:")],
         [
             sg.Listbox(
                 ["Masculino", "Femenino", "Otro"],
                 no_scrollbar=False,
                 s=(15, 3),
-                key="-GENERO-",
+                key="Genero",
             )
         ],
         [sg.Text("Especificar genero:")],
-        [sg.InputText(key="-ESPECIFICAR_GENERO-")],
+        [sg.InputText(key="Especificar genero")],
         [sg.Button("Guardar", key="-GUARDAR-"), sg.Button("Volver", key="-VOLVER-")],
     ]
 
@@ -42,6 +42,7 @@ def ventana_editar_perfil(perfil_actual):
                 source=ruta_imagen,
                 key=("-AVATAR-"),
                 size=(60, 60),
+                subsample=3,
                 pad=((125, 125), (0, 0)),
             )
         ],
@@ -64,12 +65,13 @@ def ventana_editar_perfil(perfil_actual):
         ]
     ]
 
-    window = sg.Window("Editar perfil", layout)
+    window = sg.Window("Editar perfil", layout, finalize=True)
+
+    if (perfil_actual is not None):
+        mostrar_perfil(perfil_actual,window)
 
     while True:
         event, values = window.read()
-
-        mostrar_perfil(perfil_actual)
 
         if event == "-VOLVER-":
             window.close()
@@ -81,18 +83,28 @@ def ventana_editar_perfil(perfil_actual):
             window["-AVATAR-"].update(
                 source=filename,
                 size=(60, 60),
+                subsample=3,
             )
 
         elif event == "-GUARDAR-":
             
             perfil_modificado = modificar_perfil(perfil_actual,values)
 
+            datos_agregar = []
+            try:
+                with open(ruta_archivo, "r", encoding="UTF-8") as archivo:
+                    datos_agregar = json.load(archivo)
+            except (FileNotFoundError, PermissionError, json.JSONDecodeError):
+                pass
+
+            datos_agregar.append(perfil_modificado)
+
             with open(ruta_archivo, "w") as archivo:
                 json.dump(perfil_modificado, archivo, indent=4)
                 print("Se modifico el perfil")
             return perfil_modificado
         
-    return perfil_actual
+        return perfil_actual
 
 if __name__ == "__main__":
-    ventana_editar_perfil()
+    ventana_editar_perfil(menu_principal.perfil_actual)

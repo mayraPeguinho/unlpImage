@@ -1,23 +1,27 @@
 import os
 
-def mostrar_perfil(perfil_actual):
+def mostrar_perfil(perfil_actual,window):
     """ Guardo los valores del perfil"""
+        
+    window['Nombre'].update(perfil_actual['Nombre']),
+    window['Edad'].update(perfil_actual['Edad']),
+    window['Genero'].update(perfil_actual['Genero']),
+    window['Especificar genero'].update(perfil_actual['Especificar genero']),
+    window['-BROWSE-'].update(perfil_actual['Avatar']),
 
-    perfil = {
-        "Nombre": perfil_actual["-NOMBRE-"],
-        "Edad": perfil_actual["-EDAD-"],
-        "Genero": perfil_actual["-GENERO-"],
-        "Especificar genero": perfil_actual["-ESPECIFICAR_GENERO-"],
-        "Avatar": perfil_actual["-BROWSE-"],
-    }
-    return perfil
+    return(window)
+    
+    
 
-def modificar_perfil(perfil_actual, cambios_perfil):
+
+def modificar_perfil(cambios_perfil):
+    """ Le asigno al perfil actual los nuevo valores actualizados"""
+    
     cambios_perfil = {
-        perfil_actual['-NOMBRE-']: cambios_perfil['-NOMBRE-'],
-        perfil_actual['-EDAD-']: cambios_perfil['-EDAD-'],
-        perfil_actual['-GENERO-']: cambios_perfil['-GENERO-'],
-        perfil_actual['-ESPECIFICAR_GENERO-']: cambios_perfil['-ESPECIFICAR_GENERO-'],
-        perfil_actual['-BROWSE-']: os.path.basename(cambios_perfil['-BROWSE-']),
+        'Nombre': cambios_perfil['Nombre'],
+        'Edad': cambios_perfil['Edad'],
+        'Genero': cambios_perfil['Genero'],
+        'Especificar genero': cambios_perfil['Especificar genero'],
+        'Avatar': os.path.basename(cambios_perfil['-BROWSE-']),
     }
     return cambios_perfil
