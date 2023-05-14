@@ -1,5 +1,5 @@
 {
-    "repositorio_imagenes": "imagenes\\repositorio_imagenes",
-    "directorio_collages": "imagenes\\repositorio_imagenes",
-    "directorio_memes": "imagenes\\repositorio_imagenes"
+    "repositorio_imagenes": "imagenes/repositorio_imagenes",
+    "directorio_collages": "imagenes/repositorio_imagenes",
+    "directorio_memes": "imagenes/repositorio_imagenes"
 }

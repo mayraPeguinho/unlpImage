@@ -8,7 +8,7 @@ def pantalla_configuracion(usuario):
     # Obtengo la ruta del directorio padre de este archivo
     DIRECTORIO_PADRE = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-    # Agrego el directorio raiz a la ruta de búsqueda de módulos
+    #Agrego el directorio raiz a la ruta de búsqueda de módulos
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
     from funcionalidad import configuracion as conf 
 
@@ -52,4 +52,4 @@ def pantalla_configuracion(usuario):
                 sg.popup("La configuración se ha guardado correctamente")
 
 if __name__ =="__main__":
-    pantalla_configuracion(usuario)
+    pantalla_configuracion("null")
