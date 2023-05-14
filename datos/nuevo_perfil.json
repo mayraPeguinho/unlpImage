@@ -2,19 +2,9 @@
     {
         "Usuario": "fran",
         "Nombre": "fran",
-        "Edad": "23",
-        "Genero": [
-            "Masculino"
-        ],
-        "Especificar genero": "-",
-        "Avatar": "avatar.png"
-    },
-    {
-        "Usuario": "otro fran",
-        "Nombre": "otro",
         "Edad": "12",
         "Genero": [
-            "Femenino"
+            "Masculino"
         ],
         "Especificar genero": "-",
         "Avatar": "avatar.png"

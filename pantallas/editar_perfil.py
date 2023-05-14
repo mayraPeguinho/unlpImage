@@ -7,6 +7,7 @@ from PIL import Image
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from funcionalidad.editar_perfil import *
+from funcionalidad.nuevo_perfil import *
 from pantallas import menu_principal
 
 def ventana_editar_perfil(perfil_actual):
@@ -87,17 +88,16 @@ def ventana_editar_perfil(perfil_actual):
             )
 
         elif event == "-GUARDAR-":
-            
-            perfil_modificado = modificar_perfil(perfil_actual,values)
 
-            datos_agregar = []
             try:
                 with open(ruta_archivo, "r", encoding="UTF-8") as archivo:
-                    datos_agregar = json.load(archivo)
+                    perfiles = json.load(archivo)
             except (FileNotFoundError, PermissionError, json.JSONDecodeError):
                 pass
-
-            datos_agregar.append(perfil_modificado)
+            
+            perfil_modificado = modificar_perfil(perfil_actual,values)
+            print(perfil_modificado)
+            
 
             with open(ruta_archivo, "w") as archivo:
                 json.dump(perfil_modificado, archivo, indent=4)
@@ -105,6 +105,7 @@ def ventana_editar_perfil(perfil_actual):
             return perfil_modificado
         
         return perfil_actual
+        
 
 if __name__ == "__main__":
     ventana_editar_perfil(menu_principal.perfil_actual)

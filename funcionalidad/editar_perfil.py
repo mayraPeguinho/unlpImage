@@ -12,16 +12,13 @@ def mostrar_perfil(perfil_actual,window):
     return(window)
     
     
-
-
-def modificar_perfil(cambios_perfil):
+def modificar_perfil(perfil_actual,cambios_perfil):
     """ Le asigno al perfil actual los nuevo valores actualizados"""
+
+    perfil_actual['Nombre'] = cambios_perfil['Nombre']
+    perfil_actual['Edad'] = cambios_perfil['Edad']
+    perfil_actual['Genero'] = cambios_perfil['Genero']
+    perfil_actual['Especificar genero'] = cambios_perfil['Especificar genero']
+    perfil_actual['Avatar'] = os.path.basename(cambios_perfil['-BROWSE-'])
     
-    cambios_perfil = {
-        'Nombre': cambios_perfil['Nombre'],
-        'Edad': cambios_perfil['Edad'],
-        'Genero': cambios_perfil['Genero'],
-        'Especificar genero': cambios_perfil['Especificar genero'],
-        'Avatar': os.path.basename(cambios_perfil['-BROWSE-']),
-    }
-    return cambios_perfil
+    return perfil_actual
