@@ -96,12 +96,19 @@ def ventana_editar_perfil(perfil_actual):
                 pass
             
             perfil_modificado = modificar_perfil(perfil_actual,values)
-            print(perfil_modificado)
-            
+            #print(type(perfil_modificado))
+
+            for usuarios in perfiles:
+                if usuarios['Usuario'] == perfil_modificado['Usuario']:      
+                    usuarios = perfil_modificado
 
             with open(ruta_archivo, "w") as archivo:
-                json.dump(perfil_modificado, archivo, indent=4)
+                json.dump(perfiles, archivo, indent=4)
                 print("Se modifico el perfil")
+
+            print(perfiles)
+            
+
             return perfil_modificado
         
         return perfil_actual
