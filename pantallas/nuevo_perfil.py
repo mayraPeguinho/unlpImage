@@ -5,6 +5,7 @@ from PIL import Image
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from funcionalidad import etiquetar_imagenes
 from funcionalidad.verificar_input import falta_completar_campos
 from funcionalidad.nuevo_perfil import *
 from pantallas import menu_principal
@@ -84,11 +85,8 @@ def ventana_nuevo_perfil():
 
         elif event == "-BROWSE-":
             filename = values["-BROWSE-"]
-            window["-AVATAR-"].update(
-                source= filename,
-                size=(300, 300),
-                subsample=3,
-            )
+            datavisual_imagen = etiquetar_imagenes.mostrar_imagen(filename)
+            window["-AVATAR-"].update(data=datavisual_imagen)
 
         elif event == "-GUARDAR-":
                 llenar_solo(values)
