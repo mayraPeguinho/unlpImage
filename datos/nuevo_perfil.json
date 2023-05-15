@@ -1,20 +1,20 @@
 [
     {
-        "Usuario": "Hola",
-        "Nombre": "Pato",
-        "Edad": "12",
-        "Genero": [],
-        "Especificar genero": "-",
-        "Avatar": "tierra.png"
-    },
-    {
-        "Usuario": "Buenos Dias",
-        "Nombre": "Soy",
+        "Usuario": "fran",
+        "Nombre": "faraa",
         "Edad": "12",
         "Genero": [
             "Femenino"
         ],
         "Especificar genero": "-",
         "Avatar": "avatar.png"
+    },
+    {
+        "Usuario": "qqq",
+        "Nombre": "qq",
+        "Edad": "54",
+        "Genero": [],
+        "Especificar genero": "-",
+        "Avatar": "tierra.png"
     }
 ]
