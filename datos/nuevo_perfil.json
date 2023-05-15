@@ -1,0 +1,18 @@
+[
+    {
+        "Usuario": "Juan",
+        "Nombre": "Lorenzo",
+        "Edad": "12",
+        "Genero": "Masculino",
+        "Especificar genero": "-",
+        "Avatar": "tierra.png"
+    },
+    {
+        "Usuario": "Maria",
+        "Nombre": "Maria",
+        "Edad": "24",
+        "Genero": "Femenino",
+        "Especificar genero": "-",
+        "Avatar": "mujer.png"
+    }
+]

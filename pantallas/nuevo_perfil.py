@@ -55,7 +55,7 @@ def ventana_nuevo_perfil():
                 key=("-BROWSE-"),
                 change_submits=True,
                 enable_events=True,
-                file_types=(("Archivo de tipos", "*.png;*.jpg;*.jpeg;*.gif"),),
+                #file_types=(("Archivo de tipos", "*.png;*.jpg;*.jpeg;*.gif"),),
                 size=(20, 2),
             ),
         ],
@@ -85,8 +85,7 @@ def ventana_nuevo_perfil():
 
         elif event == "-BROWSE-":
             filename = values["-BROWSE-"]
-            datavisual_imagen = etiquetar_imagenes.mostrar_imagen(filename)
-            window["-AVATAR-"].update(data=datavisual_imagen,
+            window["-AVATAR-"].update(filename,
             size=(300, 300),
             subsample=3,
             )
