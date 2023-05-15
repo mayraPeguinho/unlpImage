@@ -107,9 +107,10 @@ def ventana_editar_perfil(perfil_actual):
                 json.dump(perfiles, archivo, indent=4)
                 print("Se modifico el perfil")
 
+            window.close()
             return perfil_modificado
         
-        return perfil_actual
+    return perfil_actual
         
 
 if __name__ == "__main__":

@@ -14,4 +14,5 @@ def actulizar_data():
         keys=list(map(lambda i: i, range(data.__len__())))
     except (FileNotFoundError,PermissionError,json.JSONDecodeError):
         data=[]
+        keys=[]
     return data,keys

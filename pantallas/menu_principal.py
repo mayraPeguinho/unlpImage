@@ -28,7 +28,7 @@ def generar_ventana_de_ayuda():
 def ventana_menu(perfil_actual):
     '''Esta funcion define la ventana de menu. '''
     ruta_imagenes_perfil=os.path.join(os.getcwd(),'imagenes','imagenes_perfil')
-    columna1=[[sg.Button(image_source=os.path.join(ruta_imagenes_perfil,perfil_actual["Avatar"]),
+    columna1=[[sg.Button(image_filename=os.path.join(ruta_imagenes_perfil,perfil_actual["Avatar"]),
                          image_size=(80,80),
                          image_subsample=3,
                          key="-VENTANA EDITAR PERFIL-")],
@@ -79,7 +79,12 @@ def eventos_menu_principal(menu):
             case "-VENTANA EDITAR PERFIL-":
                 menu.hide()
                 menu.metadata["perfil_actual"]=editar_perfil.ventana_editar_perfil(menu.metadata["perfil_actual"])
-                menu["-VENTANA EDITAR PERFIL-"].update("")
+                ruta_imagenes_perfil=os.path.join(os.getcwd(),'imagenes','imagenes_perfil')
+                menu["-VENTANA EDITAR PERFIL-"].update(
+                    image_filename=os.path.join(ruta_imagenes_perfil,menu.metadata["perfil_actual"]["Avatar"]),
+                    image_size=(80,80),
+                    image_subsample=3
+                    )
                 menu.un_hide()
 
 if __name__ =="__main__":

@@ -22,8 +22,6 @@ def mostrar_perfiles(datos):
                                    [sg.Text(elemento["Usuario"],justification="center")]
                                   ])
                         )
-
-    #perfiles=list(map(lambda numero,elemento: sg.Column([[sg.Button(image_source=os.path.join(ruta_repositorio_imagenes,elemento["Avatar"]),image_size=(80,80),image_subsample=3,key=numero)],[sg.Text(elemento["Usuario"])]]), enumerate(datos())))
     return perfiles
 
 def layout_inicio(datos,no_desplegar=True):
