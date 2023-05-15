@@ -28,7 +28,6 @@ def ventana_nuevo_perfil():
         [
             sg.Listbox(
                 ['Masculino','Femenino','Otro'],
-                select_mode='multiple',
                 no_scrollbar=False,
                 s=(15, 3),
                 key="-GENERO-",
@@ -53,9 +52,9 @@ def ventana_nuevo_perfil():
             sg.FileBrowse(
                 "Seleccionar Imagen",
                 key=("-BROWSE-"),
-               # file_types=(("Image Files", "*.png;*.jpg;*.jpeg;*.gif"),),
                 change_submits=True,
                 enable_events=True,
+                file_types=(("Archivo de tipos", "*.png;*.jpg;*.jpeg;*.gif"),),
                 size=(20, 2),
             ),
         ],
