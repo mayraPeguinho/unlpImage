@@ -54,6 +54,7 @@ def ventana_nuevo_perfil():
                 "Seleccionar Imagen",
                 key=("-BROWSE-"),
                # file_types=(("Image Files", "*.png;*.jpg;*.jpeg;*.gif"),),
+                change_submits=True,
                 enable_events=True,
                 size=(20, 2),
             ),

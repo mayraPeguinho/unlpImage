@@ -12,7 +12,8 @@ from pantallas import menu_principal
 
 def ventana_editar_perfil(perfil_actual):
 
-    ruta_imagen = os.path.join(os.getcwd(), "imagenes", "imagenes_perfil", "avatar.png")
+    ruta_imagenes_perfil= os.path.join(os.getcwd(),'imagenes','imagenes_perfil')
+    image_filename=os.path.join(ruta_imagenes_perfil,perfil_actual["Avatar"])
 
     ruta_archivo = os.path.join(os.getcwd(), "datos", "nuevo_perfil.json")
 
@@ -26,6 +27,7 @@ def ventana_editar_perfil(perfil_actual):
         [
             sg.Listbox(
                 ["Masculino", "Femenino", "Otro"],
+                default_values=[perfil_actual['Genero']],
                 no_scrollbar=False,
                 s=(15, 3),
                 key="Genero",
@@ -40,9 +42,9 @@ def ventana_editar_perfil(perfil_actual):
     columna_derecha = [
         [
             sg.Image(
-                source=ruta_imagen,
+                source=image_filename,
                 key=("-AVATAR-"),
-                size=(60, 60),
+                size=(300, 300),
                 subsample=3,
                 pad=((125, 125), (0, 0)),
             )
@@ -68,6 +70,7 @@ def ventana_editar_perfil(perfil_actual):
 
     window = sg.Window("Editar perfil", layout, finalize=True)
 
+    
     if (perfil_actual is not None):
         mostrar_perfil(perfil_actual,window)
 
@@ -83,7 +86,7 @@ def ventana_editar_perfil(perfil_actual):
             filename = values["-BROWSE-"]
             window["-AVATAR-"].update(
                 source=filename,
-                size=(60, 60),
+                size=(300, 300),
                 subsample=3,
             )
 
@@ -96,11 +99,10 @@ def ventana_editar_perfil(perfil_actual):
                 pass
             
             perfil_modificado = modificar_perfil(perfil_actual,values)
-            #print(type(perfil_modificado))
 
-            for index, perfil in enumerate(perfiles):
+            for pos, perfil in enumerate(perfiles):
                 if perfil['Usuario'] == perfil_modificado['Usuario']:      
-                    perfiles[index] = perfil_modificado
+                    perfiles[pos] = perfil_modificado
                     break
             
             with open(ruta_archivo, "w") as archivo:

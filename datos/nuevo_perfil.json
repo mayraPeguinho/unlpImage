@@ -1,20 +1,18 @@
 [
     {
         "Usuario": "fran",
-        "Nombre": "faraa",
-        "Edad": "12",
-        "Genero": [
-            "Femenino"
-        ],
+        "Nombre": "faraab",
+        "Edad": "53",
+        "Genero": "Femenino",
         "Especificar genero": "-",
         "Avatar": "avatar.png"
     },
     {
         "Usuario": "qqq",
         "Nombre": "qqq",
-        "Edad": "55",
+        "Edad": "54",
         "Genero": [],
         "Especificar genero": "-",
-        "Avatar": "tierra.png"
+        "Avatar": "avatar.png"
     }
 ]
