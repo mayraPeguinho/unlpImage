@@ -86,7 +86,10 @@ def ventana_nuevo_perfil():
         elif event == "-BROWSE-":
             filename = values["-BROWSE-"]
             datavisual_imagen = etiquetar_imagenes.mostrar_imagen(filename)
-            window["-AVATAR-"].update(data=datavisual_imagen)
+            window["-AVATAR-"].update(data=datavisual_imagen,
+            size=(300, 300),
+            subsample=3,
+            )
 
         elif event == "-GUARDAR-":
                 llenar_solo(values)
