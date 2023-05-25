@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 import sys
 import os
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from pantallas import generador_memes
 from pantallas import generador_collage
