@@ -5,15 +5,17 @@ from PIL import Image
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from funcionalidad import etiquetar_imagenes
 from funcionalidad.verificar_input import falta_completar_campos
 from funcionalidad.nuevo_perfil import *
 from pantallas import menu_principal
 from pantallas import inicio
+import rutas as r
 
 
 def ventana_nuevo_perfil():
 
+    # ruta_archivo=r.archivo_perfiles_json
+    # ruta_avatares= os.path.join(r.ruta_imagenes_perfil,'avatar.png')
     ruta_archivo = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'nuevo_perfil.json')
     ruta_avatares = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'imagenes', 'imagenes_perfil')), 'avatar.png')
 

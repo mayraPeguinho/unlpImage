@@ -1,21 +1,21 @@
 import PySimpleGUI as sg
 import os
 import sys
-import json
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from funcionalidad import actualizar_datos
+from funcionalidad import constantes
+from funcionalidad.actualizar_datos import actulizar_data
 from pantallas import nuevo_perfil
 from pantallas import menu_principal
+import rutas as r
 
 def mostrar_perfiles(datos):
     '''Esta funcion carga los diferentes perfiles creados previamente
        en diferentes botones que seran mostrados luego en la ventana de inicio.'''
-    ruta_imagenes_perfil=os.path.join(os.getcwd(),'imagenes','imagenes_perfil')
     perfiles=[]
     for numero,elemento in enumerate(datos): 
-        perfiles.append(sg.Column([[sg.Button(image_source=os.path.join(ruta_imagenes_perfil,elemento["Avatar"]),
+        perfiles.append(sg.Column([[sg.Button(image_source=os.path.join(r.ruta_imagenes_perfil,elemento["Avatar"]),
                                               image_size=(80,80),
                                               image_subsample=3,
                                               key=numero)],
@@ -30,16 +30,16 @@ def layout_inicio(datos,no_desplegar=True):
     perfiles=mostrar_perfiles(datos)
     if(perfiles==[]):
          layout=[[sg.Button("+",key="-AGREGAR PERFIL-")]]
-    elif(perfiles.__len__()<=4):
+    elif(perfiles.__len__() <= constantes.CANTIDAD_PERFILES):
         perfiles.append(sg.Button("+",key="-AGREGAR PERFIL-"))
         layout=[[perfiles]]
-    elif (4<perfiles.__len__()) and no_desplegar:
-        layout = [[perfiles[0],perfiles[1],perfiles[2],perfiles[3],sg.Button("+",key="-AGREGAR PERFIL-")]]
-        layout.append([sg.Button("Ver más",key="-VER MAS-")])
-    elif (4<perfiles.__len__()) and not(no_desplegar):
+    elif (constantes.CANTIDAD_PERFILES < perfiles.__len__()) and no_desplegar:
+        layout = [[perfiles[0],perfiles[1],perfiles[2],perfiles[3],sg.Button("+",key="-AGREGAR PERFIL-")],
+                  [sg.Button("Ver más",key="-VER MAS-")]]
+    elif (constantes.CANTIDAD_PERFILES < perfiles.__len__()) and not(no_desplegar):
         perfiles.append(sg.Button("+",key="-AGREGAR PERFIL-"))
-        layout = [[perfiles]]
-        layout.append([sg.Button("Ver menos",key="-VER MENOS-")])
+        layout = [[perfiles],
+                  [sg.Button("Ver menos",key="-VER MENOS-")]]
     return layout
 
 def mostrar_mas_perfiles(datos):
@@ -80,7 +80,7 @@ def eventos_inicio():
     el archivo json de perfiles para mostrar correctamente los perfiles en
     la pantalla de inicio
     '''
-    datos,keys=actualizar_datos.actulizar_data()
+    datos,keys=actulizar_data()
 
     ventana_de_inicio=generar_ventana_de_inicio(datos)
 

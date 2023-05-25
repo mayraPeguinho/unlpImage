@@ -4,13 +4,13 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from pantallas import menu_principal
 from pantallas import generador_memes
 from pantallas import generador_collage
 from pantallas import etiquetar_imagenes
 from pantallas import configuracion
 from pantallas import editar_perfil
 from pantallas import inicio
+import rutas as r
 
 def generar_ventana_de_ayuda():
     '''Esta funcion define la ventana de ayuda
@@ -27,8 +27,7 @@ def generar_ventana_de_ayuda():
 
 def ventana_menu(perfil_actual):
     '''Esta funcion define la ventana de menu. '''
-    ruta_imagenes_perfil=os.path.join(os.getcwd(),'imagenes','imagenes_perfil')
-    columna1=[[sg.Button(image_filename=os.path.join(ruta_imagenes_perfil,perfil_actual["Avatar"]),
+    columna1=[[sg.Button(image_filename=os.path.join(r.ruta_imagenes_perfil,perfil_actual["Avatar"]),
                          image_size=(80,80),
                          image_subsample=3,
                          key="-VENTANA EDITAR PERFIL-")],
@@ -59,7 +58,7 @@ def eventos_menu_principal(menu):
                 inicio.eventos_inicio()
                 break
             case "-VENTANA AYUDA-":
-                menu_principal.generar_ventana_de_ayuda()
+                generar_ventana_de_ayuda()
             case "-VENTANA MEME-":
                 menu.hide()
                 generador_memes.generar_meme()
@@ -79,9 +78,8 @@ def eventos_menu_principal(menu):
             case "-VENTANA EDITAR PERFIL-":
                 menu.hide()
                 menu.metadata["perfil_actual"]=editar_perfil.ventana_editar_perfil(menu.metadata["perfil_actual"])
-                ruta_imagenes_perfil=os.path.join(os.getcwd(),'imagenes','imagenes_perfil')
                 menu["-VENTANA EDITAR PERFIL-"].update(
-                    image_filename=os.path.join(ruta_imagenes_perfil,menu.metadata["perfil_actual"]["Avatar"]),
+                    image_filename=os.path.join(r.ruta_imagenes_perfil,menu.metadata["perfil_actual"]["Avatar"]),
                     image_size=(80,80),
                     image_subsample=3
                     )

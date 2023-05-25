@@ -3,9 +3,9 @@
         "Usuario": "Juan",
         "Nombre": "Lorenzo",
         "Edad": "12",
-        "Genero": "Masculino",
+        "Genero": "Femenino",
         "Especificar genero": "-",
-        "Avatar": "tierra.png"
+        "Avatar": "mujer.png"
     },
     {
         "Usuario": "Maria",
@@ -13,6 +13,30 @@
         "Edad": "24",
         "Genero": "Femenino",
         "Especificar genero": "-",
-        "Avatar": "mujer.png"
+        "Avatar": "hombre_traje.png"
+    },
+    {
+        "Usuario": "Buenas",
+        "Nombre": "Holiester",
+        "Edad": "32",
+        "Genero": "Otro",
+        "Especificar genero": "No Binario",
+        "Avatar": "avatar.png"
+    },
+    {
+        "Usuario": "Juoa",
+        "Nombre": "Sal",
+        "Edad": "21",
+        "Genero": "Femenino",
+        "Especificar genero": "-",
+        "Avatar": "avatar.png"
+    },
+    {
+        "Usuario": "Kala",
+        "Nombre": "Buenas",
+        "Edad": "29",
+        "Genero": "Masculino",
+        "Especificar genero": "-",
+        "Avatar": "tierra.png"
     }
 ]
