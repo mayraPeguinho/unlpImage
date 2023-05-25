@@ -16,7 +16,13 @@ def imagen_tostring(datos):
     return str
 
 
+def crear_csv(ruta_csv):
+    """Crea el archivo CSV de imagenes etiquetadas en caso de que este no exista"""
 
+    columnas = ['ruta_imagen', 'descripcion', 'tags', 'resolucion', 'mimetype', 'tamaño', 'ultima_actualizacion', 'ultimo_perfil']
+    with open(ruta_csv, mode='w', newline='', encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerow(columnas)
 
 def guardar_data(ruta, data, usuario_actual):
     """Guarda los datos de la imagen en el archivo csv"""
@@ -66,14 +72,9 @@ def actualizar_descytags(csv_archivo, ruta):
         tags = "Sin tags"
         #Busco la fila en el csv
         for datos_fila in contenido_csv:
-            #si encuentro la fila
-            
+            #si encuentro la fila          
             try: 
-                print(ruta)
-                print(datos_fila[0])
                 if (ruta == datos_fila[0]):
-                    print(ruta)
-                    print(datos_fila[0])
                     # me guardo los datos de la imagen y dejo de recorrer el csv
                     descripcion = datos_fila[1] 
                     tags = datos_fila[2]
@@ -87,7 +88,6 @@ def traer_data(usuario, values, csv_archivo, mode):
     """Retorna y actualiza los valores de la imagen que deben mostrarse y/o editarse."""
     # traigo la ruta de la imagen
     ruta_imagen = values['-TREE-'][0].replace("\\", "/")
-    print("ruta imagen: ", ruta_imagen)
     # la abro
     imagen = Image.open(ruta_imagen)
     #Extraigo la resolución antes de cambiarla

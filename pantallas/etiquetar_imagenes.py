@@ -23,12 +23,16 @@ def pantalla_etiquetar(usuario):
 
     #Declaro la ruta del csv de donde leo y guardo los datos de las imagenes
     ruta_csv = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'imagenes_etiquetadas.csv')
-
+    
+    #En caso de que el archivo no exista, lo creo
+    if not os.path.isfile(ruta_csv):
+        etiquetar_imagenes.crear_csv(ruta_csv)
+      
     #para poder mostrar los archivos en forma de cascada hay que usar un objeto "treedata" incluído en PySimplegui
     #lo extraje de la documentación oficinal de sg
     treedata = sg.TreeData()
 
-
+    #Creo el arbol visual de archivos. 
     def add_files_in_folder(parent, dirname):
         files = os.listdir(dirname)
         for f in files:
@@ -96,6 +100,8 @@ def pantalla_etiquetar(usuario):
                     window["-DESCRIPCION-"].update(etiquetar_imagenes.imagen_tostring(imagen_data))  
                 except PIL.UnidentifiedImageError:
                     sg.popup_error("¡No es una imagen!")
+                except IsADirectoryError:
+                    sg.popup_error("¡Es un directorio!")
                 except PermissionError:
                     sg.popup_error("¡No tienes permisos para acceder a esa carpeta!")
                             
