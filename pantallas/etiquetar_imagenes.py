@@ -98,12 +98,13 @@ def pantalla_etiquetar(usuario):
                 
                 #Chequear que se pueda abrir y tratar la imagen
                 try:
-                    imagen_data = etiquetar_imagenes.traer_data(usuario, values,ruta_csv, values['TagList'], "r")
+                    imagen_data = etiquetar_imagenes.traer_data(usuario, values,ruta_csv, "None", "r")
                     ruta_imagen = imagen_data[0]
                     #Muestro la imagen
                     datavisual_imagen = etiquetar_imagenes.mostrar_imagen(ruta_imagen)
                     window["-IMAGE-"].update(data=datavisual_imagen)
                     window["-DESCRIPCION-"].update(etiquetar_imagenes.imagen_tostring(imagen_data))  
+
                     window['TagList'].update(values=etiquetar_imagenes.actualizar_tags(ruta_csv, ruta_imagen))
                 except PIL.UnidentifiedImageError:
                     sg.popup_error("¡No es una imagen!")
@@ -111,22 +112,19 @@ def pantalla_etiquetar(usuario):
                     pass
                 except PermissionError:
                     sg.popup_error("¡No tienes permisos para acceder a esa carpeta!")
-                            
-            if event == 'Modificar':
-                try:
-                    imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, tags, "r")
-                except:
-                    sg.popup_error("¡No has seleccionado ninguna imagen!")
             if event == 'Agregar':
                 tag = values['Tag']
                 if tag not in tags:
                     tags.append(tag)
                 window['TagList'].update(values=tags)
                 window['Tag'].update('')
-            elif event == 'Eliminar':
+            if event == 'Eliminar':
+                imagen_data = etiquetar_imagenes.traer_data(usuario, values,ruta_csv, "None", "r")
                 selected_tags = values['TagList']
                 tags = [tag for tag in tags if tag not in selected_tags]
                 window['TagList'].update(values=tags)
+                imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, tags, "w")
+                etiquetar_imagenes.guardar_data(ruta_csv, imagen_data, usuario)
             if event == 'Guardar':
                 print(values)
                 try:

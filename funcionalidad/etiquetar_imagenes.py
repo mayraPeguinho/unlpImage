@@ -118,15 +118,18 @@ def traer_data(usuario, values, csv_archivo, lista_tags, mode):
     #Extraigo la resolución antes de cambiarla
     resolucion = imagen.size
     #tipo (mimetype)
-    #invoco a una función que actualiza la descripcion y los tags trayendolos del csv
+    #invoco a una función que actualiza los tags trayendolos del csv
+    tags = actualizar_tags(csv_archivo, ruta_imagen)
     if mode == "r":
-        descripcion = actualizar_desc(csv_archivo, ruta_imagen)
-        tags = actualizar_tags(csv_archivo, ruta_imagen)
+        descripcion = actualizar_desc(csv_archivo, ruta_imagen)   
     else:
         #actualizo la descripción
         descripcion = values['Texto']
         #lista de tags(lo saco de imagen seleccionada)
-        tags = lista_tags
+        if lista_tags != "None":
+            for t in lista_tags:
+                if t not in tags:
+                    tags = tags.append(t)
     #tipo (mimetype)
     mimetype = mimetypes.guess_type(ruta_imagen)[0]
     #tamaño (metadata)
