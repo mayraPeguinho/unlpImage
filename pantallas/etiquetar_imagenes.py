@@ -27,7 +27,6 @@ def pantalla_etiquetar(usuario):
     #En caso de que el archivo no exista, lo creo
     if not os.path.isfile(ruta_csv):
         etiquetar_imagenes.crear_csv(ruta_csv)
-      
     #para poder mostrar los archivos en forma de cascada hay que usar un objeto "treedata" incluído en PySimplegui
     #lo extraje de la documentación oficinal de sg
     treedata = sg.TreeData()
@@ -46,6 +45,7 @@ def pantalla_etiquetar(usuario):
     add_files_in_folder('', starting_path)
 
 
+    tags = []
 
     columna_izquierda = [[sg.Text('Repositorio de imagenes')],
             [sg.Tree(data=treedata,
@@ -59,18 +59,23 @@ def pantalla_etiquetar(usuario):
                     enable_events=True,
                     expand_x=True,
                     expand_y=True,
-                    ),],
-            [sg.Text('Tag:')], 
-            [sg.InputText(key='Tag'),sg.Button('Modificar')],
-            [sg.Text('Texto descriptivo:')], 
-            [sg.InputText(key='Texto'),sg.Button('Modificar')],
+                    )],
+            [sg.Text('Tag:')],
+            [sg.InputText(key='Tag'), sg.Button('Agregar')],
+            [sg.Text('Texto descriptivo:')],
+            [sg.InputText(key='Texto'), sg.Button('Modificar')],
             [sg.Button('Guardar'), sg.Button('Volver')]]
+
+
+
 
 
 
     columna_derecha = [[sg.Text('La imagen que elegiste:')],
                 [sg.Text(size=(40,1), key='-TOUT-')],
                 [sg.Image(key='-IMAGE-', size= (15, 20))],
+                [sg.Text('Tags:')],
+                [sg.Listbox(values=tags, size=(20, 6), key='TagList'), sg.Button('Eliminar')],
                 [sg.Text('Descripción: ', key='-DESCRIPCION-')]]
                 
 
@@ -90,33 +95,47 @@ def pantalla_etiquetar(usuario):
             sys.exit()           
         else:
             if event == '-TREE-':
+                
                 #Chequear que se pueda abrir y tratar la imagen
                 try:
-                    imagen_data = etiquetar_imagenes.traer_data(usuario, values,ruta_csv, "r")
+                    imagen_data = etiquetar_imagenes.traer_data(usuario, values,ruta_csv, values['TagList'], "r")
                     ruta_imagen = imagen_data[0]
                     #Muestro la imagen
                     datavisual_imagen = etiquetar_imagenes.mostrar_imagen(ruta_imagen)
                     window["-IMAGE-"].update(data=datavisual_imagen)
                     window["-DESCRIPCION-"].update(etiquetar_imagenes.imagen_tostring(imagen_data))  
+                    window['TagList'].update(values=etiquetar_imagenes.actualizar_tags(ruta_csv, ruta_imagen))
                 except PIL.UnidentifiedImageError:
                     sg.popup_error("¡No es una imagen!")
                 except IsADirectoryError:
-                    sg.popup_error("¡Es un directorio!")
+                    pass
                 except PermissionError:
                     sg.popup_error("¡No tienes permisos para acceder a esa carpeta!")
                             
             if event == 'Modificar':
                 try:
-                    imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, "r")
+                    imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, tags, "r")
                 except:
                     sg.popup_error("¡No has seleccionado ninguna imagen!")
+            if event == 'Agregar':
+                tag = values['Tag']
+                if tag not in tags:
+                    tags.append(tag)
+                window['TagList'].update(values=tags)
+                window['Tag'].update('')
+            elif event == 'Eliminar':
+                selected_tags = values['TagList']
+                tags = [tag for tag in tags if tag not in selected_tags]
+                window['TagList'].update(values=tags)
             if event == 'Guardar':
+                print(values)
                 try:
-                    imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, "w")
+                    imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, tags, "w")
                     etiquetar_imagenes.guardar_data(ruta_csv, imagen_data, usuario)
                     window["-DESCRIPCION-"].update(etiquetar_imagenes.imagen_tostring(imagen_data))
                 except:
                     sg.popup_error("¡No has seleccionado ninguna imagen!")    
+                
 
 
 

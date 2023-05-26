@@ -1,3 +1,3 @@
 ruta_imagen,descripcion,tags,resolucion,mimetype,tamaño,ultima_actualizacion,ultimo_perfil
-imagenes/repositorio_imagenes/img5.jpg,desc,tagggg,800x1501,image/jpeg,0.29,2023-05-25 20:21:55.962889,Juan
-imagenes/repositorio_imagenes/img8.jpg,desc,tagggg,800x500,image/jpeg,0.04,2023-05-25 20:22:01.845634,Juan
+imagenes/repositorio_imagenes/img2.jpg,nueva descripcion,"['perrito', 'astro']",800x1747,image/jpeg,0.1,2023-05-26 17:47:29.887811,Juan
+imagenes/repositorio_imagenes/img3.jpg,,[],800x1422,image/jpeg,0.12,2023-05-26 17:53:34.111377,Juan

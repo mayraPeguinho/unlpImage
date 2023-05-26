@@ -11,7 +11,7 @@ from funcionalidad import registrar_log as log
 def imagen_tostring(datos):
     """Devuelve un string con la descripción de la imagen."""
 
-    str = (" | {} | {} MB | {} | \nTags: {} \nDescripción: {}".format(datos[4], datos[5], datos[3], datos[2], datos[1]))
+    str = (" | {} | {} MB | {} | \nDescripción: {}".format(datos[4], datos[5], datos[3], datos[1]))
 
     return str
 
@@ -61,7 +61,34 @@ def guardar_data(ruta, data, usuario_actual):
                 writer.writerows(contenido_csv)
 
 #la siguiente función, no funciona. No se porqué.     
-def actualizar_descytags(csv_archivo, ruta):
+
+def actualizar_tags(csv_archivo, ruta):
+    """Retorna los tags"""
+
+    with open(csv_archivo, "r", encoding="utf-8") as archivo:
+        reader = csv.reader(archivo)
+        next(reader)
+        contenido_csv = list(reader)
+        tags = ["Sin tags"]
+        #Busco la fila en el csv
+        for datos_fila in contenido_csv:
+            #si encuentro la fila          
+            try: 
+                if (ruta == datos_fila[0]):
+                    # me guardo los datos de la imagen y dejo de recorrer el csv
+                    tags_crudas = datos_fila[2]
+                    tags = [elemento.strip().replace("'", "") for elemento in tags_crudas.strip("[]").split(",")]
+                    break
+            #si no encuentro la fila, quedan los valores por defecto
+            except: 
+                pass
+    return tags
+
+def eliminar_tag(valores):
+    """Eliminar una tag traída por parámetro"""
+    tags = [tag for tag in tags if tag not in valores]
+    
+def actualizar_desc(csv_archivo, ruta):
     """Chequeo si la imagen ya fué editada para poder mostras sus tags y descripción correctamente""" 
 
     with open(csv_archivo, "r", encoding="utf-8") as archivo:
@@ -69,7 +96,6 @@ def actualizar_descytags(csv_archivo, ruta):
         next(reader)
         contenido_csv = list(reader)
         descripcion = "Sin desripción"
-        tags = "Sin tags"
         #Busco la fila en el csv
         for datos_fila in contenido_csv:
             #si encuentro la fila          
@@ -77,14 +103,13 @@ def actualizar_descytags(csv_archivo, ruta):
                 if (ruta == datos_fila[0]):
                     # me guardo los datos de la imagen y dejo de recorrer el csv
                     descripcion = datos_fila[1] 
-                    tags = datos_fila[2]
                     break
             #si no encuentro la fila, quedan los valores por defecto
             except: 
                 pass
-    return descripcion, tags
+    return descripcion
 
-def traer_data(usuario, values, csv_archivo, mode):
+def traer_data(usuario, values, csv_archivo, lista_tags, mode):
     """Retorna y actualiza los valores de la imagen que deben mostrarse y/o editarse."""
     # traigo la ruta de la imagen
     ruta_imagen = values['-TREE-'][0].replace("\\", "/")
@@ -95,12 +120,13 @@ def traer_data(usuario, values, csv_archivo, mode):
     #tipo (mimetype)
     #invoco a una función que actualiza la descripcion y los tags trayendolos del csv
     if mode == "r":
-        descripcion, tags = actualizar_descytags(csv_archivo, ruta_imagen)
+        descripcion = actualizar_desc(csv_archivo, ruta_imagen)
+        tags = actualizar_tags(csv_archivo, ruta_imagen)
     else:
         #actualizo la descripción
         descripcion = values['Texto']
-        #lista de tags(lo saco de imagen_seleccionada)
-        tags = values['Tag']
+        #lista de tags(lo saco de imagen seleccionada)
+        tags = lista_tags
     #tipo (mimetype)
     mimetype = mimetypes.guess_type(ruta_imagen)[0]
     #tamaño (metadata)
