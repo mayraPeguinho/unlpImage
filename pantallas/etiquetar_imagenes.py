@@ -46,7 +46,7 @@ def pantalla_etiquetar(usuario):
 
 
     
-
+    tags = []
     columna_izquierda = [[sg.Text('Repositorio de imagenes')],
             [sg.Tree(data=treedata,
                     headings=['Tamaño', ],
@@ -75,7 +75,7 @@ def pantalla_etiquetar(usuario):
                 [sg.Text(size=(40,1), key='-TOUT-')],
                 [sg.Image(key='-IMAGE-', size= (15, 20))],
                 [sg.Text('Tags:')],
-                [sg.Listbox(values=[], size=(20, 6), key='TagList'), sg.Button('Eliminar')],
+                [sg.Listbox(values= tags, size=(20, 6), key='TagList'), sg.Button('Eliminar')],
                 [sg.Text('Descripción: ', key='-DESCRIPCION-')]]
                 
 
@@ -117,17 +117,27 @@ def pantalla_etiquetar(usuario):
                 if tag not in tags:
                     tags.append(tag)
                 window['TagList'].update(values=tags)
+                values['TagList'] = tags
             if event == 'Eliminar':
                 tags_seleccionadas = values['TagList'][0] 
                 tags = [tag for tag in tags if tag not in tags_seleccionadas]
                 window['TagList'].update(values=tags)
-            if event == 'Guardar':
+                values['TagList'] = tags
                 
+            if event == 'Modificar':
                 try:
-                    imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, tags, "w")
+                    imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, "d")
+                    window["-DESCRIPCION-"].update(etiquetar_imagenes.imagen_tostring(imagen_data))  
+                except:
+                    sg.popup_error("¡No has seleccionado ninguna imagen!")
+            if event == 'Guardar':
+                try:
+                    window['TagList'].update(values=tags)
+                    values['TagList'] = tags
+                    imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, "w")
                     etiquetar_imagenes.guardar_data(ruta_csv, imagen_data, usuario)
                     window["-DESCRIPCION-"].update(etiquetar_imagenes.imagen_tostring(imagen_data))
-                except:
+                except ImportError:
                     sg.popup_error("¡No has seleccionado ninguna imagen!")    
                 
 

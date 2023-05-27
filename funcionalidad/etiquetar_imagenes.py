@@ -69,7 +69,7 @@ def actualizar_tags(csv_archivo, ruta):
         reader = csv.reader(archivo)
         next(reader)
         contenido_csv = list(reader)
-        tags = ["Sin tags"]
+        tags = []
         #Busco la fila en el csv
         for datos_fila in contenido_csv:
             #si encuentro la fila          
@@ -119,15 +119,19 @@ def traer_data(usuario, values, csv_archivo,  mode):
     resolucion = imagen.size
     #tipo (mimetype)
     #invoco a una función que actualiza los tags trayendolos del csv
-    tags = actualizar_tags(csv_archivo, ruta_imagen)
+    
     if mode == "r":
         descripcion = actualizar_desc(csv_archivo, ruta_imagen)   
         tags = actualizar_tags(csv_archivo, ruta_imagen)
     else:
-        #actualizo la descripción
-        descripcion = values['Texto']
-        #lista de tags(lo saco de imagen seleccionada)
-        tags = values['TagList']
+        if mode =="d":
+            descripcion = actualizar_desc(csv_archivo, ruta_imagen)  
+            tags = values['TagList']
+        else:
+            #actualizo la descripción
+            descripcion = values['Texto']
+            #lista de tags(lo saco de imagen seleccionada)
+            tags = values['TagList']
     #tipo (mimetype)
     mimetype = mimetypes.guess_type(ruta_imagen)[0]
     #tamaño (metadata)
