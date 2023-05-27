@@ -109,7 +109,7 @@ def actualizar_desc(csv_archivo, ruta):
                 pass
     return descripcion
 
-def traer_data(usuario, values, csv_archivo, lista_tags, mode):
+def traer_data(usuario, values, csv_archivo,  mode):
     """Retorna y actualiza los valores de la imagen que deben mostrarse y/o editarse."""
     # traigo la ruta de la imagen
     ruta_imagen = values['-TREE-'][0].replace("\\", "/")
@@ -122,14 +122,12 @@ def traer_data(usuario, values, csv_archivo, lista_tags, mode):
     tags = actualizar_tags(csv_archivo, ruta_imagen)
     if mode == "r":
         descripcion = actualizar_desc(csv_archivo, ruta_imagen)   
+        tags = actualizar_tags(csv_archivo, ruta_imagen)
     else:
         #actualizo la descripción
         descripcion = values['Texto']
         #lista de tags(lo saco de imagen seleccionada)
-        if lista_tags != "None":
-            for t in lista_tags:
-                if t not in tags:
-                    tags = tags.append(t)
+        tags = values['TagList']
     #tipo (mimetype)
     mimetype = mimetypes.guess_type(ruta_imagen)[0]
     #tamaño (metadata)

@@ -98,14 +98,13 @@ def pantalla_etiquetar(usuario):
                 
                 #Chequear que se pueda abrir y tratar la imagen
                 try:
-                    imagen_data = etiquetar_imagenes.traer_data(usuario, values,ruta_csv, "None", "r")
+                    imagen_data = etiquetar_imagenes.traer_data(usuario, values,ruta_csv, "r")
                     ruta_imagen = imagen_data[0]
                     #Muestro la imagen
                     datavisual_imagen = etiquetar_imagenes.mostrar_imagen(ruta_imagen)
                     window["-IMAGE-"].update(data=datavisual_imagen)
                     window["-DESCRIPCION-"].update(etiquetar_imagenes.imagen_tostring(imagen_data))  
-
-                    window['TagList'].update(values=etiquetar_imagenes.actualizar_tags(ruta_csv, ruta_imagen))
+                    window['TagList'].update(values=imagen_data[2])
                 except PIL.UnidentifiedImageError:
                     sg.popup_error("¡No es una imagen!")
                 except IsADirectoryError:
@@ -117,14 +116,10 @@ def pantalla_etiquetar(usuario):
                 if tag not in tags:
                     tags.append(tag)
                 window['TagList'].update(values=tags)
-                window['Tag'].update('')
             if event == 'Eliminar':
-                imagen_data = etiquetar_imagenes.traer_data(usuario, values,ruta_csv, "None", "r")
-                selected_tags = values['TagList']
-                tags = [tag for tag in tags if tag not in selected_tags]
+                tags_seleccionadas = values['TagList']
+                tags = [tag for tag in tags if tag not in tags_seleccionadas]
                 window['TagList'].update(values=tags)
-                imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, tags, "w")
-                etiquetar_imagenes.guardar_data(ruta_csv, imagen_data, usuario)
             if event == 'Guardar':
                 print(values)
                 try:
