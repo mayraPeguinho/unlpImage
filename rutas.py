@@ -15,3 +15,5 @@ archivo_perfiles_json = os.path.join(directorio_padre,'datos','nuevo_perfil.json
 archivo_configuracion_json= os.path.join(directorio_padre,'datos','configuracion.json')
 
 archivo_imagenes_etiquetadas_csv= os.path.join(directorio_padre,'datos','imagenes_etiquetadas.csv')
+
+archivo_logs_csv=os.path.join(directorio_padre,'logs','logs.csv')
