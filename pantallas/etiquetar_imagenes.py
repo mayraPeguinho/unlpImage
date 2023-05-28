@@ -123,7 +123,7 @@ def pantalla_etiquetar(usuario):
                 tags = [tag for tag in tags if tag not in tags_seleccionadas]
                 window['TagList'].update(values=tags)
                 values['TagList'] = tags
-                
+            #Corregir evento    
             if event == 'Modificar':
                 try:
                     imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, "d")
@@ -132,11 +132,13 @@ def pantalla_etiquetar(usuario):
                     sg.popup_error("¡No has seleccionado ninguna imagen!")
             if event == 'Guardar':
                 try:
+                    #quizá sea innecesario, testear.
                     window['TagList'].update(values=tags)
                     values['TagList'] = tags
                     imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, "w")
                     etiquetar_imagenes.guardar_data(ruta_csv, imagen_data, usuario)
                     window["-DESCRIPCION-"].update(etiquetar_imagenes.imagen_tostring(imagen_data))
+                #corregir excepción
                 except ImportError:
                     sg.popup_error("¡No has seleccionado ninguna imagen!")    
                 
