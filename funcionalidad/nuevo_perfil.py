@@ -6,6 +6,7 @@ ruta_avatares = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file
 
 def crear_perfil(values):
     """ Creo el perfil para pasarlo por las diferentes ventanas"""
+    
     if values['-GENERO-'] != []:
         genero=values['-GENERO-'][0]
     perfil = {

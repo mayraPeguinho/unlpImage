@@ -34,10 +34,11 @@ def ventana_nuevo_perfil():
                 no_scrollbar=False,
                 s=(15, 3),
                 key="-GENERO-",
+                enable_events=True,
             )
         ],
         [sg.Text("Especificar genero:")],
-        [sg.InputText(key="-ESPECIFICAR_GENERO-")],
+        [sg.InputText(key="-ESPECIFICAR_GENERO-", disabled=True)],
         [sg.Button("Guardar", key="-GUARDAR-"), sg.Button("Volver", key="-VOLVER-")],
     ]
 
@@ -91,6 +92,14 @@ def ventana_nuevo_perfil():
             size=(300, 300),
             subsample=3,
             )
+        
+        elif event == "-GENERO-":
+            genero = values["-GENERO-"][0]
+            print(values["-GENERO-"][0])
+            if genero == "Otro":
+                window["-ESPECIFICAR_GENERO-"].update(disabled=False)
+            else:
+                window["-ESPECIFICAR_GENERO-"].update(disabled=True)
 
         elif event == "-GUARDAR-":
                 llenar_solo(values)
