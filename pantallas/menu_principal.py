@@ -26,7 +26,7 @@ def generar_ventana_de_ayuda():
             break
 
 def ventana_menu(perfil_actual):
-    '''Esta funcion define la ventana de menu. '''
+    '''Esta funcion define la ventana de menu con sus respectivos botones. '''
     columna1=[[sg.Button(image_filename=os.path.join(r.ruta_imagenes_perfil,perfil_actual["Avatar"]),
                          image_size=(80,80),
                          image_subsample=3,
