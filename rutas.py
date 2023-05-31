@@ -2,6 +2,8 @@ import os
 
 directorio_padre = os.path.dirname(__file__)
 
+ruta_directorio_padre=os.path.join(directorio_padre)
+
 ruta_imagenes_perfil=os.path.join(directorio_padre,'imagenes','imagenes_perfil')
 
 ruta_directorio_collages=os.path.join(directorio_padre,'imagenes','directorio_collages')

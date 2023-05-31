@@ -1,8 +1,11 @@
 import json
 import os
+import sys
 
-ruta_archivo = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'nuevo_perfil.json')
-ruta_avatares = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'imagenes', 'imagenes_perfil')), 'avatar.png')
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
+from rutas import archivo_perfiles_json as ruta_archivo
+print(ruta_archivo)
 
 def crear_perfil(values):
     """ Creo el perfil para pasarlo por las diferentes ventanas"""

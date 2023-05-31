@@ -4,7 +4,7 @@ import os
 
 
 #Agrego el directorio raiz a la ruta de búsqueda de módulos
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from funcionalidad import registrar_log as log
 
 def guardar_directorios(repositorio_imagenes, directorio_collages, directorio_memes, directorio_raiz, usuario):

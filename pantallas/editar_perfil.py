@@ -4,19 +4,18 @@ import json
 import PySimpleGUI as sg
 from PIL import Image
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from funcionalidad.editar_perfil import *
 from funcionalidad.nuevo_perfil import *
 from funcionalidad.verificar_input import falta_completar_campos
 from pantallas import menu_principal
+from rutas import ruta_imagenes_perfil 
+from rutas import archivo_perfiles_json as ruta_archivo
 
 def ventana_editar_perfil(perfil_actual):
 
-    ruta_imagenes_perfil= os.path.join(os.getcwd(),'imagenes','imagenes_perfil')
     image_filename=os.path.join(ruta_imagenes_perfil,perfil_actual["Avatar"])
-
-    ruta_archivo = os.path.join(os.getcwd(), "datos", "nuevo_perfil.json")
 
     columna_izquierda = [
         [sg.Text("Editar perfil")],
@@ -135,4 +134,4 @@ def ventana_editar_perfil(perfil_actual):
         
 
 if __name__ == "__main__":
-    ventana_editar_perfil(menu_principal.perfil_actual)
+    ventana_editar_perfil()
