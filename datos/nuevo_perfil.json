@@ -2,10 +2,10 @@
     {
         "Usuario": "Juan",
         "Nombre": "Lorenzo",
-        "Edad": "12",
+        "Edad": "43",
         "Genero": "Femenino",
-        "Especificar genero": "-",
-        "Avatar": "mujer.png"
+        "Especificar genero": "jdfs",
+        "Avatar": "hombre_traje.png"
     },
     {
         "Usuario": "Maria",
@@ -38,5 +38,13 @@
         "Genero": "Masculino",
         "Especificar genero": "-",
         "Avatar": "tierra.png"
+    },
+    {
+        "Usuario": "fd",
+        "Nombre": "qwe",
+        "Edad": "2",
+        "Genero": "Masculino",
+        "Especificar genero": "-",
+        "Avatar": "avatar.png"
     }
 ]

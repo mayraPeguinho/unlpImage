@@ -8,6 +8,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from funcionalidad.editar_perfil import *
 from funcionalidad.nuevo_perfil import *
+from funcionalidad.verificar_input import falta_completar_campos
 from pantallas import menu_principal
 
 def ventana_editar_perfil(perfil_actual):
@@ -31,10 +32,11 @@ def ventana_editar_perfil(perfil_actual):
                 no_scrollbar=False,
                 s=(15, 3),
                 key="Genero",
+                enable_events=True,
             )
         ],
         [sg.Text("Especificar genero:")],
-        [sg.InputText(key="Especificar genero")],
+        [sg.InputText(key="Especificar genero", disabled=True)],
         [sg.Button("Guardar", key="-GUARDAR-"), sg.Button("Volver", key="-VOLVER-")],
     ]
 
@@ -90,6 +92,13 @@ def ventana_editar_perfil(perfil_actual):
                 subsample=3,
             )
 
+        elif event == "Genero":
+            genero = values["Genero"][0]
+            if genero == "Otro":
+                window["Especificar genero"].update(disabled=False)
+            else:
+                window["Especificar genero"].update(disabled=True)
+
         elif event == "-GUARDAR-":
 
             try:
@@ -98,20 +107,30 @@ def ventana_editar_perfil(perfil_actual):
             except (FileNotFoundError, PermissionError, json.JSONDecodeError):
                 pass
             
-            perfil_modificado = modificar_perfil(perfil_actual,values)
+            llenar_solo(values)
+            if not falta_completar_campos(values):
+                if verificar_edad(values["Edad"]):
+                    perfil_modificado = modificar_perfil(perfil_actual,values)
 
-            for pos, perfil in enumerate(perfiles):
-                if perfil['Usuario'] == perfil_modificado['Usuario']:      
-                    perfiles[pos] = perfil_modificado
-                    break
+                    for pos, perfil in enumerate(perfiles):
+                        if perfil['Usuario'] == perfil_modificado['Usuario']:      
+                            perfiles[pos] = perfil_modificado
+                            break
+                    
+                    try:
+                        with open(ruta_archivo, "w") as archivo:
+                            json.dump(perfiles, archivo, indent=4)
+                            sg.popup('El perfil se edito correctamente!')
+                    except (FileNotFoundError, PermissionError, json.JSONDecodeError):
+                        pass
             
-            with open(ruta_archivo, "w") as archivo:
-                json.dump(perfiles, archivo, indent=4)
-                print("Se modifico el perfil")
+                    window.close()
+                    return perfil_modificado
+                else:
+                    sg.popup("Ingresa una edad valida")
+            else:
+                sg.popup("Falta llenar el formulario")
 
-            window.close()
-            return perfil_modificado
-        
     return perfil_actual
         
 

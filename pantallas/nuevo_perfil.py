@@ -95,7 +95,6 @@ def ventana_nuevo_perfil():
         
         elif event == "-GENERO-":
             genero = values["-GENERO-"][0]
-            print(values["-GENERO-"][0])
             if genero == "Otro":
                 window["-ESPECIFICAR_GENERO-"].update(disabled=False)
             else:
@@ -112,8 +111,8 @@ def ventana_nuevo_perfil():
                             
                             with open(ruta_archivo, "w") as archivo:
                                 json.dump(perfil_json, archivo,indent=4)
-                                print("Se creo el perfil")
-
+                            
+                            sg.popup('Se creo el perfil!')
                             window.close()
                             menu=menu_principal.ventana_menu(usuario_nuevo)
                             menu_principal.eventos_menu_principal(menu)
