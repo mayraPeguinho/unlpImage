@@ -10,6 +10,20 @@ def registrar_interaccion(nick, operacion,valores=None,textos=None):
      '''Esta función agrega un registro al archivo logs.csv'''
      
      timestamp = datetime.timestamp(datetime.now())
+     #verifico que tenga datos
+     if valores:
+         #verifico que sea una lista
+         if(isinstance(valores,list)):
+             valores=";".join(valores)
+     else:
+         valores= ''
+
+     if textos:
+         if(isinstance(textos,list)):
+             textos=";".join(textos)
+     else:
+         textos= ''
+
      log = [timestamp, nick, operacion,valores,textos]
 
      #para verificar si el archivo existe o no.
@@ -24,5 +38,6 @@ def registrar_interaccion(nick, operacion,valores=None,textos=None):
              writer_csv.writerow(log)
      except (FileNotFoundError,PermissionError):
          pass
+registrar_interaccion("gaby","testing","kami","jajjaj")
 
 
