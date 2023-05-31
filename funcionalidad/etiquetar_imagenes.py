@@ -126,6 +126,7 @@ def traer_data(usuario, values, csv_archivo,  mode):
     else:
         if mode =="d":
             descripcion = values['Texto']
+            #Guardar entre comillas, procesarlas. 
             tags = values['TagList']
         else:
             #actualizo la descripción
