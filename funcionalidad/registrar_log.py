@@ -7,7 +7,7 @@ from rutas import archivo_logs_csv as ruta_archivo
 
 def registrar_interaccion(nick, operacion,valores=None,textos=None):
     
-     '''Esta función agrega un registro al archivo logs.csv'''
+     '''Esta función agrega una interaccion en el sistema al archivo logs.csv'''
      
      timestamp = datetime.timestamp(datetime.now())
      #verifico que tenga datos
@@ -38,6 +38,5 @@ def registrar_interaccion(nick, operacion,valores=None,textos=None):
              writer_csv.writerow(log)
      except (FileNotFoundError,PermissionError):
          pass
-registrar_interaccion("gaby","testing","kami","jajjaj")
 
 
