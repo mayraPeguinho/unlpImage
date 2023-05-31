@@ -101,6 +101,7 @@ def pantalla_etiquetar(usuario):
                     window["-IMAGE-"].update(data=datavisual_imagen)
                     window["-DESCRIPCION-"].update(etiquetar_imagenes.imagen_tostring(imagen_data))  
                     window['TagList'].update(values=tags)
+                    window['Texto'].update(imagen_data[1])
                 except PIL.UnidentifiedImageError:
                     sg.popup_error("¡No es una imagen!")
                 except IsADirectoryError:
@@ -123,6 +124,7 @@ def pantalla_etiquetar(usuario):
                 try:
                     imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, "d")
                     window["-DESCRIPCION-"].update(etiquetar_imagenes.imagen_tostring(imagen_data))  
+                    sg.popup("La descripción surtirá efecto al hacer click en guardar")
                 except:
                     sg.popup_error("¡No has seleccionado ninguna imagen!")
             if event == 'Guardar':
@@ -133,8 +135,9 @@ def pantalla_etiquetar(usuario):
                     imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, "w")
                     etiquetar_imagenes.guardar_data(ruta_csv, imagen_data, usuario)
                     window["-DESCRIPCION-"].update(etiquetar_imagenes.imagen_tostring(imagen_data))
+                    sg.popup("¡Imagen etiquetada con éxito!")
                 #corregir excepción
-                except ImportError:
+                except:
                     sg.popup_error("¡No has seleccionado ninguna imagen!")    
                 
 

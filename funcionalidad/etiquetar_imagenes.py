@@ -125,11 +125,11 @@ def traer_data(usuario, values, csv_archivo,  mode):
         tags = actualizar_tags(csv_archivo, ruta_imagen)
     else:
         if mode =="d":
-            descripcion = actualizar_desc(csv_archivo, ruta_imagen)  
+            descripcion = values['Texto']
             tags = values['TagList']
         else:
             #actualizo la descripción
-            descripcion = values['Texto']
+            descripcion = values['Texto'] if values['Texto'] != '' else actualizar_desc(csv_archivo, ruta_imagen) 
             #lista de tags(lo saco de imagen seleccionada)
             tags = values['TagList']
     #tipo (mimetype)

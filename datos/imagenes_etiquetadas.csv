@@ -1,5 +1,7 @@
 ruta_imagen,descripcion,tags,resolucion,mimetype,tamaño,ultima_actualizacion,ultimo_perfil
-imagenes/repositorio_imagenes/img1.jpg,Mate,"['Hola', 'Bueno']",800x1422,image/jpeg,0.19,2023-05-28 22:34:40.730708,Juan
+imagenes/repositorio_imagenes/img1.jpg,Mate,"['Hola', 'Bueno']",800x1422,image/jpeg,0.19,2023-05-31 15:48:27.262579,null
 imagenes/repositorio_imagenes/img2.jpg,desc,['tag2asd'],800x1747,image/jpeg,0.1,2023-05-27 20:36:39.450353,Juan
 imagenes/repositorio_imagenes/img5.jpg,desc,['tag2asd'],800x1501,image/jpeg,0.29,2023-05-27 20:37:10.438347,Juan
-imagenes/repositorio_imagenes/img3.jpg,unos planetitas,['primer tag'],800x1422,image/jpeg,0.12,2023-05-27 20:40:41.069444,Maria
+imagenes/repositorio_imagenes/img3.jpg,ddd,"['primer tag', 'segundatag']",800x1422,image/jpeg,0.12,2023-05-31 15:48:38.245554,null
+imagenes/repositorio_imagenes/img4.jpg,planeta tierra,['planeta'],800x1733,image/jpeg,0.09,2023-05-31 14:42:59.650799,Juan
+imagenes/repositorio_imagenes/strawberry-g0ffa2143b_1920.jpg,una descripcion,"['frutillas', 'fruta', 'rico']",1920x1281,image/jpeg,0.32,2023-05-31 15:53:28.739411,null

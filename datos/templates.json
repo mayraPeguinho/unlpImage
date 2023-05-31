@@ -1,0 +1,218 @@
+[
+    {
+        "image": "59c1hh.png",
+        "name": "Some description",
+        "text_boxes": [
+            {
+                "top_left_x": 14,
+                "top_left_y": 56,
+                "bottom_right_x": 500,
+                "bottom_right_y": 297
+            },
+            {
+                "top_left_x": 546,
+                "top_left_y": 63,
+                "bottom_right_x": 1036,
+                "bottom_right_y": 292
+            }
+        ]
+    },
+    {
+        "image": "FqvvwBVWYAI0Fmv.jpg",
+        "name": "Some description",
+        "text_boxes": [
+            {
+                "top_left_x": 22,
+                "top_left_y": 21,
+                "bottom_right_x": 502,
+                "bottom_right_y": 265
+            }
+        ]
+    },
+    {
+        "image": "Hide-the-Pain-Harold.jpg",
+        "name": "Some description",
+        "text_boxes": [
+            {
+                "top_left_x": 16,
+                "top_left_y": 15,
+                "bottom_right_x": 239,
+                "bottom_right_y": 91
+            },
+            {
+                "top_left_x": 11,
+                "top_left_y": 328,
+                "bottom_right_x": 241,
+                "bottom_right_y": 406
+            }
+        ]
+    },
+    {
+        "image": "Tuxedo-Winnie-The-Pooh.png",
+        "name": "Some description",
+        "text_boxes": [
+            {
+                "top_left_x": 373,
+                "top_left_y": 17,
+                "bottom_right_x": 760,
+                "bottom_right_y": 277
+            },
+            {
+                "top_left_x": 381,
+                "top_left_y": 332,
+                "bottom_right_x": 760,
+                "bottom_right_y": 558
+            },
+            {
+                "top_left_x": 20,
+                "top_left_y": 624,
+                "bottom_right_x": 745,
+                "bottom_right_y": 766
+            }
+        ]
+    },
+    {
+        "image": "Expanding-Brain.jpg",
+        "name": "Some description",
+        "text_boxes": [
+            {
+                "top_left_x": 20,
+                "top_left_y": 14,
+                "bottom_right_x": 384,
+                "bottom_right_y": 274
+            },
+            {
+                "top_left_x": 34,
+                "top_left_y": 336,
+                "bottom_right_x": 374,
+                "bottom_right_y": 570
+            },
+            {
+                "top_left_x": 28,
+                "top_left_y": 645,
+                "bottom_right_x": 382,
+                "bottom_right_y": 847
+            },
+            {
+                "top_left_x": 38,
+                "top_left_y": 959,
+                "bottom_right_x": 392,
+                "bottom_right_y": 1171
+            }
+        ]
+    },
+    {
+        "image": "Left-Exit-12-Off-Ramp.jpg",
+        "name": "Some description",
+        "text_boxes": [
+            {
+                "top_left_x": 187,
+                "top_left_y": 144,
+                "bottom_right_x": 306,
+                "bottom_right_y": 217
+            },
+            {
+                "top_left_x": 412,
+                "top_left_y": 125,
+                "bottom_right_x": 581,
+                "bottom_right_y": 219
+            }
+        ]
+    },
+    {
+        "image": "Running-Away-Balloon.jpg",
+        "name": "Some description",
+        "text_boxes": [
+            {
+                "top_left_x": 477,
+                "top_left_y": 138,
+                "bottom_right_x": 750,
+                "bottom_right_y": 302
+            },
+            {
+                "top_left_x": 32,
+                "top_left_y": 59,
+                "bottom_right_x": 262,
+                "bottom_right_y": 146
+            },
+            {
+                "top_left_x": 610,
+                "top_left_y": 643,
+                "bottom_right_x": 757,
+                "bottom_right_y": 709
+            },
+            {
+                "top_left_x": 283,
+                "top_left_y": 570,
+                "bottom_right_x": 452,
+                "bottom_right_y": 636
+            },
+            {
+                "top_left_x": 6,
+                "top_left_y": 769,
+                "bottom_right_x": 213,
+                "bottom_right_y": 873
+            }
+        ]
+    },
+    {
+        "image": "Two-Buttons.jpg",
+        "name": "Some description",
+        "text_boxes": [
+            {
+                "top_left_x": 40,
+                "top_left_y": 127,
+                "bottom_right_x": 266,
+                "bottom_right_y": 172
+            },
+            {
+                "top_left_x": 263,
+                "top_left_y": 55,
+                "bottom_right_x": 438,
+                "bottom_right_y": 107
+            }
+        ]
+    },
+    {
+        "image": "Drake-Hotline-Bling.jpg",
+        "name": "Some description",
+        "text_boxes": [
+            {
+                "top_left_x": 648,
+                "top_left_y": 32,
+                "bottom_right_x": 1084,
+                "bottom_right_y": 532
+            },
+            {
+                "top_left_x": 658,
+                "top_left_y": 636,
+                "bottom_right_x": 1082,
+                "bottom_right_y": 1166
+            }
+        ]
+    },
+    {
+        "image": "10zlh5.jpg",
+        "name": "Some description",
+        "text_boxes": [
+            {
+                "top_left_x": 9,
+                "top_left_y": 55,
+                "bottom_right_x": 84,
+                "bottom_right_y": 106
+            },
+            {
+                "top_left_x": 344,
+                "top_left_y": 88,
+                "bottom_right_x": 583,
+                "bottom_right_y": 179
+            },
+            {
+                "top_left_x": 21,
+                "top_left_y": 372,
+                "bottom_right_x": 529,
+                "bottom_right_y": 548
+            }
+        ]
+    }
+]
