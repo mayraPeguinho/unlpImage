@@ -19,7 +19,7 @@ def mostrar_perfiles(datos):
                                               image_size=(80,80),
                                               image_subsample=3,
                                               key=numero)],
-                                   [sg.Text(elemento["Usuario"],justification="center")]
+                                   [sg.Text(elemento["Usuario"])]
                                   ])
                         )
     return perfiles

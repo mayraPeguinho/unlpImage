@@ -10,6 +10,8 @@ ruta_directorio_collages=os.path.join(directorio_padre,'imagenes','directorio_co
 
 ruta_directorio_memes=os.path.join(directorio_padre,'imagenes','directorio_memes')
 
+ruta_diseños_collages=os.path.join(directorio_padre,'imagenes','diseños_collages')
+
 ruta_repositorio_imagenes=os.path.join(directorio_padre,'imagenes','repositorio_imagenes')
 
 archivo_perfiles_json = os.path.join(directorio_padre,'datos','nuevo_perfil.json')
