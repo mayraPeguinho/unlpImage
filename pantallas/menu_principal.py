@@ -5,7 +5,7 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from pantallas import generador_memes
-from pantallas import generador_collage
+from pantallas import seleccion_de_collage
 from pantallas import etiquetar_imagenes
 from pantallas import configuracion
 from pantallas import editar_perfil
@@ -65,7 +65,8 @@ def eventos_menu_principal(menu):
                 menu.un_hide()
             case "-VENTANA COLLAGE-":
                 menu.hide()
-                generador_collage.generar_collage()
+                #pasarle la info del perfil actual
+                seleccion_de_collage.eventos_seleccion_collage()
                 menu.un_hide()
             case "-VENTANA ETIQUETAR-":
                 menu.hide()

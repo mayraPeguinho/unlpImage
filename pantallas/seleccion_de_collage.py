@@ -4,6 +4,7 @@ import os
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
+from pantallas import generador_collage
 from rutas import ruta_diseños_collages
 
 def ventana_seleccion_collage():
@@ -28,28 +29,39 @@ def ventana_seleccion_collage():
              ]
     return sg.Window("UNLPImage",layout,margins=(150, 150),metadata={"cantidad_imagenes":None})
 
-def eventos_seleccion_collage(ventana_seleccion_collage):
+def eventos_seleccion_collage():
+    ventana=ventana_seleccion_collage()
     while True:
-        evento, valores = ventana_seleccion_collage.read()
+        evento, valores = ventana.read()
         match evento:
             case sg.WIN_CLOSED:
                 sys.exit()
             case "-VOLVER-":
-                ventana_seleccion_collage.close()
+                ventana.close()
                 break
             case "-DISEÑO 1-":
-                ventana_seleccion_collage.metadata["cantidad_imagenes"]=2
-                pass
+                ventana.metadata["cantidad_imagenes"]=2
+                ventana.hide()
+                generador_collage.generar_collage(2)
+                ventana.un_hide()
             case "-DISEÑO 2-":
-                ventana_seleccion_collage.metadata["cantidad_imagenes"]=2
-                pass
+                ventana.metadata["cantidad_imagenes"]=2
+                ventana.hide()
+                generador_collage.generar_collage(2)
+                ventana.un_hide()
             case "-DISEÑO 3-":
-                ventana_seleccion_collage.metadata["cantidad_imagenes"]=3
-                pass
+                ventana.metadata["cantidad_imagenes"]=3
+                ventana.hide()
+                generador_collage.generar_collage(3)
+                ventana.un_hide()
             case "-DISEÑO 4-":
-                ventana_seleccion_collage.metadata["cantidad_imagenes"]=4
-                pass
+                ventana.metadata["cantidad_imagenes"]=4
+                ventana.hide()
+                generador_collage.generar_collage(4)
+                ventana.un_hide()
 
-eventos_seleccion_collage(ventana_seleccion_collage())
+
+if __name__ =="__main__":
+     eventos_seleccion_collage()
 
 

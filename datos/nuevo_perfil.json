@@ -46,5 +46,13 @@
         "Genero": "Masculino",
         "Especificar genero": "-",
         "Avatar": "avatar.png"
+    },
+    {
+        "Usuario": "Kisho",
+        "Nombre": "Kisho",
+        "Edad": "97",
+        "Genero": "Masculino",
+        "Especificar genero": "-",
+        "Avatar": "tierra.png"
     }
 ]
