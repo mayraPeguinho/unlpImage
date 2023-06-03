@@ -48,11 +48,20 @@
         "Avatar": "avatar.png"
     },
     {
+<<<<<<< HEAD
         "Usuario": "Francisco",
         "Nombre": "garrubba",
         "Edad": "23",
         "Genero": "Masculino",
         "Especificar genero": "-",
         "Avatar": "hombre_traje.png"
+=======
+        "Usuario": "Kisho",
+        "Nombre": "Kisho",
+        "Edad": "97",
+        "Genero": "Masculino",
+        "Especificar genero": "-",
+        "Avatar": "tierra.png"
+>>>>>>> b8eead5a608d9e03c5e793d7b0a6a491122dd69f
     }
 ]
