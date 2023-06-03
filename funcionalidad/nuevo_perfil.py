@@ -7,17 +7,19 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from rutas import archivo_perfiles_json as ruta_archivo
 print(ruta_archivo)
 
+ruta_avatares = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'imagenes', 'imagenes_perfil')), 'avatar.png')
+
 def crear_perfil(values):
     """ Creo el perfil para pasarlo por las diferentes ventanas"""
     
-    if values['-GENERO-'] != []:
-        genero=values['-GENERO-'][0]
+    if values['Genero'] != []:
+        genero=values['Genero'][0]
     perfil = {
-        "Usuario": values["-USUARIO-"],
-        "Nombre": values["-NOMBRE-"],
-        "Edad": values["-EDAD-"],
+        "Usuario": values["Usuario"],
+        "Nombre": values["Nombre"],
+        "Edad": values["Edad"],
         "Genero": genero,
-        "Especificar genero": values["-ESPECIFICAR_GENERO-"],
+        "Especificar genero": values["Especificar genero"],
         "Avatar": os.path.basename(values["-BROWSE-"]),
     }
     return perfil
@@ -59,6 +61,6 @@ def verificar_edad(edad):
 def llenar_solo(values):
     """Auto completa valores por defecto """
     if values['-BROWSE-'] == '':
-        values['-BROWSE-'] = 'avatar.png'
-    if values['-GENERO-'] == ['Masculino'] or values['-GENERO-'] == ['Femenino']:
-        values['-ESPECIFICAR_GENERO-'] = '-'
+        values['-BROWSE-'] = ruta_avatares
+    if values['Genero'] == ['Masculino'] or values['Genero'] == ['Femenino']:
+        values['Especificar genero'] = '-'

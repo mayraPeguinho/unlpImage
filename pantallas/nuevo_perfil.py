@@ -3,40 +3,42 @@ import sys
 import PySimpleGUI as sg
 from PIL import Image
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from funcionalidad.verificar_input import falta_completar_campos
 from funcionalidad.nuevo_perfil import *
 from pantallas import menu_principal
 from pantallas import inicio
-from rutas import archivo_perfiles_json as ruta_archivo
-from rutas import ruta_imagenes_perfil
+import rutas as r
 
 
 def ventana_nuevo_perfil():
 
-    ruta_avatares= os.path.join(ruta_imagenes_perfil,'avatar.png')
+    # ruta_archivo=r.archivo_perfiles_json
+    # ruta_avatares= os.path.join(r.ruta_imagenes_perfil,'avatar.png')
+    ruta_archivo = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'nuevo_perfil.json')
+    ruta_avatares = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'imagenes', 'imagenes_perfil')), 'avatar.png')
 
     columna_izquierda = [
         [sg.Text("Nuevo perfil")],
         [sg.Text("Usuario:")],
-        [sg.InputText(key="-USUARIO-")],
+        [sg.InputText(key="Usuario")],
         [sg.Text("Nombre:")],
-        [sg.InputText(key="-NOMBRE-")],
+        [sg.InputText(key="Nombre")],
         [sg.Text("Edad:")],
-        [sg.InputText(key="-EDAD-", size=(10,))],
+        [sg.InputText(key="Edad", size=(10,))],
         [sg.Text("Genero:")],
         [
             sg.Listbox(
                 ['Masculino','Femenino','Otro'],
                 no_scrollbar=False,
                 s=(15, 3),
-                key="-GENERO-",
+                key="Genero",
                 enable_events=True,
             )
         ],
         [sg.Text("Especificar genero:")],
-        [sg.InputText(key="-ESPECIFICAR_GENERO-", disabled=True)],
+        [sg.InputText(key="Especificar genero", disabled=True)],
         [sg.Button("Guardar", key="-GUARDAR-"), sg.Button("Volver", key="-VOLVER-")],
     ]
 
@@ -44,7 +46,7 @@ def ventana_nuevo_perfil():
         [
             sg.Image(
                 source=ruta_avatares,
-                key=("-AVATAR-"),
+                key=("Avatar"),
                 size=(300, 300),
                 subsample=3,
                 pad=((125, 125), (0, 0)),
@@ -86,30 +88,32 @@ def ventana_nuevo_perfil():
 
         elif event == "-BROWSE-":
             filename = values["-BROWSE-"]
-            window["-AVATAR-"].update(filename,
+            window["Avatar"].update(filename,
             size=(300, 300),
             subsample=3,
             )
         
-        elif event == "-GENERO-":
-            genero = values["-GENERO-"][0]
+        elif event == "Genero":
+            genero = values["Genero"][0]
             if genero == "Otro":
-                window["-ESPECIFICAR_GENERO-"].update(disabled=False)
+                window["Especificar genero"].update(disabled=False)
             else:
-                window["-ESPECIFICAR_GENERO-"].update(disabled=True)
+                window["Especificar genero"].update(disabled=True)
 
         elif event == "-GUARDAR-":
                 llenar_solo(values)
                 if not falta_completar_campos(values):
-                    if not existe_nombre(values["-USUARIO-"]):
-                        if verificar_edad(values["-EDAD-"]):
+                    if not existe_nombre(values["Usuario"]):
+                        if verificar_edad(values["Edad"]):
                             usuario_nuevo = crear_perfil(values)
 
                             perfil_json = crear_json(usuario_nuevo)
-                            
-                            with open(ruta_archivo, "w") as archivo:
-                                json.dump(perfil_json, archivo,indent=4)
-                            
+                            try:
+                                with open(ruta_archivo, "w") as archivo:
+                                    json.dump(perfil_json, archivo,indent=4)
+                            except (FileNotFoundError, PermissionError, json.JSONDecodeError):
+                                pass
+
                             sg.popup('Se creo el perfil!')
                             window.close()
                             menu=menu_principal.ventana_menu(usuario_nuevo)

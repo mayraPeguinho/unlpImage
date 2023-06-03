@@ -4,14 +4,14 @@
         "Nombre": "Lorenzo",
         "Edad": "43",
         "Genero": "Femenino",
-        "Especificar genero": "jdfs",
-        "Avatar": "hombre_traje.png"
+        "Especificar genero": "-",
+        "Avatar": "avatar.png"
     },
     {
         "Usuario": "Maria",
         "Nombre": "Maria",
         "Edad": "24",
-        "Genero": "Femenino",
+        "Genero": "Masculino",
         "Especificar genero": "-",
         "Avatar": "hombre_traje.png"
     },
@@ -46,5 +46,13 @@
         "Genero": "Masculino",
         "Especificar genero": "-",
         "Avatar": "avatar.png"
+    },
+    {
+        "Usuario": "Francisco",
+        "Nombre": "garrubba",
+        "Edad": "23",
+        "Genero": "Masculino",
+        "Especificar genero": "-",
+        "Avatar": "hombre_traje.png"
     }
 ]

@@ -20,14 +20,14 @@ def ventana_editar_perfil(perfil_actual):
     columna_izquierda = [
         [sg.Text("Editar perfil")],
         [sg.Text("Nombre:")],
-        [sg.InputText(key='Nombre')],
+        [sg.InputText(key="Nombre")],
         [sg.Text("Edad:")],
         [sg.Input(key="Edad", size=(10,))],
         [sg.Text("Genero:")],
         [
             sg.Listbox(
                 ["Masculino", "Femenino", "Otro"],
-                default_values=[perfil_actual['Genero']],
+                default_values=[perfil_actual['Genero'][0]],
                 no_scrollbar=False,
                 s=(15, 3),
                 key="Genero",
@@ -44,7 +44,7 @@ def ventana_editar_perfil(perfil_actual):
         [
             sg.Image(
                 source=image_filename,
-                key=("-AVATAR-"),
+                key=("Avatar"),
                 size=(300, 300),
                 subsample=3,
                 pad=((125, 125), (0, 0)),
@@ -78,17 +78,19 @@ def ventana_editar_perfil(perfil_actual):
     while True:
         event, values = window.read()
 
+        print(values)
+
         if event == "-VOLVER-":
             window.close()
             break
         elif event == sg.WIN_CLOSED:
             sys.exit()
+        
         elif event == "-BROWSE-":
             filename = values["-BROWSE-"]
-            window["-AVATAR-"].update(
-                source=filename,
-                size=(300, 300),
-                subsample=3,
+            window["Avatar"].update(filename,
+            size=(300, 300),
+            subsample=3,
             )
 
         elif event == "Genero":
