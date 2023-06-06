@@ -4,11 +4,13 @@ import os
 import json
 import PySimpleGUI as sg
 import PIL
+import generador_memes
 
 # Agrego el directorio raiz a la ruta de búsqueda de módulos
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from funcionalidad import etiquetar_imagenes as ei
 from funcionalidad import seleccion_template as st
+from rutas import ruta_repositorio_imagenes as ruta_repo
 
 def pantalla_seleccionartemplate(usuario):
 
@@ -19,7 +21,7 @@ def pantalla_seleccionartemplate(usuario):
     ruta_archivo = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'configuracion.json')
     with open(ruta_archivo) as f:
         datos = json.load(f)
-        starting_path = datos['repositorio_imagenes']
+        starting_path = ruta_repo
 
     #Declaro la ruta del csv de donde leo y guardo los datos de las imagenes
     ruta_templates = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'templates.json')
@@ -79,16 +81,22 @@ def pantalla_seleccionartemplate(usuario):
                 
                 #Chequear que se pueda abrir y tratar la imagen
                 try:
-                    #----------------------------------------------------------------
-                    #Chequear que la imágen esté en el json de templates
-                    #----------------------------------------------------------------
+                   
+                    with open(ruta_templates) as archivo:
+                        data = json.load(archivo)
+
+                    rutas_imagenes = list(filter(lambda x: 'image' in x, data))
+                    
+                    
                     #Muestro la imagen
                     # traigo la ruta de la imagen
                     ruta_imagen = values['-TREE-'][0].replace("\\", "/")
-                    # la abro
-                    #imagen = Image.open(ruta_imagen)
-                    datavisual_imagen = ei.mostrar_imagen(ruta_imagen)
-                    window["-IMAGE-"].update(data=datavisual_imagen)
+
+                    if ruta_imagen in rutas_imagenes:
+                        datavisual_imagen = ei.mostrar_imagen(ruta_imagen)
+                        window["-IMAGE-"].update(data=datavisual_imagen)
+                    else:
+                        sg.popup_error("¡No es un template!")
                 
 
                 except PIL.UnidentifiedImageError:
@@ -96,9 +104,13 @@ def pantalla_seleccionartemplate(usuario):
                 except IsADirectoryError:
                     pass
                 except PermissionError:
-                    sg.popup_error("¡No tienes permisos para acceder a esa carpeta!")
+                    sg.popup_error("¡No tienes permisos para acceder a esa carpeta perra!")
             if event == 'Generar':
+                #Llamar a la pantalla generador_memes y pasarle por parámetro la ruta de la imágen que se selecciono en el árbol. 
+                generador_memes(ruta_imagen)
                 pass
+
+                
            
                 
 

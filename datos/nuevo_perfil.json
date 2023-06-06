@@ -1,67 +1,10 @@
 [
     {
-        "Usuario": "Juan",
-        "Nombre": "Lorenzo",
-        "Edad": "43",
-        "Genero": "Femenino",
-        "Especificar genero": "-",
-        "Avatar": "avatar.png"
-    },
-    {
-        "Usuario": "Maria",
-        "Nombre": "Maria",
-        "Edad": "24",
-        "Genero": "Masculino",
-        "Especificar genero": "-",
-        "Avatar": "hombre_traje.png"
-    },
-    {
-        "Usuario": "Buenas",
-        "Nombre": "Holiester",
-        "Edad": "32",
-        "Genero": "Otro",
-        "Especificar genero": "No Binario",
-        "Avatar": "avatar.png"
-    },
-    {
-        "Usuario": "Juoa",
-        "Nombre": "Sal",
-        "Edad": "21",
-        "Genero": "Femenino",
-        "Especificar genero": "-",
-        "Avatar": "avatar.png"
-    },
-    {
-        "Usuario": "Kala",
-        "Nombre": "Buenas",
-        "Edad": "29",
-        "Genero": "Masculino",
-        "Especificar genero": "-",
-        "Avatar": "tierra.png"
-    },
-    {
-        "Usuario": "fd",
-        "Nombre": "qwe",
-        "Edad": "2",
+        "Usuario": "pedro",
+        "Nombre": "garcia",
+        "Edad": "35",
         "Genero": "Masculino",
         "Especificar genero": "-",
         "Avatar": "avatar.png"
-    },
-    {
-<<<<<<< HEAD
-        "Usuario": "Francisco",
-        "Nombre": "garrubba",
-        "Edad": "23",
-        "Genero": "Masculino",
-        "Especificar genero": "-",
-        "Avatar": "hombre_traje.png"
-=======
-        "Usuario": "Kisho",
-        "Nombre": "Kisho",
-        "Edad": "97",
-        "Genero": "Masculino",
-        "Especificar genero": "-",
-        "Avatar": "tierra.png"
->>>>>>> b8eead5a608d9e03c5e793d7b0a6a491122dd69f
     }
 ]
