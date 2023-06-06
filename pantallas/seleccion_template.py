@@ -70,6 +70,11 @@ def pantalla_seleccionartemplate(usuario):
 
 
     while True:     # Loop de eventos
+        with open(ruta_templates) as archivo:
+            data = json.load(archivo)
+        rutas_imagenes = [item['image'] for item in data]
+        for e in rutas_imagenes:
+            print(e)            
         event, values = window.read()    
         if event == 'Volver':
             window.close()
@@ -82,17 +87,10 @@ def pantalla_seleccionartemplate(usuario):
                 #Chequear que se pueda abrir y tratar la imagen
                 try:
                    
-                    with open(ruta_templates) as archivo:
-                        data = json.load(archivo)
-
-                    rutas_imagenes = list(filter(lambda x: 'image' in x, data))
-                    
-                    
-                    #Muestro la imagen
                     # traigo la ruta de la imagen
                     ruta_imagen = values['-TREE-'][0].replace("\\", "/")
-
-                    if ruta_imagen in rutas_imagenes:
+                    print(os.path.basename(ruta_imagen))
+                    if os.path.basename(ruta_imagen) in rutas_imagenes:
                         datavisual_imagen = ei.mostrar_imagen(ruta_imagen)
                         window["-IMAGE-"].update(data=datavisual_imagen)
                     else:
