@@ -76,17 +76,14 @@ def actualizar_tags(csv_archivo, ruta):
             try: 
                 if (ruta == datos_fila[0]):
                     # me guardo los datos de la imagen y dejo de recorrer el csv
-                    tags_crudas = datos_fila[2]
-                    tags = [elemento.strip().replace("'", "") for elemento in tags_crudas.strip("[]").split(",")]
+                    tags = datos_fila[2].split(', ')                    
                     break
             #si no encuentro la fila, quedan los valores por defecto
             except: 
                 pass
     return tags
 
-def eliminar_tag(valores):
-    """Eliminar una tag traída por parámetro"""
-    tags = [tag for tag in tags if tag not in valores]
+
     
 def actualizar_desc(csv_archivo, ruta):
     """Chequeo si la imagen ya fué editada para poder mostras sus tags y descripción correctamente""" 
@@ -127,12 +124,14 @@ def traer_data(usuario, values, csv_archivo,  mode):
         if mode =="d":
             descripcion = values['Texto']
             #Guardar entre comillas, procesarlas. 
-            tags = values['TagList']
+            tags_crudas = values['TagList']
+            tags = ', '.join(tags_crudas)
         else:
             #actualizo la descripción
             descripcion = values['Texto'] if values['Texto'] != '' else actualizar_desc(csv_archivo, ruta_imagen) 
             #lista de tags(lo saco de imagen seleccionada)
-            tags = values['TagList']
+            tags_crudas = values['TagList']
+            tags = ', '.join(tags_crudas)
     #tipo (mimetype)
     mimetype = mimetypes.guess_type(ruta_imagen)[0]
     #tamaño (metadata)
