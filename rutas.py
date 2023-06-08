@@ -1,6 +1,6 @@
 import os
 
-directorio_padre = os.path.dirname(__file__)
+directorio_padre = os.path.dirname((os.path.abspath(__file__)))
 
 ruta_directorio_padre=os.path.join(directorio_padre)
 

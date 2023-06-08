@@ -1,26 +1,25 @@
+import PySimpleGUI as sg
+import sys
+import os
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
+from funcionalidad import configuracion as conf 
+from rutas import directorio_padre
+
 def pantalla_configuracion(usuario):
-    import PySimpleGUI as sg
-    import sys
-    import os
 
-
-
-    # Obtengo la ruta del directorio padre de este archivo
-    DIRECTORIO_PADRE = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-
-    #Agrego el directorio raiz a la ruta de búsqueda de módulos
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-    from funcionalidad import configuracion as conf 
+    repositorio_imagenes,directorio_collage,directorio_meme=conf.obtener_directorios()
 
     layout = [[sg.Text('Repositorio de imagenes')],
             # En este directorio se encuentran las imagenes que podemos utilizar en la aplicación
-            [sg.Input(), sg.FolderBrowse(button_text="Seleccionar")],
+            [sg.Input(default_text=repositorio_imagenes), sg.FolderBrowse(button_text="Seleccionar")],
             [sg.Text('Directorio de collages')],
             # En este directorio almacenaremos los collages
-            [sg.Input(), sg.FolderBrowse(button_text="Seleccionar")],
+            [sg.Input(default_text=directorio_collage), sg.FolderBrowse(button_text="Seleccionar")],
             [sg.Text('Directorio de memes')],
             # En este directorio almacenaremos los memes
-            [sg.Input(), sg.FolderBrowse(button_text="Seleccionar")],
+            [sg.Input(default_text=directorio_meme), sg.FolderBrowse(button_text="Seleccionar")],
             # Botones de guardar y volver
             [sg.OK(button_text="Guardar"), sg.Cancel(button_text="Volver")]]
 
@@ -38,17 +37,17 @@ def pantalla_configuracion(usuario):
             sys.exit()
         if event == 'Guardar':
             # Obtengo la ruta absoluta de la carpeta seleccionada
-            repo_imagenes = os.path.abspath(values[0])
-            carpeta_collages = os.path.abspath(values[1])
-            carpeta_memes = os.path.abspath(values[2])
+            repo_imagenes = os.path.join(values[0])
+            carpeta_collages = os.path.join(values[1])
+            carpeta_memes = os.path.join(values[2])
 
             # Verifico que la carpeta seleccionada sea una subcarpeta del directorio padre
-            if os.path.commonpath([DIRECTORIO_PADRE, repo_imagenes]) != DIRECTORIO_PADRE:
-                sg.popup_error('La carpeta seleccionada debe estar dentro de {}'.format(DIRECTORIO_PADRE))
+            if os.path.commonpath([directorio_padre, repo_imagenes]) != directorio_padre:
+                sg.popup_error('La carpeta seleccionada debe estar dentro de {}'.format(directorio_padre))
             else:
-                conf.guardar_directorios(os.path.relpath(repo_imagenes, DIRECTORIO_PADRE),
-                                    os.path.relpath(carpeta_collages, DIRECTORIO_PADRE),
-                                    os.path.relpath(carpeta_memes, DIRECTORIO_PADRE), DIRECTORIO_PADRE, usuario_actual)
+                conf.guardar_directorios(os.path.relpath(repo_imagenes, directorio_padre),
+                                    os.path.relpath(carpeta_collages, directorio_padre),
+                                    os.path.relpath(carpeta_memes, directorio_padre), directorio_padre, usuario_actual)
                 sg.popup("La configuración se ha guardado correctamente")
 
 if __name__ =="__main__":

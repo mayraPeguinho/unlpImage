@@ -3,8 +3,8 @@
         "Usuario": "pedro",
         "Nombre": "garcia",
         "Edad": "35",
-        "Genero": "Masculino",
-        "Especificar genero": "-",
+        "Genero": "Otro",
+        "Especificar genero": "-DAS",
         "Avatar": "avatar.png"
     }
 ]

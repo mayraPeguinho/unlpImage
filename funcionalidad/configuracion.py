@@ -6,6 +6,7 @@ import os
 #Agrego el directorio raiz a la ruta de búsqueda de módulos
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from funcionalidad import registrar_log as log
+import rutas as r
 
 def guardar_directorios(repositorio_imagenes, directorio_collages, directorio_memes, directorio_raiz, usuario):
     """Guarda los directiores relativos de las carpetas y lo carga en el log"""
@@ -15,7 +16,18 @@ def guardar_directorios(repositorio_imagenes, directorio_collages, directorio_me
         'directorio_memes': os.path.relpath(directorio_memes, directorio_raiz).replace('\\', '/')
     }
 
-    with open(os.path.join(directorio_raiz, 'datos', 'configuracion.json'), 'w') as archivo:
+    with open(r.archivo_configuracion_json, 'w') as archivo:
         json.dump(data, archivo, indent=4)
         log.registrar_interaccion(usuario, "Cambio en configuración")
-    
+
+def obtener_directorios():
+    def armar_ruta(directorio,subcarpetas):
+        for elem in subcarpetas:
+            directorio=os.path.join(directorio,elem)
+        return directorio
+    with open(r.archivo_configuracion_json, 'r') as archivo:
+        datos=json.load(archivo)
+        repositorio_imagenes=armar_ruta(r.directorio_padre,datos['repositorio_imagenes'].split('/'))
+        directorio_collages=armar_ruta(r.directorio_padre,datos['directorio_collages'].split('/'))
+        directorio_memes=armar_ruta(r.directorio_padre,datos['directorio_memes'].split('/'))
+    return repositorio_imagenes,directorio_collages,directorio_memes

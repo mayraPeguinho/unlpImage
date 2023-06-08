@@ -1,5 +1,5 @@
 {
     "repositorio_imagenes": "imagenes/repositorio_imagenes",
-    "directorio_collages": ".",
-    "directorio_memes": "."
+    "directorio_collages": "imagenes/directorio_collages",
+    "directorio_memes": "imagenes/directorio_memes"
 }

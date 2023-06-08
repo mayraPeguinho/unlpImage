@@ -42,7 +42,7 @@ def eventos_seleccion_collage():
             case "-DISEÑO 1-":
                 ventana.metadata["cantidad_imagenes"]=2
                 ventana.hide()
-                generador_collage.generar_collage(2)
+                generador_collage.generar_collage('collage_1.png',2)
                 ventana.un_hide()
             case "-DISEÑO 2-":
                 ventana.metadata["cantidad_imagenes"]=2

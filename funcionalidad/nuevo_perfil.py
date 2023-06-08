@@ -5,9 +5,9 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from rutas import archivo_perfiles_json as ruta_archivo
-print(ruta_archivo)
+from rutas import ruta_imagenes_perfil
 
-ruta_avatares = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'imagenes', 'imagenes_perfil')), 'avatar.png')
+ruta_avatares = os.path.join(ruta_imagenes_perfil, 'avatar.png')
 
 def crear_perfil(values):
     """ Creo el perfil para pasarlo por las diferentes ventanas"""
