@@ -4,7 +4,7 @@ import os
 import json
 import PySimpleGUI as sg
 import PIL
-import generador_memes
+
 
 # Agrego el directorio raiz a la ruta de búsqueda de módulos
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))

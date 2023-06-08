@@ -4,12 +4,12 @@ import os
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from pantallas import generador_memes
 from pantallas import seleccion_de_collage
 from pantallas import etiquetar_imagenes
 from pantallas import configuracion
 from pantallas import editar_perfil
 from pantallas import inicio
+from pantallas import seleccion_template as st      
 import rutas as r
 
 def generar_ventana_de_ayuda():
@@ -61,7 +61,7 @@ def eventos_menu_principal(menu):
                 generar_ventana_de_ayuda()
             case "-VENTANA MEME-":
                 menu.hide()
-                generador_memes.generar_meme()
+                st.pantalla_seleccionartemplate(menu.metadata["perfil_actual"]["Usuario"])
                 menu.un_hide()
             case "-VENTANA COLLAGE-":
                 menu.hide()

@@ -6,7 +6,7 @@ from funcionalidad.verificar_input import falta_completar_campos
 
 
 
-def generar_meme(ruta_template):
+def generar_meme():
      '''Esta funcion define una ventana 
      para generar memes a partir de una imágen y un seleccionados por el usuario. '''
      layout = [
