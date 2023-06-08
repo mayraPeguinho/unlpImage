@@ -27,9 +27,9 @@ def ventana_seleccion_collage():
                         key="-DISEÑO 4-")],
               [sg.Button("Volver",key="-VOLVER-")],
              ]
-    return sg.Window("UNLPImage",layout,margins=(150, 150),metadata={"cantidad_imagenes":None})
+    return sg.Window("UNLPImage",layout,margins=(150, 150))
 
-def eventos_seleccion_collage():
+def eventos_seleccion_collage(usuario):
     ventana=ventana_seleccion_collage()
     while True:
         evento, valores = ventana.read()
@@ -40,28 +40,24 @@ def eventos_seleccion_collage():
                 ventana.close()
                 break
             case "-DISEÑO 1-":
-                ventana.metadata["cantidad_imagenes"]=2
                 ventana.hide()
-                generador_collage.generar_collage('collage_1.png',2)
+                generador_collage.generar_collage(usuario,2)
                 ventana.un_hide()
             case "-DISEÑO 2-":
-                ventana.metadata["cantidad_imagenes"]=2
                 ventana.hide()
-                generador_collage.generar_collage(2)
+                generador_collage.generar_collage(usuario,2)
                 ventana.un_hide()
             case "-DISEÑO 3-":
-                ventana.metadata["cantidad_imagenes"]=3
                 ventana.hide()
-                generador_collage.generar_collage(3)
+                generador_collage.generar_collage(usuario,3)
                 ventana.un_hide()
             case "-DISEÑO 4-":
-                ventana.metadata["cantidad_imagenes"]=4
                 ventana.hide()
-                generador_collage.generar_collage(4)
+                generador_collage.generar_collage(usuario,4)
                 ventana.un_hide()
 
 
 if __name__ =="__main__":
-     eventos_seleccion_collage()
+     eventos_seleccion_collage("usuario")
 
 

@@ -66,7 +66,7 @@ def eventos_menu_principal(menu):
             case "-VENTANA COLLAGE-":
                 menu.hide()
                 #pasarle la info del perfil actual
-                seleccion_de_collage.eventos_seleccion_collage()
+                seleccion_de_collage.eventos_seleccion_collage(menu.metadata["perfil_actual"]["Usuario"])
                 menu.un_hide()
             case "-VENTANA ETIQUETAR-":
                 menu.hide()
