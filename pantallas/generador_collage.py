@@ -110,7 +110,7 @@ def generar_collage(usuario,cant_imagenes,diseño):
                  nombres = os.listdir(ruta_directorio_collages)
 
                  nombre = sg.popup_get_text("Ingrese un nombre para el collage")
-                 if nombre is not None and nombre != ' ':
+                 if nombre is not None and nombre != '':
                      if not crear_collage.verificar_nombre(nombres, f"{nombre}.png"):
                          crear_collage.guardar_collage(nombre, collage_actual,nombres_imagenes,usuario,valores["-TÍTULO-"])
                          sg.popup("El collage se generó con éxito")
@@ -169,12 +169,5 @@ def generar_collage(usuario,cant_imagenes,diseño):
         
      window.close()
 
-
-if __name__ =="__main__":
-     #diseño seleccionado
-     diseño = 3
-     #cantidad de imagenes que tendrá el collage
-     cant_imagenes = 4
-     generar_collage("usuario",cant_imagenes, diseño)
 
     
