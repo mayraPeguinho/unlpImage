@@ -36,7 +36,6 @@ def pantalla_configuracion(usuario):
         elif event == sg.WIN_CLOSED:
             sys.exit()
         if event == 'Guardar':
-            # Obtengo la ruta absoluta de la carpeta seleccionada
             repo_imagenes = os.path.join(values[0])
             carpeta_collages = os.path.join(values[1])
             carpeta_memes = os.path.join(values[2])

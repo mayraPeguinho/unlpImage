@@ -26,7 +26,7 @@ def crear_csv(ruta_csv):
 
 def guardar_data(ruta, data, usuario_actual):
     """Guarda los datos de la imagen en el archivo csv"""
-    ruta
+        
     with open(ruta, mode='r+', encoding="utf-8") as file:
             # Creo objeto lector
             reader = csv.reader(file)

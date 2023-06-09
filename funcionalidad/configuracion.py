@@ -1,3 +1,4 @@
+import PySimpleGUI as sg
 import json
 import sys
 import os
@@ -30,6 +31,8 @@ def obtener_directorios():
         directorio_collages=armar_ruta(r.directorio_padre,datos['directorio_collages'].split('/'))
         directorio_memes=armar_ruta(r.directorio_padre,datos['directorio_memes'].split('/'))
         return repositorio_imagenes,directorio_collages,directorio_memes
-    except(FileNotFoundError,PermissionError):
+    except(FileNotFoundError):
         return None
-        #No se pudieron obtener las direcciones
+    except(PermissionError):
+        sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'nuevo_perfil.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+        sys.exit()

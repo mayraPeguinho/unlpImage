@@ -1,3 +1,4 @@
+import PySimpleGUI as sg
 import csv
 import os
 import sys
@@ -36,7 +37,10 @@ def registrar_interaccion(nick, operacion,valores=None,textos=None):
              if not archivo_existe:
                  writer_csv.writerow(["Fecha y Hora", "Nick", "Operación","Valores", "Textos"])   
              writer_csv.writerow(log)
-     except (FileNotFoundError,PermissionError):
+     except (FileNotFoundError):
          pass
+     except PermissionError:
+        sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'logs.csv', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+        sys.exit()
 
 

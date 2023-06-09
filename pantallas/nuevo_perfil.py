@@ -14,10 +14,8 @@ import rutas as r
 
 def ventana_nuevo_perfil():
 
-    # ruta_archivo=r.archivo_perfiles_json
-    # ruta_avatares= os.path.join(r.ruta_imagenes_perfil,'avatar.png')
-    ruta_archivo = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'nuevo_perfil.json')
-    ruta_avatares = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'imagenes', 'imagenes_perfil')), 'avatar.png')
+    ruta_archivo=r.archivo_perfiles_json
+    ruta_avatares= os.path.join(r.ruta_imagenes_perfil,'avatar.png')
 
     columna_izquierda = [
         [sg.Text("Nuevo perfil")],

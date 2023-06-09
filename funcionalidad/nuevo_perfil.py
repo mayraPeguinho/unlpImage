@@ -1,3 +1,4 @@
+import PySimpleGUI as sg
 import json
 import os
 import sys
@@ -31,9 +32,11 @@ def crear_json(usuario):
     try:
         with open(ruta_archivo, "r", encoding="UTF-8") as archivo:
             datos_agregar = json.load(archivo)
-    except (FileNotFoundError, PermissionError, json.JSONDecodeError):
+    except (FileNotFoundError, json.JSONDecodeError):
         pass
-
+    except PermissionError:
+        sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'nuevo_perfil.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+        sys.exit()
     datos_agregar.append(usuario)
     return datos_agregar
 
@@ -47,8 +50,11 @@ def existe_nombre(alias):
         for nombre_usuario in datos_perfil:
             if alias in nombre_usuario["Usuario"]:
                 return True
-    except (FileNotFoundError, PermissionError, json.JSONDecodeError):
+    except (FileNotFoundError, json.JSONDecodeError):
         return False
+    except PermissionError:
+        sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'nuevo_perfil.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+        sys.exit()
     
 
 def verificar_edad(edad):
