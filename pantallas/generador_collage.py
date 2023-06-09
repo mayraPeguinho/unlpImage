@@ -1,5 +1,4 @@
 import PySimpleGUI as sg
-from PIL import Image, ImageTk
 import sys
 import os
 import csv
@@ -16,6 +15,10 @@ from rutas import ruta_directorio_collages
 from funcionalidad import crear_collage
 
 def obtener_imagenes():
+
+    """Lee un archivo csv que contiene información sobre imágenes y devuelve un diccionario con las descripciones
+    como claves y los nombres de las imágenes como valores. """
+
     imagenes = {}
 
     with open(ruta_archivo, 'r') as archivo_csv:
@@ -30,8 +33,6 @@ def obtener_imagenes():
 
 
 def layout(cant_imagenes,descripciones):
-
-    
 
     column1 = [
         [sg.Text("Seleccionar imagenes")],
@@ -67,6 +68,12 @@ def layout(cant_imagenes,descripciones):
 
 
 def generar_collage(usuario,cant_imagenes,diseño):
+     
+     """
+     Genera la interfaz gráfica para crear un collage y permitiendo al usuario seleccionar las imágenes.
+     Recibe la cantidad de imágenes que tendrá el collage, el numero del diseño a usar y el usuario.
+     """
+
      try:
          # Obtengo las imágenes etiquetadas
          imagenes_diccionario = obtener_imagenes()
@@ -88,7 +95,7 @@ def generar_collage(usuario,cant_imagenes,diseño):
      # creo una imagen base para el collage
      size=400,400
      collage = PIL.Image.new('RGB', size)
-     image = ImageTk.PhotoImage(collage)
+     image = PIL.ImageTk.PhotoImage(collage)
      window["-IMAGEN-"].update(data=image)
      
      collage_actual = collage.copy()
@@ -156,15 +163,15 @@ def generar_collage(usuario,cant_imagenes,diseño):
                          
 
                  case 4:
-                     if evento==f"-IMAGEN-1-":                           
+                     if evento=="-IMAGEN-1-":                           
                          collage_actual= crear_collage.crear_collage_diseño_4(imagenes_diccionario.get(valores["-IMAGEN-1-"]),1,collage)
                              
                      elif evento=="-IMAGEN-2-":
                          collage_actual = crear_collage.crear_collage_diseño_4(imagenes_diccionario.get(valores["-IMAGEN-2-"]),2, collage)
                          
                      
-             #muestro el collage altualizado
-         imagen_actualizada = ImageTk.PhotoImage(collage_actual)
+         #muestro el collage altualizado
+         imagen_actualizada = PIL.ImageTk.PhotoImage(collage_actual)
          window["-IMAGEN-"].update(data=imagen_actualizada)
         
      window.close()
