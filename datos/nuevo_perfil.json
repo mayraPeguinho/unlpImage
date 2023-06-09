@@ -1,3 +1,26 @@
-{
-
-}
+[
+    {
+        "Usuario": "Martin",
+        "Nombre": "Martin",
+        "Edad": "23",
+        "Genero": "Masculino",
+        "Especificar genero": "-",
+        "Avatar": "tierra.png"
+    },
+    {
+        "Usuario": "Mariana",
+        "Nombre": "Mariana",
+        "Edad": "29",
+        "Genero": "Femenino",
+        "Especificar genero": "-",
+        "Avatar": "mujer.png"
+    },
+    {
+        "Usuario": "Rogelio",
+        "Nombre": "Rogelio",
+        "Edad": "76",
+        "Genero": "Masculino",
+        "Especificar genero": "-",
+        "Avatar": "hombre_traje.png"
+    }
+]
