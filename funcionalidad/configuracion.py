@@ -20,6 +20,9 @@ def guardar_directorios(repositorio_imagenes, directorio_collages, directorio_me
         log.registrar_interaccion(usuario, "Cambio en configuración")
 
 def obtener_directorios():
+    '''Obtengo las rutas del repositorio de imagenes y los directorios, se arma
+    la ruta a base de la ruta relativa obtenida del archivo configuracion.json, y
+    dependiendo tambien de que sistema operativo se trate'''
     def armar_ruta(directorio,subcarpetas):
         for elem in subcarpetas:
             directorio=os.path.join(directorio,elem)
