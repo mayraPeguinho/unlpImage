@@ -102,7 +102,7 @@ def pantalla_seleccionartemplate(usuario):
                 except IsADirectoryError:
                     pass
                 except PermissionError:
-                    sg.popup_error("¡No tienes permisos para acceder a esa carpeta perra!")
+                    sg.popup_error("¡No tienes permisos para acceder a esa carpeta!")
             if event == 'Generar':
                 #Llamar a la pantalla generador_memes y pasarle por parámetro la ruta de la imágen que se selecciono en el árbol. 
                 generador_memes(ruta_imagen)
