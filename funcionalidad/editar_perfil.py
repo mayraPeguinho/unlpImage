@@ -2,7 +2,7 @@ import os
 
 def mostrar_perfil(perfil_actual,window):
     """ MUestro los valores del perfil"""
-
+    ###
     genero_opciones=['Masculino','Femenino','Otro']  
     genero_valor = perfil_actual['Genero']
     genero_indice = genero_opciones.index(genero_valor)
@@ -19,12 +19,11 @@ def mostrar_perfil(perfil_actual,window):
     
 def modificar_perfil(perfil_actual,cambios_perfil):
     """ Le asigno al perfil actual los nuevo valores actualizados"""
-    
-    
-    if cambios_perfil['-BROWSE-'] != '':
-            perfil_actual['Avatar'] = os.path.basename(cambios_perfil['-BROWSE-'])
-    elif cambios_perfil['-BROWSE-'] == '':
-            perfil_actual['Avatar'] = os.path.basename(perfil_actual['Avatar'])
+ 
+    if os.path.basename(cambios_perfil['-BROWSE-'])!= 'avatar.png':
+        perfil_actual['Avatar'] = os.path.basename(cambios_perfil['-BROWSE-'])
+    else:
+        perfil_actual['Avatar'] = os.path.basename(perfil_actual['Avatar'])
 
     if cambios_perfil['Genero'] != []:
         perfil_actual['Genero'] = cambios_perfil['Genero'][0]

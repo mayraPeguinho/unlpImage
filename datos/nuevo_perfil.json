@@ -13,7 +13,7 @@
         "Edad": "29",
         "Genero": "Femenino",
         "Especificar genero": "-",
-        "Avatar": "mujer.png"
+        "Avatar": "avatar.png"
     },
     {
         "Usuario": "Rogelio",
@@ -27,8 +27,8 @@
         "Usuario": "Damacio",
         "Nombre": "Marin",
         "Edad": "29",
-        "Genero": "Femenino",
+        "Genero": "Masculino",
         "Especificar genero": "-",
-        "Avatar": "tierra.png"
+        "Avatar": "avatar.png"
     }
 ]
