@@ -41,19 +41,19 @@ def eventos_seleccion_collage(usuario):
                 break
             case "-DISEÑO 1-":
                 ventana.hide()
-                generador_collage.generar_collage(usuario,2)
+                generador_collage.generar_collage(usuario,2,1)
                 ventana.un_hide()
             case "-DISEÑO 2-":
                 ventana.hide()
-                generador_collage.generar_collage(usuario,2)
+                generador_collage.generar_collage(usuario,3,2)
                 ventana.un_hide()
             case "-DISEÑO 3-":
                 ventana.hide()
-                generador_collage.generar_collage(usuario,3)
+                generador_collage.generar_collage(usuario,4,3)
                 ventana.un_hide()
             case "-DISEÑO 4-":
                 ventana.hide()
-                generador_collage.generar_collage(usuario,4)
+                generador_collage.generar_collage(usuario,2,4)
                 ventana.un_hide()
 
 
