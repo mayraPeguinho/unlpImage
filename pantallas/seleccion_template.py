@@ -74,9 +74,7 @@ def pantalla_seleccionartemplate(usuario):
             data = json.load(archivo)
         rutas_imagenes = [item['image'] for item in data]
 
-
-        for e in rutas_imagenes:
-            print(e)            
+         
         event, values = window.read()    
         if event == 'Volver':
             window.close()
@@ -91,7 +89,7 @@ def pantalla_seleccionartemplate(usuario):
                    
                     # traigo la ruta de la imagen
                     ruta_imagen = values['-TREE-'][0].replace("\\", "/")
-                    print(os.path.basename(ruta_imagen))
+                    
                     if os.path.basename(ruta_imagen) in rutas_imagenes:
                         datavisual_imagen = ei.mostrar_imagen(ruta_imagen)
                         window["-IMAGE-"].update(data=datavisual_imagen)
