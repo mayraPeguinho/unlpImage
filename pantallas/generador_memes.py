@@ -1,10 +1,18 @@
 import PySimpleGUI as sg
 import sys
 import os
+import PIL.Image
+import PIL.ImageTk
+import PIL.ImageOps
+import PIL.ImageDraw
+
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from funcionalidad.verificar_input import falta_completar_campos
+import rutas as r
+from funcionalidad.crear_meme import *
 
 
+ruta_avatares= os.path.join(r.ruta_imagenes_perfil,'hombre_traje.png')
 
 def generar_meme():
 
@@ -14,7 +22,8 @@ def generar_meme():
     para generar memes a partir de una imágen y un seleccionados por el usuario. '''
     
     columna_izquierda = [[sg.Text('Seleccionar fuente:')],
-        [sg.Listbox(fuentes, size=(20, 5), change_submits=True, key='-FUENTE-')]
+        [sg.Listbox(fuentes, size=(20, 5), change_submits=True, key='-FUENTE-')],
+        [sg.Button('Actualizar', key=('-ACTUALIZAR-'))]
     ]
 
 
@@ -37,15 +46,28 @@ def generar_meme():
     ]
     window = sg.Window('Generador de memes',layout, margins=(60, 80), finalize=True, resizable=True)
 
+    """Muestro el meme que se me pasa por parametro"""
+    cargar_meme = PIL.Image.open(ruta_avatares)
+
+    imagen_meme = PIL.ImageTk.PhotoImage(cargar_meme)
+    window['-IMAGEN-'].update(data=imagen_meme)
+
+
     while True:
-        evento, values = window.Read()
+        event, values = window.Read()
         print(values['-FUENTE-'])
-        if evento == "-VOLVER-":
+        window
+        if event == "-VOLVER-":
             window.close()
             break
-        elif evento== sg.WIN_CLOSED:
+
+        elif event== sg.WIN_CLOSED:
             sys.exit()
-        elif evento == "-GENERAR-" :
+        
+        elif event == '-ACTUALIZAR-':
+            meme_actual = actualizar_datos(imagen_meme)
+    
+        elif event == "-GENERAR-" :
             if not falta_completar_campos(values) :  
                 #genero el meme
                 sg.popup("Se generó un meme!")
