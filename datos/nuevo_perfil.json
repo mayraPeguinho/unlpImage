@@ -22,5 +22,13 @@
         "Genero": "Masculino",
         "Especificar genero": "-",
         "Avatar": "hombre_traje.png"
+    },
+    {
+        "Usuario": "Damacio",
+        "Nombre": "Marin",
+        "Edad": "29",
+        "Genero": "Femenino",
+        "Especificar genero": "-",
+        "Avatar": "tierra.png"
     }
 ]
