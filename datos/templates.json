@@ -1,6 +1,6 @@
 [
     {
-        "image": "59c1hh.png",
+        "image": "Increibles.png",
         "name": "Some description",
         "text_boxes": [
             {
@@ -18,7 +18,7 @@
         ]
     },
     {
-        "image": "FqvvwBVWYAI0Fmv.jpg",
+        "image": "nomequemes.jpg",
         "name": "Some description",
         "text_boxes": [
             {
@@ -30,7 +30,7 @@
         ]
     },
     {
-        "image": "Hide-the-Pain-Harold.jpg",
+        "image": "todo-bien.jpg",
         "name": "Some description",
         "text_boxes": [
             {
@@ -48,7 +48,7 @@
         ]
     },
     {
-        "image": "Tuxedo-Winnie-The-Pooh.png",
+        "image": "winnie_detraje.png",
         "name": "Some description",
         "text_boxes": [
             {
@@ -70,9 +70,10 @@
                 "bottom_right_y": 766
             }
         ]
-    },
+
+        },
     {
-        "image": "Expanding-Brain.jpg",
+        "image": "cerebro-expansivo.jpg",
         "name": "Some description",
         "text_boxes": [
             {
@@ -102,7 +103,7 @@
         ]
     },
     {
-        "image": "Left-Exit-12-Off-Ramp.jpg",
+        "image": "siguiente-salida.jpg",
         "name": "Some description",
         "text_boxes": [
             {
@@ -120,7 +121,7 @@
         ]
     },
     {
-        "image": "Running-Away-Balloon.jpg",
+        "image": "globo.jpg",
         "name": "Some description",
         "text_boxes": [
             {
@@ -156,7 +157,7 @@
         ]
     },
     {
-        "image": "Two-Buttons.jpg",
+        "image": "dos_botones.jpg",
         "name": "Some description",
         "text_boxes": [
             {
@@ -174,7 +175,7 @@
         ]
     },
     {
-        "image": "Drake-Hotline-Bling.jpg",
+        "image": "Estosi_estono.jpg",
         "name": "Some description",
         "text_boxes": [
             {
@@ -192,7 +193,7 @@
         ]
     },
     {
-        "image": "10zlh5.jpg",
+        "image": "Queclaseesesta.jpg",
         "name": "Some description",
         "text_boxes": [
             {

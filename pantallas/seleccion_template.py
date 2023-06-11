@@ -73,6 +73,10 @@ def pantalla_seleccionartemplate(usuario):
         with open(ruta_templates) as archivo:
             data = json.load(archivo)
         rutas_imagenes = [item['image'] for item in data]
+
+        cuadros_de_texto = [item['text_boxes'] for item in data if (item['image'] == imagen_seleccionada)]
+        cantidad_cuadros = cuadros_de_texto.__len__()
+
         for e in rutas_imagenes:
             print(e)            
         event, values = window.read()    
@@ -81,7 +85,7 @@ def pantalla_seleccionartemplate(usuario):
             break
         elif event == sg.WIN_CLOSED:
             sys.exit()           
-        else:
+        else
             if event == '-TREE-':
                 
                 #Chequear que se pueda abrir y tratar la imagen
