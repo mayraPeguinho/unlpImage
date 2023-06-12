@@ -73,13 +73,7 @@ def generar_collage(usuario,cant_imagenes,diseño):
      collage = PIL.Image.new('RGB', size,color='white')
      image = PIL.ImageTk.PhotoImage(collage)
      window["-IMAGEN-"].update(data=image)
-     
-  # Ruta de guardado del collage en formato PNG
-
-
-
-
-
+    
      collage_actual = collage.copy()
      titulo_insertado = False
 
@@ -100,7 +94,7 @@ def generar_collage(usuario,cant_imagenes,diseño):
          elif evento == "-GUARDAR-":
              if not falta_completar_campos(valores):
                  if titulo_insertado:
-                     #obtengo la lista de nombres de los collages creados
+                     #obtengo la lista de nombres de las imagenes que use para el collage.
                      nombres = os.listdir(ruta_directorio_collages)            
                      nombre = sg.popup_get_text("Ingrese un nombre para el collage")
                      if nombre is not None and crear_collage.es_nombre_valido(nombre) and nombre != '':
