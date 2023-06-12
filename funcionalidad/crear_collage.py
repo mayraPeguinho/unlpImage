@@ -1,11 +1,49 @@
-import os
+import PySimpleGUI as sg
+import os, sys
 import PIL.Image
 import PIL.ImageTk
 import PIL.ImageOps
 import PIL.ImageDraw
+import csv
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from rutas import ruta_directorio_collages
 from funcionalidad import registrar_log as log
+from rutas import archivo_imagenes_etiquetadas_csv as ruta_archivo
+
+
+def obtener_imagenes():
+
+      """Lee un archivo csv que contiene información sobre imágenes y devuelve un diccionario con las descripciones
+      como claves y los nombres de las imágenes como valores. """
+      try:
+           imagenes = {}
+           repetidas = {}
+           with open(ruta_archivo, 'r') as archivo_csv:
+                reader = csv.reader(archivo_csv)
+                next(reader)  
+                for row in reader:
+                     descripcion = row[1]
+                     nombre_imagen = row[0]
+                     #para que no la sobreescriba la descripción, si ya existe
+                     if descripcion in imagenes:
+                          # Si la descripción ya existe en el diccionario de repetidas, incrementa el contador correspondiente
+                          if descripcion in repetidas:
+                               repetidas[descripcion] += 1
+                          else:
+                               repetidas[descripcion] = 2
+                          #Agrega un sufijo del contador a la descripción
+                          descripcion = f"{descripcion}_{repetidas[descripcion]}"
+                     imagenes[descripcion] = nombre_imagen
+      except (FileNotFoundError):
+           sg.popup("No se encontró el archivo de imagenes etiquetadas.")
+      except PermissionError:
+           sg.popup_error("No se cuentan con los permisos para acceder al archivo 'imagenes_etiquetadas.csv', se cerrará el programa.")
+           sys.exit()
+
+
+      return imagenes
 
 def crear_collage_diseño_1(imagen, pos, collage):
     
@@ -103,10 +141,18 @@ def verificar_nombre(nombres, nombre):
       '''Retorna true si en la lista nombres se encuentra el nombre, false en caso contrario'''
       return any(map(lambda x: x == nombre, nombres))
 
+def es_nombre_valido(nombre):
+      '''Verifica si el texto dado es válido para ser utilizado como nombre de archivo.'''
+      invalidos = '[<>\\/|;*#$%!¡?¿ ]'  # Agregamos un espacio en blanco a la lista de caracteres inválidos
+      return not any(caracter in invalidos for caracter in nombre)
+
+
+
 
 def guardar_collage(nombre,collage,nombres_imagenes,usuario,titulo):
-     
-     collage_path = os.path.join(ruta_directorio_collages, f"{nombre}.png")
-     collage.save(collage_path)
+      '''Guarda el collage en el repositorio de collages
+      y registra el evento en el archivo de logs.'''
+      collage_path = os.path.join(ruta_directorio_collages, f"{nombre}.png")
+      collage.save(collage_path)
 
-     log.registrar_interaccion(usuario,"Generación de collage",nombres_imagenes,titulo)
+      log.registrar_interaccion(usuario,"Generación de collage",nombres_imagenes,titulo)

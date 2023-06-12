@@ -9,27 +9,9 @@ import PIL.ImageDraw
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from rutas import archivo_imagenes_etiquetadas_csv as ruta_archivo
-from funcionalidad.verificar_input import falta_completar_campos
 from rutas import ruta_directorio_collages
+from funcionalidad.verificar_input import falta_completar_campos
 from funcionalidad import crear_collage
-
-def obtener_imagenes():
-
-    """Lee un archivo csv que contiene información sobre imágenes y devuelve un diccionario con las descripciones
-    como claves y los nombres de las imágenes como valores. """
-
-    imagenes = {}
-
-    with open(ruta_archivo, 'r') as archivo_csv:
-        reader = csv.reader(archivo_csv)
-        next(reader)  
-        for row in reader:
-            descripcion = row[1]
-            nombre_imagen = row[0]
-            imagenes[descripcion] = nombre_imagen
-
-    return imagenes
 
 
 def layout(cant_imagenes,descripciones):
@@ -74,31 +56,32 @@ def generar_collage(usuario,cant_imagenes,diseño):
      Recibe la cantidad de imágenes que tendrá el collage, el numero del diseño a usar y el usuario.
      """
 
-     try:
-         # Obtengo las imágenes etiquetadas
-         imagenes_diccionario = obtener_imagenes()
+     # Obtengo las imágenes etiquetadas
+     imagenes_diccionario = crear_collage.obtener_imagenes()
 
-         # En los combos se debe mostrar la descripción de la imagen
-         descripciones = list(imagenes_diccionario.keys())
+     # En los combos se debe mostrar la descripción de la imagen
+     descripciones = list(imagenes_diccionario.keys())
 
-         #obtengo el nombre de la imagen a partir de la ruta para luego guardarla en el log.
-         nombres_imagenes = [os.path.basename(ruta_imagen) for ruta_imagen in list(imagenes_diccionario.values())]
-     except FileNotFoundError:
-         sg.popup("No se encontró el archivo de imagenes etiquetadas.")
-     except PermissionError:
-         sg.popup("No tiene permisos para acceder al archivo.")
-  
-
+     #obtengo el nombre de la imagen a partir de la ruta para luego guardarla en el log.
+     nombres_imagenes = [os.path.basename(ruta_imagen) for ruta_imagen in list(imagenes_diccionario.values())]
+    
      window = sg.Window("Generador de Collages", layout(cant_imagenes,descripciones),margins=(60,30),element_justification="center",resizable=True)
      window.finalize()
      
      # creo una imagen base para el collage
      size=400,400
-     collage = PIL.Image.new('RGB', size)
+     collage = PIL.Image.new('RGB', size,color='white')
      image = PIL.ImageTk.PhotoImage(collage)
      window["-IMAGEN-"].update(data=image)
      
+  # Ruta de guardado del collage en formato PNG
+
+
+
+
+
      collage_actual = collage.copy()
+     titulo_insertado = False
 
      while True:
          evento, valores = window.read()     
@@ -110,22 +93,27 @@ def generar_collage(usuario,cant_imagenes,diseño):
 
          elif evento == "-ACTUALIZAR-":    
              collage_actual= crear_collage.insertar_titulo(valores["-TÍTULO-"],collage)
-             
+             if valores["-TÍTULO-"] != '':
+                 titulo_insertado=True
+             else:
+                 sg.popup("Debe ingresar un título")
          elif evento == "-GUARDAR-":
              if not falta_completar_campos(valores):
-                 #obtengo la lista de nombres de los collages creados
-                 nombres = os.listdir(ruta_directorio_collages)
-
-                 nombre = sg.popup_get_text("Ingrese un nombre para el collage")
-                 if nombre is not None and nombre != '':
-                     if not crear_collage.verificar_nombre(nombres, f"{nombre}.png"):
-                         crear_collage.guardar_collage(nombre, collage_actual,nombres_imagenes,usuario,valores["-TÍTULO-"])
-                         sg.popup("El collage se generó con éxito")
-                         break
+                 if titulo_insertado:
+                     #obtengo la lista de nombres de los collages creados
+                     nombres = os.listdir(ruta_directorio_collages)            
+                     nombre = sg.popup_get_text("Ingrese un nombre para el collage")
+                     if nombre is not None and crear_collage.es_nombre_valido(nombre) and nombre != '':
+                         if not crear_collage.verificar_nombre(nombres, f"{nombre}.png"):
+                             crear_collage.guardar_collage(nombre, collage_actual,nombres_imagenes,usuario,valores["-TÍTULO-"])
+                             sg.popup("El collage se generó con éxito")
+                             break
+                         else:
+                             sg.popup("Ya existe un archivo con ese nombre. Por favor, ingrese otro nombre")
                      else:
-                         sg.popup("Ya existe un archivo con ese nombre. Por favor, ingrese otro nombre")
+                         sg.popup("Debe ingresar un nombre válido para el collage. Caracteres no permitidos : <>:/\|;*#$%!¡?¿")
                  else:
-                     sg.popup("Debe ingresar un nombre para el collage")
+                     sg.popup("Actualice el collage")
              else:
                   sg.popup("Falta completar los campos necesarios")   
         
