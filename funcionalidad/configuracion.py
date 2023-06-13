@@ -24,6 +24,8 @@ def obtener_directorios():
     la ruta a base de la ruta relativa obtenida del archivo configuracion.json, y
     dependiendo tambien de que sistema operativo se trate'''
     def armar_ruta(directorio,subcarpetas):
+        '''Se arma la ruta a partir de la ruta relativa, con las subcarpetas
+        '''
         for elem in subcarpetas:
             directorio=os.path.join(directorio,elem)
         return directorio
@@ -37,5 +39,5 @@ def obtener_directorios():
     except(FileNotFoundError):
         return None
     except(PermissionError):
-        sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'nuevo_perfil.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+        sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
         sys.exit()
