@@ -101,7 +101,7 @@ def generar_meme():
     #    sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'template.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
     #s    sys.exit()
     
-    #cant_cajas = recorrer_archivo(archivo_memes)
+    #cant_cajas = recorrer_archivo(archivo_memes,imagen_seleccionada)
     cant_cajas=5
     layout = definir_layout(cant_cajas)
 
@@ -113,7 +113,7 @@ def generar_meme():
     cargar_meme = PIL.Image.open(ruta_avatares)
 
     imagen_meme = PIL.ImageTk.PhotoImage(cargar_meme)
-    window["-IMAGEN-"].update(data=imagen_meme)
+    window["-IMAGEN-"].update(data=cargar_meme)
 
     while True:
         event, values = window.Read()
