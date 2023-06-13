@@ -20,7 +20,8 @@ fuentes = sg.Text.fonts_installed_list()
 def definir_layout(cant_cajas):
     """Se arma de que manera puede ser la interfaz dependiendo la cantidad
     de cajas de texto se tiene"""
-    cant_cajas=5
+
+    
     if cant_cajas == 1:
         columna_izquierda = [
             [sg.Text("Seleccionar fuente:")],
@@ -89,35 +90,27 @@ def definir_layout(cant_cajas):
     return layout
 
 
-def generar_meme():
+def generar_meme(imagen_seleccionada,meme_json,usuario):
     
-    #try:
-    #    with open(ruta_archivo, "r", encoding="UTF-8") as archivo:
-    #        archivo_memes = json.load(archivo)
-    #except (FileNotFoundError, json.JSONDecodeError):
-    #    sg.popup_error("""El archivo 'template.json' no se encontró, la aplicacion no puede continuar y se cerrará el programa.""")
-    #    sys.exit()
-    #except PermissionError:
-    #    sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'template.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
-    #s    sys.exit()
-    
-    #cant_cajas = recorrer_archivo(archivo_memes,imagen_seleccionada)
-    cant_cajas=5
+    elementos = [item for item in meme_json if item['image'] == os.path.basename(imagen_seleccionada)]
+
+    cant_cajas = (elementos[0]['text_boxes'].__len__())
+
     layout = definir_layout(cant_cajas)
 
     window = sg.Window(
         "Generador de memes", layout, margins=(60, 80), finalize=True, resizable=True
     )
-
     """Muestro el meme que se me pasa por parametro"""
-    cargar_meme = PIL.Image.open(ruta_avatares)
+
+    cargar_meme = PIL.Image.open(imagen_seleccionada)
 
     imagen_meme = PIL.ImageTk.PhotoImage(cargar_meme)
-    window["-IMAGEN-"].update(data=cargar_meme)
+    window["-IMAGEN-"].update(data=imagen_meme)
 
     while True:
         event, values = window.Read()
-        print(values["-FUENTE-"])
+        print(values)
         window
         if event == "-VOLVER-":
             window.close()
@@ -132,6 +125,7 @@ def generar_meme():
         elif event == "-GENERAR-":
             if not falta_completar_campos(values):
                 # genero el meme
+                
                 sg.popup("Se generó un meme!")
                 break
             else:
@@ -139,4 +133,4 @@ def generar_meme():
 
 
 if __name__ == "__main__":
-    generar_meme()
+    generar_meme(imagen_seleccionada,meme_json,usuario)
