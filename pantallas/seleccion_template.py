@@ -11,6 +11,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from funcionalidad import etiquetar_imagenes as ei
 from funcionalidad import seleccion_template as st
 from rutas import ruta_repositorio_imagenes as ruta_repo
+import generador_memes as ge
 
 def pantalla_seleccionartemplate(usuario):
 
@@ -105,7 +106,7 @@ def pantalla_seleccionartemplate(usuario):
                     sg.popup_error("¡No tienes permisos para acceder a esa carpeta!")
             if event == 'Generar':
                 #Llamar a la pantalla generador_memes y pasarle por parámetro la ruta de la imágen que se selecciono en el árbol. 
-                generador_memes(ruta_imagen, data, usuario)
+                ge(ruta_imagen, data, usuario)
                 pass
 
                 
