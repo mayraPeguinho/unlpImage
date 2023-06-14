@@ -24,37 +24,59 @@ def calcular_tam_fuente(draw, texto, path_fuente, box):
         
     return fuente
 
-def actualizar_datos(meme_imagen,meme_json,values,fuente):
+def actualizar_datos(meme_imagen,meme_json,values):
     """Se actualiza lo escrito en el meme"""
 
     copia = meme_imagen.copy()
     draw = PIL.ImageDraw.Draw(copia)
     
-    if (values['TEXTO_1'] != ''):
+    if (values['-TEXTO_1-'] != ''):
         top_left_x = meme_json[0]['text_boxes'][0]['top_left_x']
         top_left_y = meme_json[0]['text_boxes'][0]['top_left_y']
         bottom_right_x = meme_json[0]['text_boxes'][0]['bottom_right_x']
         bottom_right_y = meme_json[0]['text_boxes'][0]['bottom_right_y']
-        fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_1-'],fuente,(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
-        draw.text([top_left_x, top_left_y], values['TEXTO_1'], font=fuente_ajustada)
         
-    if (values['TEXTO_2'] != ''):
-        fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_2-'],fuente,(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
-        draw.text([top_left_x, top_left_y], values['TEXTO_2'], font=fuente_ajustada)
-    
-    if (values['TEXTO_3'] != ''):
-        fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_3-'],fuente,(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
-        draw.text([top_left_x, top_left_y], values['TEXTO_3'], font=fuente_ajustada)
-    
-    if (values['TEXTO_4'] != ''):
-        fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_4-'],fuente,(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
-        draw.text([top_left_x, top_left_y], values['TEXTO_4'], font=fuente_ajustada)
+        fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_1-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
+        draw.text([top_left_x, top_left_y], values['-TEXTO_1-'], font=fuente_ajustada)
+        
+  
+    if (values.get('-TEXTO_2-', '') != ''):
+        top_left_x = meme_json[0]['text_boxes'][1]['top_left_x']
+        top_left_y = meme_json[0]['text_boxes'][1]['top_left_y']
+        bottom_right_x = meme_json[0]['text_boxes'][1]['bottom_right_x']
+        bottom_right_y = meme_json[0]['text_boxes'][1]['bottom_right_y']
 
-    
-    if (values['TEXTO_5'] != ''):
-        fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_5-'],fuente,(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
-        draw.text([top_left_x, top_left_y], values['TEXTO_5'], font=fuente_ajustada)
+        fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_2-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
+        draw.text([top_left_x, top_left_y], values['-TEXTO_2-'], font=fuente_ajustada)
 
+
+    if (values.get('-TEXTO_3-', '') != ''):
+        top_left_x = meme_json[0]['text_boxes'][2]['top_left_x']
+        top_left_y = meme_json[0]['text_boxes'][2]['top_left_y']
+        bottom_right_x = meme_json[0]['text_boxes'][2]['bottom_right_x']
+        bottom_right_y = meme_json[0]['text_boxes'][2]['bottom_right_y']
+
+        fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_3-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
+        draw.text([top_left_x, top_left_y], values['-TEXTO_3-'], font=fuente_ajustada)
+    
+    if (values.get('-TEXTO_4-', '') != ''):
+        top_left_x = meme_json[0]['text_boxes'][3]['top_left_x']
+        top_left_y = meme_json[0]['text_boxes'][3]['top_left_y']
+        bottom_right_x = meme_json[0]['text_boxes'][3]['bottom_right_x']
+        bottom_right_y = meme_json[0]['text_boxes'][3]['bottom_right_y']
+
+        fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_4-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
+        draw.text([top_left_x, top_left_y], values['-TEXTO_4-'], font=fuente_ajustada)
+    
+    if (values.get('-TEXTO_5-', '') != ''):
+        top_left_x = meme_json[0]['text_boxes'][4]['top_left_x']
+        top_left_y = meme_json[0]['text_boxes'][4]['top_left_y']
+        bottom_right_x = meme_json[0]['text_boxes'][4]['bottom_right_x']
+        bottom_right_y = meme_json[0]['text_boxes'][4]['bottom_right_y']
+
+        fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_5-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
+        draw.text([top_left_x, top_left_y], values['-TEXTO_5-'], font=fuente_ajustada)
+    
     return copia
 
 def recorrer_archivo(data,imagen_seleccionada):

@@ -12,11 +12,6 @@ from funcionalidad.verificar_input import falta_completar_campos
 import rutas as r
 from funcionalidad.crear_meme import *
 
-ruta_avatares = os.path.join(r.ruta_imagenes_perfil, "hombre_traje.png")
-
-
-fuentes = sg.Text.fonts_installed_list()
-
 def definir_layout(cant_cajas):
     """Se arma de que manera puede ser la interfaz dependiendo la cantidad
     de cajas de texto se tiene"""
@@ -25,14 +20,14 @@ def definir_layout(cant_cajas):
     if cant_cajas == 1:
         columna_izquierda = [
             [sg.Text("Seleccionar fuente:")],
-            [sg.Listbox(fuentes, size=(20, 5), change_submits=True, key="-FUENTE-")],
+            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-')],
             [sg.Text('Texto 1:')],[sg.Input(key = '-TEXTO_1-')],
             [sg.Button("Actualizar", key=("-ACTUALIZAR-"))],
         ]
     elif cant_cajas == 2:
         columna_izquierda = [
             [sg.Text("Seleccionar fuente:")],
-            [sg.Listbox(fuentes, size=(20, 5), change_submits=True, key="-FUENTE-")],
+            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-')],
             [sg.Text('Texto 1:')],[sg.Input(key = '-TEXTO_1-')],
             [sg.Text('Texto 2:')],[sg.Input(key = '-TEXTO_2-')],
             [sg.Button("Actualizar", key=("-ACTUALIZAR-"))],
@@ -40,7 +35,7 @@ def definir_layout(cant_cajas):
     elif cant_cajas == 3:
         columna_izquierda = [
             [sg.Text("Seleccionar fuente:")],
-            [sg.Listbox(fuentes, size=(20, 5), change_submits=True, key="-FUENTE-")],
+            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-')],
             [sg.Text('Texto 1:')],[sg.Input(key = '-TEXTO_1-')],
             [sg.Text('Texto 2:')],[sg.Input(key = '-TEXTO_2-')],
             [sg.Text('Texto 3:')],[sg.Input(key = '-TEXTO_3-')],
@@ -49,7 +44,7 @@ def definir_layout(cant_cajas):
     elif cant_cajas == 4:
         columna_izquierda = [
             [sg.Text("Seleccionar fuente:")],
-            [sg.Listbox(fuentes, size=(20, 5), change_submits=True, key="-FUENTE-")],
+            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-')],
             [sg.Text('Texto 1:')],[sg.Input(key = '-TEXTO_1-')],
             [sg.Text('Texto 2:')],[sg.Input(key = '-TEXTO_2-')],
             [sg.Text('Texto 3:')],[sg.Input(key = '-TEXTO_3-')],
@@ -59,7 +54,7 @@ def definir_layout(cant_cajas):
     elif cant_cajas == 5:
         columna_izquierda = [
             [sg.Text("Seleccionar fuente:")],
-            [sg.Listbox(fuentes, size=(20, 5), change_submits=True, key="-FUENTE-")],
+            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-')],
             [sg.Text('Texto 1:')],[sg.Input(key = '-TEXTO_1-')],
             [sg.Text('Texto 2:')],[sg.Input(key = '-TEXTO_2-')],
             [sg.Text('Texto 3:')],[sg.Input(key = '-TEXTO_3-')],
@@ -91,10 +86,10 @@ def definir_layout(cant_cajas):
 
 
 def generar_meme(imagen_seleccionada,meme_json,usuario):
-    
-    elementos = [item for item in meme_json if item['image'] == os.path.basename(imagen_seleccionada)]
 
-    cant_cajas = (elementos[0]['text_boxes'].__len__())
+    meme_json = [item for item in meme_json if item['image'] == os.path.basename(imagen_seleccionada)]
+
+    cant_cajas = (meme_json[0]['text_boxes'].__len__())
 
     layout = definir_layout(cant_cajas)
 
@@ -120,7 +115,11 @@ def generar_meme(imagen_seleccionada,meme_json,usuario):
             sys.exit()
 
         elif event == "-ACTUALIZAR-":
-            meme_actual = actualizar_datos(imagen_meme,values,values['-FUENTE-'])
+            print(values)
+            meme_actual = actualizar_datos(cargar_meme,meme_json,values)
+            
+            imagen_meme = PIL.ImageTk.PhotoImage(meme_actual)
+            window["-IMAGEN-"].update(data=imagen_meme)
 
         elif event == "-GENERAR-":
             if not falta_completar_campos(values):
