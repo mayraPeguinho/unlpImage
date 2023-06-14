@@ -11,7 +11,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from funcionalidad import etiquetar_imagenes as ei
 from funcionalidad import seleccion_template as st
 from rutas import ruta_repositorio_imagenes as ruta_repo
-import generador_memes as ge
+from pantallas import generador_memes as ge
 
 def pantalla_seleccionartemplate(usuario):
 
