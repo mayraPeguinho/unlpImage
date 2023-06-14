@@ -9,7 +9,6 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from funcionalidad.editar_perfil import *
 from funcionalidad.nuevo_perfil import *
 from funcionalidad.verificar_input import falta_completar_campos
-from pantallas import menu_principal
 from rutas import ruta_imagenes_perfil 
 from rutas import archivo_perfiles_json as ruta_archivo
 
@@ -27,7 +26,6 @@ def ventana_editar_perfil(perfil_actual):
         [
             sg.Listbox(
                 ["Masculino", "Femenino", "Otro"],
-                default_values=[perfil_actual['Genero'][0]],
                 no_scrollbar=False,
                 s=(15, 3),
                 key="Genero",
@@ -77,8 +75,6 @@ def ventana_editar_perfil(perfil_actual):
 
     while True:
         event, values = window.read()
-
-        print(values)
 
         if event == "-VOLVER-":
             window.close()

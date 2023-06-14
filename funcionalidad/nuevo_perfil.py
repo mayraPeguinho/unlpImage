@@ -13,14 +13,15 @@ ruta_avatares = os.path.join(ruta_imagenes_perfil, 'avatar.png')
 def crear_perfil(values):
     """ Creo el perfil para pasarlo por las diferentes ventanas"""
     
-    if values['Genero'] != []:
+    if values['Genero'][0] != 'Otro':
         genero=values['Genero'][0]
+    else: 
+        genero=values["Especificar genero"]
     perfil = {
         "Usuario": values["Usuario"],
         "Nombre": values["Nombre"],
         "Edad": values["Edad"],
         "Genero": genero,
-        "Especificar genero": values["Especificar genero"],
         "Avatar": os.path.basename(values["-BROWSE-"]),
     }
     return perfil

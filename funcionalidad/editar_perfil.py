@@ -2,15 +2,20 @@ import os
 
 def mostrar_perfil(perfil_actual,window):
     """ MUestro los valores del perfil"""
-    ###
-    genero_opciones=['Masculino','Femenino','Otro']  
-    genero_valor = perfil_actual['Genero']
-    genero_indice = genero_opciones.index(genero_valor)
+
+    genero_opciones=['Masculino','Femenino','Otro']
+    genero_valor=''
+
+    if perfil_actual['Genero'] == 'Masculino' or perfil_actual['Genero'] == 'Femenino':
+        genero_indice=genero_opciones.index(perfil_actual['Genero'])
+    else:
+        genero_valor = perfil_actual['Genero']
+        genero_indice=genero_opciones.index('Otro')
 
     window['Nombre'].update(perfil_actual['Nombre'])
     window['Edad'].update(perfil_actual['Edad'])
     window['Genero'].update(genero_opciones, set_to_index=genero_indice)
-    window['Especificar genero'].update(perfil_actual['Especificar genero'])
+    window['Especificar genero'].update(genero_valor)
     window['-BROWSE-'].update(perfil_actual['Avatar'])
     
     
@@ -25,12 +30,13 @@ def modificar_perfil(perfil_actual,cambios_perfil):
     else:
         perfil_actual['Avatar'] = os.path.basename(perfil_actual['Avatar'])
 
-    if cambios_perfil['Genero'] != []:
-        perfil_actual['Genero'] = cambios_perfil['Genero'][0]
-    
+    if cambios_perfil['Genero'][0] != perfil_actual['Genero']:
+        if cambios_perfil['Genero'][0] == 'Masculino' or cambios_perfil['Genero'][0] == 'Femenino':
+            perfil_actual['Genero']=cambios_perfil['Genero'][0]
+        else:
+            perfil_actual['Genero'] = cambios_perfil['Especificar genero']
 
     perfil_actual['Nombre'] = cambios_perfil['Nombre']
     perfil_actual['Edad'] = cambios_perfil['Edad']
-    perfil_actual['Especificar genero'] = cambios_perfil['Especificar genero']
     
     return perfil_actual
