@@ -62,9 +62,8 @@ def generar_collage(usuario,cant_imagenes,diseño):
      # En los combos se debe mostrar la descripción de la imagen
      descripciones = list(imagenes_diccionario.keys())
 
-     #obtengo el nombre de la imagen a partir de la ruta para luego guardarla en el log.
-     nombres_imagenes = [os.path.basename(ruta_imagen) for ruta_imagen in list(imagenes_diccionario.values())]
-    
+     imagenes_usadas=[]
+
      window = sg.Window("Generador de Collages", layout(cant_imagenes,descripciones),margins=(60,30),element_justification="center",resizable=True)
      window.finalize()
      
@@ -99,7 +98,7 @@ def generar_collage(usuario,cant_imagenes,diseño):
                      nombre = sg.popup_get_text("Ingrese un nombre para el collage")
                      if nombre is not None and crear_collage.es_nombre_valido(nombre) and nombre != '':
                          if not crear_collage.verificar_nombre(nombres, f"{nombre}.png"):
-                             crear_collage.guardar_collage(nombre, collage_actual,nombres_imagenes,usuario,valores["-TÍTULO-"])
+                             crear_collage.guardar_collage(nombre, collage_actual,imagenes_usadas,usuario,valores["-TÍTULO-"],cant_imagenes)
                              sg.popup("El collage se generó con éxito")
                              break
                          else:
@@ -116,42 +115,53 @@ def generar_collage(usuario,cant_imagenes,diseño):
                  case 1:
                      if evento=="-IMAGEN-1-":                          
                          collage_actual = crear_collage.crear_collage_diseño_1(imagenes_diccionario.get(valores["-IMAGEN-1-"]),1,collage)
-                             
+                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-1-"])))
+                         
                      elif evento=="-IMAGEN-2-":
                          collage_actual= crear_collage.crear_collage_diseño_1(imagenes_diccionario.get(valores["-IMAGEN-2-"]),2, collage)
-                         
+                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-2-"])))
+                         titulo_insertado=False
                  case 2:
                      if evento=="-IMAGEN-1-":                           
                          collage_actual= crear_collage.crear_collage_diseño_2(imagenes_diccionario.get(valores["-IMAGEN-1-"]),1,collage)
-                             
+                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-1-"])))  
+
                      elif evento=="-IMAGEN-2-":
                          collage_actual = crear_collage.crear_collage_diseño_2(imagenes_diccionario.get(valores["-IMAGEN-2-"]),2, collage)
-                     
+                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-2-"])))
+                         titulo_insertado=False
+
                      elif evento=="-IMAGEN-3-":
                          collage_actual = crear_collage.crear_collage_diseño_2(imagenes_diccionario.get(valores["-IMAGEN-3-"]),3, collage)
+                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-3-"])))
                          
                  case 3:
                      if evento=="-IMAGEN-1-":                           
                          collage_actual= crear_collage.crear_collage_diseño_3(imagenes_diccionario.get(valores["-IMAGEN-1-"]),1,collage)
-                             
+                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-1-"])))  
+
                      elif evento=="-IMAGEN-2-":
-                        collage_actual= crear_collage.crear_collage_diseño_3(imagenes_diccionario.get(valores["-IMAGEN-2-"]),2, collage)
-                     
+                         collage_actual= crear_collage.crear_collage_diseño_3(imagenes_diccionario.get(valores["-IMAGEN-2-"]),2, collage)
+                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-2-"])))
+
                      elif evento=="-IMAGEN-3-":
                          collage_actual = crear_collage.crear_collage_diseño_3(imagenes_diccionario.get(valores["-IMAGEN-3-"]),3, collage)
-                     
+                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-3-"])))
+                         titulo_insertado=False
+
                      elif evento=="-IMAGEN-4-":
                          collage_actual= crear_collage.crear_collage_diseño_3(imagenes_diccionario.get(valores["-IMAGEN-4-"]),4, collage)
-                         
+                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-4-"])))
 
                  case 4:
                      if evento=="-IMAGEN-1-":                           
                          collage_actual= crear_collage.crear_collage_diseño_4(imagenes_diccionario.get(valores["-IMAGEN-1-"]),1,collage)
-                             
+                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-1-"])))
+                         titulo_insertado=False
                      elif evento=="-IMAGEN-2-":
                          collage_actual = crear_collage.crear_collage_diseño_4(imagenes_diccionario.get(valores["-IMAGEN-2-"]),2, collage)
-                         
-                     
+                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-2-"])))
+                        
          #muestro el collage altualizado
          imagen_actualizada = PIL.ImageTk.PhotoImage(collage_actual)
          window["-IMAGEN-"].update(data=imagen_actualizada)

@@ -149,10 +149,12 @@ def es_nombre_valido(nombre):
 
 
 
-def guardar_collage(nombre,collage,nombres_imagenes,usuario,titulo):
+def guardar_collage(nombre,collage,imagenes_usadas,usuario,titulo, cant_imagenes):
       '''Guarda el collage en el repositorio de collages
       y registra el evento en el archivo de logs.'''
       collage_path = os.path.join(ruta_directorio_collages, f"{nombre}.png")
       collage.save(collage_path)
-
-      log.registrar_interaccion(usuario,"Generación de collage",nombres_imagenes,titulo)
+      #asi obtengo solo las últimas imagenes seleccionadas.
+      if len(imagenes_usadas) > cant_imagenes:
+            imagenes_usadas = imagenes_usadas[-cant_imagenes:]
+      log.registrar_interaccion(usuario,"Generación de collage",imagenes_usadas,titulo)
