@@ -106,7 +106,9 @@ def pantalla_seleccionartemplate(usuario):
                     sg.popup_error("¡No tienes permisos para acceder a esa carpeta!")
             if event == 'Generar':
                 #Llamar a la pantalla generador_memes y pasarle por parámetro la ruta de la imágen que se selecciono en el árbol. 
+                window.hide()
                 ge.generar_meme(ruta_imagen, data, usuario)
+                window.un_hide()
                 window.close()
                 break
     
