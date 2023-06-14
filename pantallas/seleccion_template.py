@@ -109,7 +109,7 @@ def pantalla_seleccionartemplate(usuario):
                 ge.generar_meme(ruta_imagen, data, usuario)
                 window.close()
                 break
-                
+    
                 
            
                 
