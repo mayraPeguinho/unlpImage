@@ -82,13 +82,14 @@ def actualizar_datos(meme_imagen,meme_json,values):
     
     return copia
 
-def recorrer_archivo(data,imagen_seleccionada):
+def calculo_cajas(meme_json,imagen_seleccionada):
     """Cuento en el archivo json la cantidad de text_boxes que tiene"""
 
-    cuadros_de_texto = [item['text_boxes'] for item in data if (item['image'] == imagen_seleccionada)]
-    cantidad_cuadros = cuadros_de_texto.__len__()
+    #meme_json = [item for item in meme_json if item['image'] == os.path.basename(imagen_seleccionada)]
 
-    return cantidad_cuadros
+    cant_cajas = (meme_json[0]['text_boxes'].__len__())
+
+    return cant_cajas
 
 def guardar_meme(usuario,nombre,nombre_imagen,values,meme_actual):
     """Guardo el meme y actualizo los logs"""

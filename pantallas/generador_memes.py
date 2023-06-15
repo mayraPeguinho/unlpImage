@@ -1,7 +1,6 @@
 import PySimpleGUI as sg
 import sys
 import os
-import json
 import PIL.Image
 import PIL.ImageTk
 import PIL.ImageOps
@@ -14,6 +13,7 @@ from funcionalidad import crear_meme
 from funcionalidad import etiquetar_imagenes
 from funcionalidad.crear_collage import es_nombre_valido
 from pantallas import menu_principal 
+import PIL.ImageFont
 
 def definir_layout(cant_cajas):
     """Se arma de que manera puede ser la interfaz dependiendo la cantidad
@@ -22,43 +22,43 @@ def definir_layout(cant_cajas):
     
     if cant_cajas == 1:
         columna_izquierda = [
-            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-')],
+            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-', initial_folder=r.ruta_directorio_fuentes)],
             [sg.Text('Texto 1:')],[sg.Input(key = '-TEXTO_1-')],
-            [sg.Button("Actualizar", key=("-ACTUALIZAR-"))],
+            [sg.Button("Actualizar", key="-ACTUALIZAR-"), sg.Button('Volver', key= '-VOLVER-')],
         ]
     elif cant_cajas == 2:
         columna_izquierda = [
-            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-')],
+            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-', initial_folder=r.ruta_directorio_fuentes)],
             [sg.Text('Texto 1:')],[sg.Input(key = '-TEXTO_1-')],
             [sg.Text('Texto 2:')],[sg.Input(key = '-TEXTO_2-')],
-            [sg.Button("Actualizar", key=("-ACTUALIZAR-"))],
+            [sg.Button("Actualizar", key="-ACTUALIZAR-"),sg.Button('Volver', key= '-VOLVER-')],
         ]
     elif cant_cajas == 3:
         columna_izquierda = [
-            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-')],
+            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-', initial_folder=r.ruta_directorio_fuentes)],
             [sg.Text('Texto 1:')],[sg.Input(key = '-TEXTO_1-')],
             [sg.Text('Texto 2:')],[sg.Input(key = '-TEXTO_2-')],
             [sg.Text('Texto 3:')],[sg.Input(key = '-TEXTO_3-')],
-            [sg.Button("Actualizar", key=("-ACTUALIZAR-"))],
+            [sg.Button("Actualizar", key="-ACTUALIZAR-"),sg.Button('Volver', key= '-VOLVER-')],
         ]
     elif cant_cajas == 4:
         columna_izquierda = [
-            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-')],
+            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-',initial_folder=r.ruta_directorio_fuentes)],
             [sg.Text('Texto 1:')],[sg.Input(key = '-TEXTO_1-')],
             [sg.Text('Texto 2:')],[sg.Input(key = '-TEXTO_2-')],
             [sg.Text('Texto 3:')],[sg.Input(key = '-TEXTO_3-')],
             [sg.Text('Texto 4:')],[sg.Input(key = '-TEXTO_4-')],
-            [sg.Button("Actualizar", key=("-ACTUALIZAR-"))],
+            [sg.Button("Actualizar", key="-ACTUALIZAR-"),sg.Button('Volver', key= '-VOLVER-')],
         ]
     elif cant_cajas == 5:
         columna_izquierda = [
-            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-')],
+            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-',initial_folder=r.ruta_directorio_fuentes)],
             [sg.Text('Texto 1:')],[sg.Input(key = '-TEXTO_1-')],
             [sg.Text('Texto 2:')],[sg.Input(key = '-TEXTO_2-')],
             [sg.Text('Texto 3:')],[sg.Input(key = '-TEXTO_3-')],
             [sg.Text('Texto 4:')],[sg.Input(key = '-TEXTO_4-')],
             [sg.Text('Texto 5:')],[sg.Input(key = '-TEXTO_5-')],
-            [sg.Button("Actualizar", key=("-ACTUALIZAR-"))],
+            [sg.Button("Actualizar", key="-ACTUALIZAR-"), sg.Button('Volver', key= '-VOLVER-')],
         ]
 
     columna_derecha = [
@@ -87,7 +87,9 @@ def generar_meme(imagen_seleccionada,meme_json,usuario):
 
     meme_json = [item for item in meme_json if item['image'] == os.path.basename(imagen_seleccionada)]
 
-    cant_cajas = (meme_json[0]['text_boxes'].__len__())
+    print(meme_json)
+
+    cant_cajas = crear_meme.calculo_cajas(meme_json,imagen_seleccionada)
 
     nombre_imagen = os.path.basename(imagen_seleccionada)
 
@@ -103,6 +105,7 @@ def generar_meme(imagen_seleccionada,meme_json,usuario):
 
     window["-IMAGEN-"].update(data=imagen_meme)
 
+
     while True:
         event, values = window.Read()
 
@@ -117,16 +120,10 @@ def generar_meme(imagen_seleccionada,meme_json,usuario):
         elif event == "-ACTUALIZAR-":
 
             meme_actual = crear_meme.actualizar_datos(cargar_meme,meme_json,values)
-            
-            print(meme_actual)
-            
-
 
             cambio_tamanio = meme_actual.resize((350,300))
-            print(cambio_tamanio)
 
             data_imagen = PIL.ImageTk.PhotoImage(cambio_tamanio)
-            print(data_imagen)
             window["-IMAGEN-"].update(data=data_imagen)
 
         elif event == "-GENERAR-":
