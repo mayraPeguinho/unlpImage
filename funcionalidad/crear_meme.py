@@ -95,10 +95,10 @@ def guardar_meme(usuario,nombre,nombre_imagen,values,meme_actual):
 
     meme_path = os.path.join(ruta_directorio_memes, nombre)
 
-    meme_actual.save(meme_path)
+    #meme_actual.save(meme_path)
 
     #Paso los valores del diccionario a una lista para poder agregarlos a los logs
     textos = list(values.values())
 
     for texto in textos[1:]:
-        log.registrar_interaccion(usuario,'Generacion meme', meme_actual, texto)
+        log.registrar_interaccion(usuario,'Generacion meme', nombre_imagen, texto)

@@ -12,8 +12,8 @@ from funcionalidad.verificar_input import falta_completar_campos
 import rutas as r
 from funcionalidad import crear_meme
 from funcionalidad import etiquetar_imagenes
-from rutas import ruta_directorio_memes
 from funcionalidad.crear_collage import es_nombre_valido
+from pantallas import menu_principal 
 
 def definir_layout(cant_cajas):
     """Se arma de que manera puede ser la interfaz dependiendo la cantidad
@@ -118,11 +118,15 @@ def generar_meme(imagen_seleccionada,meme_json,usuario):
 
             meme_actual = crear_meme.actualizar_datos(cargar_meme,meme_json,values)
             
+            print(meme_actual)
+            
 
-            meme_actual = meme_actual.resize((350,300))
 
-            data_imagen = PIL.ImageTk.PhotoImage(meme_actual)
+            cambio_tamanio = meme_actual.resize((350,300))
+            print(cambio_tamanio)
 
+            data_imagen = PIL.ImageTk.PhotoImage(cambio_tamanio)
+            print(data_imagen)
             window["-IMAGEN-"].update(data=data_imagen)
 
         elif event == "-GENERAR-":
