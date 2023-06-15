@@ -3,6 +3,9 @@ import PIL.ImageTk
 import PIL.ImageOps
 import PIL.ImageDraw
 import PIL.ImageFont
+import os
+from funcionalidad import registrar_log as log
+from rutas import ruta_directorio_memes 
 
 def entra(contenedor,contenido):
     """Calcula si el texto entra en la caja"""
@@ -86,3 +89,16 @@ def recorrer_archivo(data,imagen_seleccionada):
     cantidad_cuadros = cuadros_de_texto.__len__()
 
     return cantidad_cuadros
+
+def guardar_meme(usuario,nombre,nombre_imagen,values,meme_actual):
+    """Guardo el meme y actualizo los logs"""
+
+    meme_path = os.path.join(ruta_directorio_memes, nombre)
+
+    meme_actual.save(meme_path)
+
+    #Paso los valores del diccionario a una lista para poder agregarlos a los logs
+    textos = list(values.values())
+
+    for texto in textos[1:]:
+        log.registrar_interaccion(usuario,'Generacion meme', meme_actual, texto)
