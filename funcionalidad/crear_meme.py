@@ -93,9 +93,9 @@ def recorrer_archivo(data,imagen_seleccionada):
 def guardar_meme(usuario,nombre,nombre_imagen,values,meme_actual):
     """Guardo el meme y actualizo los logs"""
 
-    meme_path = os.path.join(ruta_directorio_memes, nombre)
+    meme_path = os.path.join(ruta_directorio_memes, f"{nombre}.png")
 
-    #meme_actual.save(meme_path)
+    meme_actual.save(meme_path)
 
     #Paso los valores del diccionario a una lista para poder agregarlos a los logs
     textos = list(values.values())
