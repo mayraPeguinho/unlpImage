@@ -26,7 +26,7 @@ def pantalla_etiquetar(usuario):
     #lo extraje de la documentación oficinal de sg
     treedata = sg.TreeData()
 
-    #Creo el arbol visual de archivos. 
+    #Creo el arbol visual de archivos, mandar funcion a fucniones
     def add_files_in_folder(parent, dirname):
         files = os.listdir(dirname)
         for f in files:
@@ -129,7 +129,7 @@ def pantalla_etiquetar(usuario):
                     sg.popup_error("¡No has seleccionado ninguna imagen!")
             if event == 'Guardar':
                 try:
-                    #quizá sea innecesario, testear.
+                    
                     window['TagList'].update(values=tags)
                     values['TagList'] = tags
                     imagen_data = etiquetar_imagenes.traer_data(usuario, values, ruta_csv, "w")

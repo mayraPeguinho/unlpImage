@@ -32,6 +32,7 @@ def actualizar_datos(meme_imagen,meme_json,values):
 
     copia = meme_imagen.copy()
     draw = PIL.ImageDraw.Draw(copia)
+    color = (0,0,0)
     
     if (values['-TEXTO_1-'] != ''):
         top_left_x = meme_json[0]['text_boxes'][0]['top_left_x']
@@ -40,7 +41,7 @@ def actualizar_datos(meme_imagen,meme_json,values):
         bottom_right_y = meme_json[0]['text_boxes'][0]['bottom_right_y']
         
         fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_1-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
-        draw.text([top_left_x, top_left_y], values['-TEXTO_1-'], font=fuente_ajustada)
+        draw.text([top_left_x, top_left_y], values['-TEXTO_1-'], font=fuente_ajustada, fill= color)
         
   
     if (values.get('-TEXTO_2-', '') != ''):
