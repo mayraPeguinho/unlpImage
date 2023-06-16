@@ -40,9 +40,11 @@ def obtener_directorios():
         directorio_collages=armar_ruta(r.directorio_padre,datos['directorio_collages'].split('/'))
         directorio_memes=armar_ruta(r.directorio_padre,datos['directorio_memes'].split('/'))
         return repositorio_imagenes,directorio_collages,directorio_memes
-    except(FileNotFoundError):
-       sg.popup_error("""No se ha encontrado el archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
-       sys.exit()
+    except(FileNotFoundError,json.decoder.JSONDecodeError):
+        repositorio_imagenes=''
+        directorio_collages=''
+        directorio_memes=''
+        return repositorio_imagenes,directorio_collages,directorio_memes
     except(PermissionError):
         sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
         sys.exit()
