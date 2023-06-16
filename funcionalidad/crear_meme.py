@@ -5,7 +5,10 @@ import PIL.ImageDraw
 import PIL.ImageFont
 import os
 from funcionalidad import registrar_log as log
-from rutas import ruta_directorio_memes 
+from rutas import ruta_directorio_memes
+from rutas import ruta_directorio_fuentes
+
+fuente_default = os.path.join(ruta_directorio_fuentes, 'Lato-BoldItalic.ttf')
 
 def entra(contenedor,contenido):
     """Calcula si el texto entra en la caja"""
@@ -33,6 +36,8 @@ def actualizar_datos(meme_imagen,meme_json,values):
     copia = meme_imagen.copy()
     draw = PIL.ImageDraw.Draw(copia)
     color = (0,0,0)
+    if (values['-FUENTE-'] == ''):
+        values['-FUENTE-'] = fuente_default
     
     if (values['-TEXTO_1-'] != ''):
         top_left_x = meme_json[0]['text_boxes'][0]['top_left_x']
@@ -51,7 +56,7 @@ def actualizar_datos(meme_imagen,meme_json,values):
         bottom_right_y = meme_json[0]['text_boxes'][1]['bottom_right_y']
 
         fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_2-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
-        draw.text([top_left_x, top_left_y], values['-TEXTO_2-'], font=fuente_ajustada)
+        draw.text([top_left_x, top_left_y], values['-TEXTO_1-'], font=fuente_ajustada, fill= color)
 
 
     if (values.get('-TEXTO_3-', '') != ''):
@@ -61,7 +66,7 @@ def actualizar_datos(meme_imagen,meme_json,values):
         bottom_right_y = meme_json[0]['text_boxes'][2]['bottom_right_y']
 
         fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_3-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
-        draw.text([top_left_x, top_left_y], values['-TEXTO_3-'], font=fuente_ajustada)
+        draw.text([top_left_x, top_left_y], values['-TEXTO_1-'], font=fuente_ajustada, fill= color)
     
     if (values.get('-TEXTO_4-', '') != ''):
         top_left_x = meme_json[0]['text_boxes'][3]['top_left_x']
@@ -70,7 +75,7 @@ def actualizar_datos(meme_imagen,meme_json,values):
         bottom_right_y = meme_json[0]['text_boxes'][3]['bottom_right_y']
 
         fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_4-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
-        draw.text([top_left_x, top_left_y], values['-TEXTO_4-'], font=fuente_ajustada)
+        draw.text([top_left_x, top_left_y], values['-TEXTO_1-'], font=fuente_ajustada, fill= color)
     
     if (values.get('-TEXTO_5-', '') != ''):
         top_left_x = meme_json[0]['text_boxes'][4]['top_left_x']
@@ -79,7 +84,7 @@ def actualizar_datos(meme_imagen,meme_json,values):
         bottom_right_y = meme_json[0]['text_boxes'][4]['bottom_right_y']
 
         fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_5-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
-        draw.text([top_left_x, top_left_y], values['-TEXTO_5-'], font=fuente_ajustada)
+        draw.text([top_left_x, top_left_y], values['-TEXTO_1-'], font=fuente_ajustada, fill= color)
     
     return copia
 
@@ -100,7 +105,7 @@ def guardar_meme(usuario,nombre,nombre_imagen,values,meme_actual):
     meme_actual.save(meme_path)
 
     #Paso los valores del diccionario a una lista para poder agregarlos a los logs
-    textos = list(values.values())
+    lista = list(values.values())
+    textos = ", ".join(lista[1:])
 
-    for texto in textos[1:]:
-        log.registrar_interaccion(usuario,'Generacion meme', nombre_imagen, texto)
+    log.registrar_interaccion(usuario,'Generacion meme', nombre_imagen, textos)

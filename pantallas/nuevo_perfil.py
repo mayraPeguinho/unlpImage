@@ -20,23 +20,23 @@ def ventana_nuevo_perfil():
     columna_izquierda = [
         [sg.Text("Nuevo perfil")],
         [sg.Text("Usuario:")],
-        [sg.InputText(key="Usuario")],
+        [sg.InputText(key="-USUARIO-")],
         [sg.Text("Nombre:")],
-        [sg.InputText(key="Nombre")],
+        [sg.InputText(key="-NOMBRE-")],
         [sg.Text("Edad:")],
-        [sg.InputText(key="Edad", size=(10,))],
+        [sg.InputText(key="-EDAD-", size=(10,))],
         [sg.Text("Genero:")],
         [
             sg.Listbox(
                 ['Masculino','Femenino','Otro'],
                 no_scrollbar=False,
                 s=(15, 3),
-                key="Genero",
+                key="-GENERO-",
                 enable_events=True,
             )
         ],
         [sg.Text("Especificar genero:")],
-        [sg.InputText(key="Especificar genero", disabled=True)],
+        [sg.InputText(key="-ESPECIFICAR_GENERO-", disabled=True)],
         [sg.Button("Guardar", key="-GUARDAR-"), sg.Button("Volver", key="-VOLVER-")],
     ]
 
@@ -44,7 +44,7 @@ def ventana_nuevo_perfil():
         [
             sg.Image(
                 source=ruta_avatares,
-                key=("Avatar"),
+                key=("-AVATAR-"),
                 size=(300, 300),
                 subsample=3,
                 pad=((125, 125), (0, 0)),
@@ -86,23 +86,23 @@ def ventana_nuevo_perfil():
 
         elif event == "-BROWSE-":
             filename = values["-BROWSE-"]
-            window["Avatar"].update(filename,
+            window["-AVATAR-"].update(filename,
             size=(300, 300),
             subsample=3,
             )
         
-        elif event == "Genero":
-            genero = values["Genero"][0]
+        elif event == "-GENERO-":
+            genero = values["-GENERO-"][0]
             if genero == "Otro":
-                window["Especificar genero"].update(disabled=False)
+                window["-ESPECIFICAR_GENERO-"].update(disabled=False)
             else:
-                window["Especificar genero"].update(disabled=True)
+                window["-ESPECIFICAR_GENERO-"].update(disabled=True)
 
         elif event == "-GUARDAR-":
                 llenar_solo(values)
                 if not falta_completar_campos(values):
-                    if not existe_nombre(values["Usuario"]):
-                        if verificar_edad(values["Edad"]):
+                    if not existe_nombre(values["-USUARIO-"]):
+                        if verificar_edad(values["-EDAD-"]):
                             usuario_nuevo = crear_perfil(values)
 
                             perfil_json = crear_json(usuario_nuevo)

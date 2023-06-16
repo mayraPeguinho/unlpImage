@@ -13,14 +13,14 @@ ruta_avatares = os.path.join(ruta_imagenes_perfil, 'avatar.png')
 def crear_perfil(values):
     """ Creo el perfil para pasarlo por las diferentes ventanas"""
     
-    if values['Genero'][0] != 'Otro':
-        genero=values['Genero'][0]
+    if values['-GENERO-'][0] != 'Otro':
+        genero=values['-GENERO-'][0]
     else: 
         genero=values["Especificar genero"]
     perfil = {
-        "Usuario": values["Usuario"],
-        "Nombre": values["Nombre"],
-        "Edad": values["Edad"],
+        "Usuario": values["-USUARIO-"],
+        "Nombre": values["-NOMBRE-"],
+        "Edad": values["-EDAD-"],
         "Genero": genero,
         "Avatar": os.path.basename(values["-BROWSE-"]),
     }
@@ -49,7 +49,8 @@ def existe_nombre(alias):
             datos_perfil = json.load(archivo)
 
         for nombre_usuario in datos_perfil:
-            if alias in nombre_usuario["Usuario"]:
+            print(nombre_usuario)
+            if alias in nombre_usuario["-USUARIO-"]:
                 return True
     except (FileNotFoundError, json.JSONDecodeError):
         return False
@@ -69,5 +70,5 @@ def llenar_solo(values):
     """Auto completa valores por defecto """
     if values['-BROWSE-'] == '':
         values['-BROWSE-'] = ruta_avatares
-    if values['Genero'] == ['Masculino'] or values['Genero'] == ['Femenino']:
-        values['Especificar genero'] = '-'
+    if values['-GENERO-'] == ['Masculino'] or values['-GENERO-'] == ['Femenino']:
+        values['-ESPECIFICAR_GENERO-'] = '-'
