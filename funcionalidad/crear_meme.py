@@ -56,7 +56,7 @@ def actualizar_datos(meme_imagen,meme_json,values):
         bottom_right_y = meme_json[0]['text_boxes'][1]['bottom_right_y']
 
         fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_2-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
-        draw.text([top_left_x, top_left_y], values['-TEXTO_1-'], font=fuente_ajustada, fill= color)
+        draw.text([top_left_x, top_left_y], values['-TEXTO_2-'], font=fuente_ajustada, fill= color)
 
 
     if (values.get('-TEXTO_3-', '') != ''):
@@ -66,7 +66,7 @@ def actualizar_datos(meme_imagen,meme_json,values):
         bottom_right_y = meme_json[0]['text_boxes'][2]['bottom_right_y']
 
         fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_3-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
-        draw.text([top_left_x, top_left_y], values['-TEXTO_1-'], font=fuente_ajustada, fill= color)
+        draw.text([top_left_x, top_left_y], values['-TEXTO_3-'], font=fuente_ajustada, fill= color)
     
     if (values.get('-TEXTO_4-', '') != ''):
         top_left_x = meme_json[0]['text_boxes'][3]['top_left_x']
@@ -75,7 +75,7 @@ def actualizar_datos(meme_imagen,meme_json,values):
         bottom_right_y = meme_json[0]['text_boxes'][3]['bottom_right_y']
 
         fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_4-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
-        draw.text([top_left_x, top_left_y], values['-TEXTO_1-'], font=fuente_ajustada, fill= color)
+        draw.text([top_left_x, top_left_y], values['-TEXTO_4-'], font=fuente_ajustada, fill= color)
     
     if (values.get('-TEXTO_5-', '') != ''):
         top_left_x = meme_json[0]['text_boxes'][4]['top_left_x']
@@ -84,7 +84,7 @@ def actualizar_datos(meme_imagen,meme_json,values):
         bottom_right_y = meme_json[0]['text_boxes'][4]['bottom_right_y']
 
         fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_5-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
-        draw.text([top_left_x, top_left_y], values['-TEXTO_1-'], font=fuente_ajustada, fill= color)
+        draw.text([top_left_x, top_left_y], values['-TEXTO_5-'], font=fuente_ajustada, fill= color)
     
     return copia
 
@@ -105,7 +105,5 @@ def guardar_meme(usuario,nombre,nombre_imagen,values,meme_actual):
     meme_actual.save(meme_path)
 
     #Paso los valores del diccionario a una lista para poder agregarlos a los logs
-    lista = list(values.values())
-    textos = ", ".join(lista[1:])
-
-    log.registrar_interaccion(usuario,'Generacion meme', nombre_imagen, textos)
+    textos = list(values.values())
+    log.registrar_interaccion(usuario,'Generacion meme', nombre_imagen, textos[1:])
