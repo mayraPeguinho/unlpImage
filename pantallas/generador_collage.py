@@ -1,7 +1,6 @@
 import PySimpleGUI as sg
 import sys
 import os
-import csv
 import PIL.Image
 import PIL.ImageTk
 import PIL.ImageOps
@@ -9,12 +8,17 @@ import PIL.ImageDraw
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-#from rutas import ruta_directorio_collages
 from funcionalidad.verificar_input import falta_completar_campos
 from funcionalidad import crear_collage
 
 
 def layout(cant_imagenes,descripciones):
+    '''genera y devuelve el diseño de la interfaz gráfica para la generación de collages.
+       Retorna Una lista que representa el diseño de la interfaz gráfica, que incluye combos para seleccionar las imágenes,
+       un campo de entrada para el título,una sección para visualizarlo y botones para actualizar y guardar el collage.
+       Recibe cant_imagenes para especificar cuantos combos crear y una lista de descripciones de las 
+       imágenes disponibles para seleccionar de los combos.
+    '''
 
     column1 = [
         [sg.Text("Seleccionar imagenes")],
@@ -52,8 +56,8 @@ def layout(cant_imagenes,descripciones):
 def generar_collage(usuario,cant_imagenes,diseño):
      
      """
-     Genera la interfaz gráfica para crear un collage y permitiendo al usuario seleccionar las imágenes.
-     Recibe la cantidad de imágenes que tendrá el collage, el numero del diseño a usar y el usuario.
+     Genera la interfaz gráfica para crear un collage.
+     Recibe la cantidad de imágenes que tendrá el collage, el número del diseño a usar y el usuario.
      """
 
      # Obtengo las imágenes etiquetadas
