@@ -122,8 +122,9 @@ def ventana_editar_perfil(perfil_actual):
                         with open(ruta_archivo, "w") as archivo:
                             json.dump(perfiles, archivo, indent=4)
                             sg.popup('El perfil se edito correctamente!')
-                    except (FileNotFoundError, PermissionError, json.JSONDecodeError):
-                        pass
+                    except PermissionError:
+                        sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'nuevo_perfil.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+                        sys.exit()
             
                     window.close()
                     return perfil_modificado

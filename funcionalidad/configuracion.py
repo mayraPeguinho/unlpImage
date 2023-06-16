@@ -14,21 +14,25 @@ def guardar_directorios(repositorio_imagenes, directorio_collages, directorio_me
         'directorio_collages': os.path.relpath(directorio_collages, directorio_raiz).replace('\\', '/'),
         'directorio_memes': os.path.relpath(directorio_memes, directorio_raiz).replace('\\', '/')
     }
-
-    with open(r.archivo_configuracion_json, 'w') as archivo:
-        json.dump(data, archivo, indent=4)
+    try:
+        with open(r.archivo_configuracion_json, 'w') as archivo:
+            json.dump(data, archivo, indent=4)
         log.registrar_interaccion(usuario, "Cambio en configuración")
+    except(PermissionError):
+        sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+        sys.exit()
+
+def armar_ruta(directorio,subcarpetas):
+    '''Se arma la ruta a partir de la ruta relativa, con las subcarpetas
+    '''
+    for elem in subcarpetas:
+        directorio=os.path.join(directorio,elem)
+    return directorio
 
 def obtener_directorios():
     '''Obtengo las rutas del repositorio de imagenes y los directorios, se arma
     la ruta a base de la ruta relativa obtenida del archivo configuracion.json, y
     dependiendo tambien de que sistema operativo se trate'''
-    def armar_ruta(directorio,subcarpetas):
-        '''Se arma la ruta a partir de la ruta relativa, con las subcarpetas
-        '''
-        for elem in subcarpetas:
-            directorio=os.path.join(directorio,elem)
-        return directorio
     try:
         with open(r.archivo_configuracion_json, 'r') as archivo:
             datos=json.load(archivo)
@@ -37,7 +41,8 @@ def obtener_directorios():
         directorio_memes=armar_ruta(r.directorio_padre,datos['directorio_memes'].split('/'))
         return repositorio_imagenes,directorio_collages,directorio_memes
     except(FileNotFoundError):
-        return None
+       sg.popup_error("""No se ha encontrado el archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+       sys.exit()
     except(PermissionError):
         sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
         sys.exit()

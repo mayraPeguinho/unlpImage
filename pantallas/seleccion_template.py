@@ -10,7 +10,10 @@ import PIL
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from funcionalidad import etiquetar_imagenes as ei
 from funcionalidad import seleccion_template as st
-from rutas import ruta_repositorio_imagenes as ruta_repo
+from funcionalidad import configuracion as cg
+from rutas import archivo_configuracion_json as ruta_archivo
+from rutas import archivo_tenmplates_json as ruta_templates
+from rutas import directorio_padre
 from pantallas import generador_memes as ge
 
 def pantalla_seleccionartemplate(usuario):
@@ -19,13 +22,18 @@ def pantalla_seleccionartemplate(usuario):
     file_icon = b'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsSAAALEgHS3X78AAABU0lEQVQ4y52TzStEURiHn/ecc6XG54JSdlMkNhYWsiILS0lsJaUsLW2Mv8CfIDtr2VtbY4GUEvmIZnKbZsY977Uwt2HcyW1+dTZvt6fn9557BGB+aaNQKBR2ifkbgWR+cX13ubO1svz++niVTA1ArDHDg91UahHFsMxbKWycYsjze4muTsP64vT43v7hSf/A0FgdjQPQWAmco68nB+T+SFSqNUQgcIbN1bn8Z3RwvL22MAvcu8TACFgrpMVZ4aUYcn77BMDkxGgemAGOHIBXxRjBWZMKoCPA2h6qEUSRR2MF6GxUUMUaIUgBCNTnAcm3H2G5YQfgvccYIXAtDH7FoKq/AaqKlbrBj2trFVXfBPAea4SOIIsBeN9kkCwxsNkAqRWy7+B7Z00G3xVc2wZeMSI4S7sVYkSk5Z/4PyBWROqvox3A28PN2cjUwinQC9QyckKALxj4kv2auK0xAAAAAElFTkSuQmCC'
 
     #Leo desde el archivo de configuración, donde ir a buscar mi repositorio de imagenes
-    ruta_archivo = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'configuracion.json')
-    with open(ruta_archivo) as f:
-        datos = json.load(f)
-        starting_path = ruta_repo
+    try:
+        with open(ruta_archivo,'w') as f:
+            datos = json.load(f)
+        starting_path = cg.armar_ruta(directorio_padre,datos['repositorio_imagenes'].split('/'))
+    except(PermissionError):
+        sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+        sys.exit()
+    except(FileNotFoundError):
+        sg.popup_error("""No se ha encontrado el archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+        sys.exit()
 
     #Declaro la ruta del csv de donde leo y guardo los datos de las imagenes
-    ruta_templates = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'datos')), 'templates.json')
     #para poder mostrar los archivos en forma de cascada hay que usar un objeto "treedata" incluído en PySimplegui
     #lo extraje de la documentación oficinal de sg
     treedata = sg.TreeData()
@@ -106,19 +114,11 @@ def pantalla_seleccionartemplate(usuario):
                     sg.popup_error("¡No tienes permisos para acceder a esa carpeta!")
             if event == 'Generar':
                 try:
-                    #Llamar a la pantalla generador_memes y pasarle por parámetro la ruta de la imágen que se selecciono en el árbol. 
+                    window.hide() 
                     ge.generar_meme(ruta_imagen, data, usuario)
                     window.un_hide()
-                    window.close()
-                    break
                 except IndexError:
                     sg.popup_error("¡Primero debes elegir una imágen válida!")
                 
-           
-                
-
-
-
-    window.close()
 if __name__ =="__main__":
     pantalla_seleccionartemplate("null")

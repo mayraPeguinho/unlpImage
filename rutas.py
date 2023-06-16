@@ -21,3 +21,5 @@ archivo_configuracion_json= os.path.join(directorio_padre,'datos','configuracion
 archivo_imagenes_etiquetadas_csv= os.path.join(directorio_padre,'datos','imagenes_etiquetadas.csv')
 
 archivo_logs_csv=os.path.join(directorio_padre,'logs','logs.csv')
+
+archivo_tenmplates_json=os.path.join(directorio_padre,'datos','templates.json')

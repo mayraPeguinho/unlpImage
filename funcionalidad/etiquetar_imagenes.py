@@ -1,6 +1,7 @@
 import os
 from PIL import Image, ImageTk
 from datetime import datetime
+import PySimpleGUI as sg
 import mimetypes
 import csv
 import sys
@@ -64,11 +65,11 @@ def guardar_data(ruta, data, usuario_actual):
 
 def actualizar_tags(csv_archivo, ruta):
     """Retorna los tags"""
-
-    with open(csv_archivo, "r", encoding="utf-8") as archivo:
-        reader = csv.reader(archivo)
-        next(reader)
-        contenido_csv = list(reader)
+    try:
+        with open(csv_archivo, "r", encoding="utf-8") as archivo:
+            reader = csv.reader(archivo)
+            next(reader)
+            contenido_csv = list(reader)
         tags = []
         #Busco la fila en el csv
         for datos_fila in contenido_csv:
@@ -81,7 +82,12 @@ def actualizar_tags(csv_archivo, ruta):
             #si no encuentro la fila, quedan los valores por defecto
             except: 
                 pass
-    return tags
+        return tags
+    except(PermissionError):
+        sg.popup_error("No se cuentan con los permisos para acceder al archivo 'imagenes_etiquetadas.csv', por lo que la aplicacion no puede continuar, se cerrará el programa.")
+        sys.exit()
+    except (FileNotFoundError):
+        sg.popup_error("No se ha encontrado el archivo 'imagenes_etiquetadas'")
 
 
     
