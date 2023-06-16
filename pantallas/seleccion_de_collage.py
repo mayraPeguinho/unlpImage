@@ -8,6 +8,9 @@ from pantallas import generador_collage
 from rutas import ruta_diseños_collages
 
 def ventana_seleccion_collage():
+    '''Crea el layout de la ventana de seleccion de collage, consta de los botones para
+    los posibles diseños de la aplicacion
+    '''
     layout = [[sg.Text("Seleccion de Collage")],
               [sg.Button(image_source=os.path.join(ruta_diseños_collages,'collage_1.png'),
                         image_size=(147,159),
@@ -30,6 +33,9 @@ def ventana_seleccion_collage():
     return sg.Window("UNLPImage",layout,margins=(150, 150))
 
 def eventos_seleccion_collage(usuario):
+    '''Maneja los eventos de la ventana de seleccion de collage
+    Los botones que son imagenes, invocan la pantalla de generar_collage
+    '''
     ventana=ventana_seleccion_collage()
     while True:
         evento, valores = ventana.read()

@@ -16,14 +16,43 @@ def generar_ventana_de_ayuda():
     '''Esta funcion define la ventana de ayuda
        donde se explica la funcionalidad de la aplicacion al usuario. '''
     layout = [[sg.Text("UNLPImage es una aplicación de escritorio, que permite realizar memes")],
-              [sg.Text("o collages con imagenes almacenadas en el dispositivo.")]
+              [sg.Text("o collages con imagenes almacenadas en el dispositivo.")],
+              [sg.Text(" "*25), sg.Button("¿Cómo armar un collage?",key="-COLLAGE-")],
+              [sg.Text(" "*25), sg.Button(" ¿Cómo crear un meme? ",key="-MEME-")],
              ]
+    layout_meme=None
+    def ayuda_collage():
+        '''Genera la ventana de ayuda_collage con la respectiva informacion que le servirá
+        al usuario de la aplicación para hacer uso de la funcionalidad de generar collage'''
+        layout_collage=[[sg.Text("-Desde el menú debe seleccionar el boton “Generar Collage”, a continuación se")],
+                        [sg.Text("mostrará una pantalla con los diseños posibles. Seleccione uno haciendo click.")],
+                        [sg.Text(" ")],
+                        [sg.Text("-Se mostrará la pantalla de creación, donde se podrán seleccionar cada una de")],
+                        [sg.Text("las imágenes a utilizar y el título que se desee.")],
+                        [sg.Text(" ")],
+                        [sg.Text("-Deberá hacer click  en “Actualizar” para insertar el título en el collage.")],
+                        [sg.Text("Haga click en Guardar y se solicitará el nombre con el cuak desee guardar el,")],
+                        [sg.Text("si se guardó correctamente se mostrará un mensaje de éxito.")]
+                       ]
+        collage=sg.Window("Ayuda",layout_collage)
+        while True:
+            evento, valores = collage.read()
+            if evento == sg.WIN_CLOSED:
+                collage.close()
+                break
+
     ventana_de_ayuda=sg.Window("Ayuda",layout)
     while True:
         evento, valores = ventana_de_ayuda.read()
         if evento == sg.WIN_CLOSED:
             ventana_de_ayuda.close()
             break
+        if evento == "-COLLAGE-":
+            ventana_de_ayuda.hide()
+            ayuda_collage()
+            ventana_de_ayuda.un_hide()
+        if evento == "-MEME-":
+            pass
 
 def ventana_menu(perfil_actual):
     '''Esta funcion define la ventana de menu con sus respectivos botones. '''
