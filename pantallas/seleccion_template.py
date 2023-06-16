@@ -23,7 +23,7 @@ def pantalla_seleccionartemplate(usuario):
 
     #Leo desde el archivo de configuración, donde ir a buscar mi repositorio de imagenes
     try:
-        with open(ruta_archivo,'w') as f:
+        with open(ruta_archivo,'r') as f:
             datos = json.load(f)
         starting_path = cg.armar_ruta(directorio_padre,datos['repositorio_imagenes'].split('/'))
     except(PermissionError):
