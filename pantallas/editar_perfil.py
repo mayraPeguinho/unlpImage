@@ -107,8 +107,10 @@ def ventana_editar_perfil(perfil_actual):
             except PermissionError:
                 sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'nuevo_perfil.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
                 sys.exit()
-            
-            llenar_solo(values)
+
+            llenar_genero(values,perfil_actual['Avatar'])
+            print(values)
+            print(perfil_actual)
             if not falta_completar_campos(values):
                 if verificar_edad(values["Edad"]):
                     perfil_modificado = modificar_perfil(perfil_actual,values)

@@ -40,3 +40,9 @@ def modificar_perfil(perfil_actual,cambios_perfil):
     perfil_actual['Edad'] = cambios_perfil['Edad']
     
     return perfil_actual
+
+def llenar_genero(values,avatar_actual):
+    if os.path.basename(values['-BROWSE-']) == '':
+        values['-BROWSE-'] = avatar_actual
+    if values['Genero'][0] != 'Otro':
+        values['Especificar genero'] = '-'

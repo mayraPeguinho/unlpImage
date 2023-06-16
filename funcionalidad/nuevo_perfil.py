@@ -49,8 +49,7 @@ def existe_nombre(alias):
             datos_perfil = json.load(archivo)
 
         for nombre_usuario in datos_perfil:
-            print(nombre_usuario)
-            if alias in nombre_usuario["-USUARIO-"]:
+            if alias == nombre_usuario["Usuario"]:
                 return True
     except (FileNotFoundError, json.JSONDecodeError):
         return False
