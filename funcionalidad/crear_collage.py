@@ -5,12 +5,16 @@ import PIL.ImageTk
 import PIL.ImageOps
 import PIL.ImageDraw
 import csv
+import json
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from rutas import ruta_directorio_collages
 from funcionalidad import registrar_log as log
 from rutas import archivo_imagenes_etiquetadas_csv as ruta_archivo
+from rutas import archivo_configuracion_json as ruta_conf
+from rutas import directorio_padre
+from funcionalidad import configuracion as cg
 
 
 def obtener_imagenes():
@@ -150,11 +154,22 @@ def es_nombre_valido(nombre):
 
 
 def guardar_collage(nombre,collage,imagenes_usadas,usuario,titulo, cant_imagenes):
-      '''Guarda el collage en el repositorio de collages
-      y registra el evento en el archivo de logs.'''
-      collage_path = os.path.join(ruta_directorio_collages, f"{nombre}.png")
-      collage.save(collage_path)
-      #asi obtengo solo las últimas imagenes seleccionadas.
-      if len(imagenes_usadas) > cant_imagenes:
-            imagenes_usadas = imagenes_usadas[-cant_imagenes:]
-      log.registrar_interaccion(usuario,"Generación de collage",imagenes_usadas,titulo)
+     '''Guarda el collage en el repositorio de collages y registra el evento en el archivo de logs.'''
+     try:
+          with open(ruta_conf,'r') as f:
+               datos = json.load(f)
+               ruta_guardar = cg.armar_ruta(directorio_padre,datos['directorio_collages'].split('/'))
+     except(PermissionError):
+        sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+        sys.exit()
+     except(FileNotFoundError):
+        sg.popup_error("""No se ha encontrado el archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+        sys.exit()
+
+
+     collage_path = os.path.join(ruta_guardar, f"{nombre}.png")
+     collage.save(collage_path)
+     #asi obtengo solo las últimas imagenes seleccionadas.
+     if len(imagenes_usadas) > cant_imagenes:
+          imagenes_usadas = imagenes_usadas[-cant_imagenes:]
+     log.registrar_interaccion(usuario,"Generación de collage",imagenes_usadas,titulo)
