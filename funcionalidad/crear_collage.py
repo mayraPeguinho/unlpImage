@@ -5,12 +5,35 @@ import PIL.ImageTk
 import PIL.ImageOps
 import PIL.ImageDraw
 import csv
+import json
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from rutas import ruta_directorio_collages
 from funcionalidad import registrar_log as log
 from rutas import archivo_imagenes_etiquetadas_csv as ruta_archivo
+from rutas import archivo_configuracion_json
+from rutas import directorio_padre
+from funcionalidad import configuracion as cg
+
+def obtener_ruta():    
+      '''Obtiene el directorio donde se guardaran los collages a partir del archivo de configuracion.json.'''
+      try:
+           with open(archivo_configuracion_json, 'r') as archivo:
+                directorios = json.load(archivo)
+           directorio_collage = cg.armar_ruta(directorio_padre,directorios['directorio_collages'].split('/'))
+           return directorio_collage  
+      except(PermissionError):
+           sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+           sys.exit()
+      except(FileNotFoundError):
+           sg.popup_error("""No se ha encontrado el archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+           sys.exit()
+      except json.JSONDecodeError:
+           sg.popup_error("""El archivo  configuracion.json no está en formato JSON válido. La aplicación no puede continuar. Se cerrará el programa.""")
+           sys.exit()   
+      except KeyError as e:
+           sg.popup_error(f"Error de clave en el archivo de configuración: {e}. La aplicación no puede continuar. Se cerrará el programa.")
+           sys.exit()
 
 
 def obtener_imagenes():
@@ -36,10 +59,11 @@ def obtener_imagenes():
                           #Agrega un sufijo del contador a la descripción
                           descripcion = f"{descripcion}_{repetidas[descripcion]}"
                      imagenes[descripcion] = nombre_imagen
-      except (FileNotFoundError):
-           sg.popup("No se encontró el archivo de imagenes etiquetadas.")
+      except(FileNotFoundError):
+           sg.popup_error("""No se ha encontrado el archivo 'imagenes_etiquetadas.csv', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+           sys.exit()
       except PermissionError:
-           sg.popup_error("No se cuentan con los permisos para acceder al archivo 'imagenes_etiquetadas.csv', se cerrará el programa.")
+           sg.popup_error("No se cuentan con los permisos para acceder al archivo 'imagenes_etiquetadas.csv',por lo que la aplicacion no puede continuar, se cerrará el programa.")
            sys.exit()
 
 
@@ -137,13 +161,15 @@ def insertar_titulo(titulo, collage):
 
     return copia
 
-def verificar_nombre(nombres, nombre):
-      '''Retorna true si en la lista nombres se encuentra el nombre, false en caso contrario'''
+def existe_nombre(nombre):
+      '''Retorna True si el nombre ya existe en el directorio de collages, False en caso contrario'''
+      directorio_collages=obtener_ruta()
+      nombres = os.listdir(directorio_collages)   
       return any(map(lambda x: x == nombre, nombres))
 
 def es_nombre_valido(nombre):
       '''Verifica si el texto dado es válido para ser utilizado como nombre de archivo.'''
-      invalidos = '[<>\\/|;*#$%!¡?¿ ]'  # Agregamos un espacio en blanco a la lista de caracteres inválidos
+      invalidos = '[<>\}/|;*#$%!¡?¿ ]'
       return not any(caracter in invalidos for caracter in nombre)
 
 
@@ -152,8 +178,11 @@ def es_nombre_valido(nombre):
 def guardar_collage(nombre,collage,imagenes_usadas,usuario,titulo, cant_imagenes):
       '''Guarda el collage en el repositorio de collages
       y registra el evento en el archivo de logs.'''
-      collage_path = os.path.join(ruta_directorio_collages, f"{nombre}.png")
+
+      directorio_collages= obtener_ruta()
+      collage_path = os.path.join(directorio_collages, f"{nombre}.png")
       collage.save(collage_path)
+      
       #asi obtengo solo las últimas imagenes seleccionadas.
       if len(imagenes_usadas) > cant_imagenes:
             imagenes_usadas = imagenes_usadas[-cant_imagenes:]

@@ -9,7 +9,7 @@ import PIL.ImageDraw
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from rutas import ruta_directorio_collages
+#from rutas import ruta_directorio_collages
 from funcionalidad.verificar_input import falta_completar_campos
 from funcionalidad import crear_collage
 
@@ -92,19 +92,17 @@ def generar_collage(usuario,cant_imagenes,diseño):
                  sg.popup("Debe ingresar un título")
          elif evento == "-GUARDAR-":
              if not falta_completar_campos(valores):
-                 if titulo_insertado:
-                     #obtengo la lista de nombres de las imagenes que use para el collage.
-                     nombres = os.listdir(ruta_directorio_collages)            
+                 if titulo_insertado:                    
                      nombre = sg.popup_get_text("Ingrese un nombre para el collage")
                      if nombre is not None and crear_collage.es_nombre_valido(nombre) and nombre != '':
-                         if not crear_collage.verificar_nombre(nombres, f"{nombre}.png"):
+                         if not crear_collage.existe_nombre(f"{nombre}.png"):
                              crear_collage.guardar_collage(nombre, collage_actual,imagenes_usadas,usuario,valores["-TÍTULO-"],cant_imagenes)
                              sg.popup("El collage se generó con éxito")
                              break
                          else:
                              sg.popup("Ya existe un archivo con ese nombre. Por favor, ingrese otro nombre")
                      else:
-                         sg.popup("Debe ingresar un nombre válido para el collage. Caracteres no permitidos : <>:/\|;*#$%!¡?¿")
+                         sg.popup("Debe ingresar un nombre válido para el collage. Caracteres no permitidos : [<>\}/|;*#$%!¡?¿]")
                  else:
                      sg.popup("Actualice el collage")
              else:
@@ -167,6 +165,10 @@ def generar_collage(usuario,cant_imagenes,diseño):
          window["-IMAGEN-"].update(data=imagen_actualizada)
         
      window.close()
+
+
+if __name__ == "__main__":
+     generar_collage(usuario,cant_imagenes, diseño)
 
 
     
