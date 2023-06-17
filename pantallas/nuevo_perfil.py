@@ -53,6 +53,7 @@ def ventana_nuevo_perfil():
         [
             sg.FileBrowse(
                 "Seleccionar Imagen",
+                initial_folder=ruta_imagenes_perfil,
                 key=("-BROWSE-"),
                 change_submits=True,
                 enable_events=True,
