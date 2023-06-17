@@ -5,7 +5,7 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from funcionalidad import constantes
-from funcionalidad.actualizar_datos import actulizar_data
+from funcionalidad import actualizar_datos as act
 from pantallas import nuevo_perfil
 from pantallas import menu_principal
 import rutas as r
@@ -15,9 +15,8 @@ def mostrar_perfiles(datos):
        en diferentes botones que seran mostrados luego en la ventana de inicio.'''
     perfiles=[]
     for numero,elemento in enumerate(datos): 
-        perfiles.append(sg.Column([[sg.Button(image_source=os.path.join(r.ruta_imagenes_perfil,elemento["Avatar"]),
-                                              image_size=(80,80),
-                                              image_subsample=3,
+        imagen_bytes=act.mostrar_imagen(os.path.join(r.ruta_imagenes_perfil,elemento["Avatar"]))
+        perfiles.append(sg.Column([[sg.Button(image_data=imagen_bytes,
                                               key=numero)],
                                    [sg.Text(elemento["Usuario"])]
                                   ])
@@ -80,7 +79,7 @@ def eventos_inicio():
     el archivo json de perfiles para mostrar correctamente los perfiles en
     la pantalla de inicio
     '''
-    datos,keys=actulizar_data()
+    datos,keys=act.actulizar_data()
 
     ventana_de_inicio=generar_ventana_de_inicio(datos)
 

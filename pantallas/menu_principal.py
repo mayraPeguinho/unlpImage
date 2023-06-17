@@ -4,6 +4,7 @@ import os
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
+from funcionalidad import actualizar_datos as act
 from pantallas import seleccion_de_collage
 from pantallas import etiquetar_imagenes
 from pantallas import configuracion
@@ -21,7 +22,7 @@ def generar_ventana_de_ayuda():
               [sg.Text(" "*25), sg.Button(" ¿Cómo crear un meme? ",key="-MEME-")],
              ]
     layout_meme=None
-    
+
     def ayuda_collage():
         '''Genera la ventana de ayuda_collage con la respectiva informacion que le servirá
         al usuario de la aplicación para hacer uso de la funcionalidad de generar collage'''
@@ -57,9 +58,8 @@ def generar_ventana_de_ayuda():
 
 def ventana_menu(perfil_actual):
     '''Esta funcion define la ventana de menu con sus respectivos botones. '''
-    columna1=[[sg.Button(image_filename=os.path.join(r.ruta_imagenes_perfil,perfil_actual["Avatar"]),
-                         image_size=(80,80),
-                         image_subsample=3,
+    imagen_bytes=act.mostrar_imagen(os.path.join(r.ruta_imagenes_perfil,perfil_actual["Avatar"]))
+    columna1=[[sg.Button(image_data=imagen_bytes,
                          key="-VENTANA EDITAR PERFIL-")],
               [sg.Text(perfil_actual["Usuario"],key="-USUARIO-")]
              ]
@@ -109,11 +109,8 @@ def eventos_menu_principal(menu):
             case "-VENTANA EDITAR PERFIL-":
                 menu.hide()
                 menu.metadata["perfil_actual"]=editar_perfil.ventana_editar_perfil(menu.metadata["perfil_actual"])
-                menu["-VENTANA EDITAR PERFIL-"].update(
-                    image_filename=os.path.join(r.ruta_imagenes_perfil,menu.metadata["perfil_actual"]["Avatar"]),
-                    image_size=(80,80),
-                    image_subsample=3
-                    )
+                imagen_bytes=act.mostrar_imagen(os.path.join(r.ruta_imagenes_perfil,menu.metadata["perfil_actual"]["Avatar"]))
+                menu["-VENTANA EDITAR PERFIL-"].update(image_data=imagen_bytes)
                 menu.un_hide()
 
 if __name__ =="__main__":
