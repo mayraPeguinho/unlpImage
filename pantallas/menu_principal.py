@@ -33,14 +33,41 @@ def generar_ventana_de_ayuda():
                         [sg.Text("las imágenes a utilizar y el título que se desee.")],
                         [sg.Text(" ")],
                         [sg.Text("-Deberá hacer click  en “Actualizar” para insertar el título en el collage.")],
-                        [sg.Text("Haga click en Guardar y se solicitará el nombre con el cuak desee guardar el,")],
-                        [sg.Text("si se guardó correctamente se mostrará un mensaje de éxito.")]
+                        [sg.Text("Haga click en Guardar, entonces se solicitará el nombre con el cual desee guardar el")],
+                        [sg.Text("collage, si se guardó correctamente se mostrará un mensaje de éxito.")]
                        ]
         collage=sg.Window("Ayuda",layout_collage)
         while True:
             evento, valores = collage.read()
             if evento == sg.WIN_CLOSED:
                 collage.close()
+                break
+
+    def ayuda_meme():
+        '''Genera la ventana de ayuda_meme con la respectiva informacion que le servirá
+        al usuario de la aplicación para hacer uso de la funcionalidad de generar meme'''
+        layout_meme=[[sg.Text("-Desde el menú debe seleccionar el boton “Generar Meme”, a continuación se mostrará")],
+                     [sg.Text("una pantalla con las imagenes del repositorio configurado.")],
+                     [sg.Text(" ")],
+                     [sg.Text("-Alli debe seleccionar el template (plantilla) que quiera utilizar. Al hacer click en")],
+                     [sg.Text("una imagen, el sistema indicará si se trata de un template o no. Una vez encontrada la")],
+                     [sg.Text("plantilla que se quiere utilizar, debe hacer click en “Generar” y se abrirá otra pantalla")],
+                     [sg.Text(" ")],
+                     [sg.Text("-En esta pantalla, debe seleccionar la fuente deseada para el texto. Y debe completar")],
+                     [sg.Text("cada cuadro de texto con el contenido deseado.")],
+                     [sg.Text(" ")],
+                     [sg.Text("-Luego debe hacer click en “Actualizar” para chequear que el texto se vea de la forma")],
+                     [sg.Text("deseada. En caso contrario puede modificar nuevamente las casillas de texto.")],
+                     [sg.Text(" ")],
+                     [sg.Text("-Haga click en Guardar, se solicitará el nombre con el cual desee guardar el meme. Y por")],
+                     [sg.Text("ultimo debe hacer click en “Generar”, si se guardó correctamente el sistema indicará que")],
+                     [sg.Text("se creo un nuevo meme con éxito.")]
+                     ]
+        meme=sg.Window("Ayuda",layout_meme)
+        while True:
+            evento, valores = meme.read()
+            if evento == sg.WIN_CLOSED:
+                meme.close()
                 break
 
     ventana_de_ayuda=sg.Window("Ayuda",layout)
@@ -54,7 +81,9 @@ def generar_ventana_de_ayuda():
             ayuda_collage()
             ventana_de_ayuda.un_hide()
         if evento == "-MEME-":
-            pass
+            ventana_de_ayuda.hide()
+            ayuda_meme()
+            ventana_de_ayuda.un_hide()
 
 def ventana_menu(perfil_actual):
     '''Esta funcion define la ventana de menu con sus respectivos botones. '''

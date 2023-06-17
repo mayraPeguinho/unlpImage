@@ -59,9 +59,7 @@ def guardar_data(ruta, data, usuario_actual):
 
             with open(ruta, 'w',newline='', encoding="utf-8") as file:
                 writer = csv.writer(file)
-                writer.writerows(contenido_csv)
-
-#la siguiente función, no funciona. No se porqué.     
+                writer.writerows(contenido_csv) 
 
 def actualizar_tags(csv_archivo, ruta):
     """Retorna los tags"""
