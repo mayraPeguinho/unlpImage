@@ -29,26 +29,6 @@ def armar_ruta(directorio,subcarpetas):
         directorio=os.path.join(directorio,elem)
     return directorio
 
-def obtener_directorios():
-    '''Obtengo las rutas del repositorio de imagenes y los directorios, se arma
-    la ruta a base de la ruta relativa obtenida del archivo configuracion.json, y
-    dependiendo tambien de que sistema operativo se trate'''
-    try:
-        with open(r.archivo_configuracion_json, 'r') as archivo:
-            datos=json.load(archivo)
-        repositorio_imagenes=armar_ruta(r.directorio_padre,datos['repositorio_imagenes'].split('/'))
-        directorio_collages=armar_ruta(r.directorio_padre,datos['directorio_collages'].split('/'))
-        directorio_memes=armar_ruta(r.directorio_padre,datos['directorio_memes'].split('/'))
-        return repositorio_imagenes,directorio_collages,directorio_memes
-    except(FileNotFoundError,json.decoder.JSONDecodeError):
-        repositorio_imagenes=''
-        directorio_collages=''
-        directorio_memes=''
-        return repositorio_imagenes,directorio_collages,directorio_memes
-    except(PermissionError):
-        sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
-        sys.exit()
-
 def obtener_directorio(key):    
       '''Tiene como objetivo obtener y retornar un directorio del archivo de configuración.json.
          key es una cadena de texto que representa la clave que indica la ruta del directorio 

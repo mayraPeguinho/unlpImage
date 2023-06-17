@@ -21,6 +21,7 @@ def generar_ventana_de_ayuda():
               [sg.Text(" "*25), sg.Button(" ¿Cómo crear un meme? ",key="-MEME-")],
              ]
     layout_meme=None
+    
     def ayuda_collage():
         '''Genera la ventana de ayuda_collage con la respectiva informacion que le servirá
         al usuario de la aplicación para hacer uso de la funcionalidad de generar collage'''

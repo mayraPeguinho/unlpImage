@@ -9,7 +9,9 @@ from rutas import directorio_padre
 
 def pantalla_configuracion(usuario):
 
-    repositorio_imagenes,directorio_collage,directorio_meme=conf.obtener_directorios()
+    repositorio_imagenes=conf.obtener_directorio('repositorio_imagenes')
+    directorio_collage=conf.obtener_directorio('directorio_collages')
+    directorio_meme=conf.obtener_directorio('directorio_memes')
 
     layout = [[sg.Text('Repositorio de imagenes')],
             # En este directorio se encuentran las imagenes que podemos utilizar en la aplicación

@@ -22,16 +22,8 @@ def pantalla_seleccionartemplate(usuario):
     file_icon = b'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsSAAALEgHS3X78AAABU0lEQVQ4y52TzStEURiHn/ecc6XG54JSdlMkNhYWsiILS0lsJaUsLW2Mv8CfIDtr2VtbY4GUEvmIZnKbZsY977Uwt2HcyW1+dTZvt6fn9557BGB+aaNQKBR2ifkbgWR+cX13ubO1svz++niVTA1ArDHDg91UahHFsMxbKWycYsjze4muTsP64vT43v7hSf/A0FgdjQPQWAmco68nB+T+SFSqNUQgcIbN1bn8Z3RwvL22MAvcu8TACFgrpMVZ4aUYcn77BMDkxGgemAGOHIBXxRjBWZMKoCPA2h6qEUSRR2MF6GxUUMUaIUgBCNTnAcm3H2G5YQfgvccYIXAtDH7FoKq/AaqKlbrBj2trFVXfBPAea4SOIIsBeN9kkCwxsNkAqRWy7+B7Z00G3xVc2wZeMSI4S7sVYkSk5Z/4PyBWROqvox3A28PN2cjUwinQC9QyckKALxj4kv2auK0xAAAAAElFTkSuQmCC'
 
     #Leo desde el archivo de configuración, donde ir a buscar mi repositorio de imagenes
-    try:
-        with open(ruta_archivo,'r') as f:
-            datos = json.load(f)
-        starting_path = cg.armar_ruta(directorio_padre,datos['repositorio_imagenes'].split('/'))
-    except(PermissionError):
-        sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
-        sys.exit()
-    except(FileNotFoundError):
-        sg.popup_error("""No se ha encontrado el archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
-        sys.exit()
+
+    starting_path = cg.obtener_directorio('repositorio_imagenes')
 
     #Declaro la ruta del csv de donde leo y guardo los datos de las imagenes
     #para poder mostrar los archivos en forma de cascada hay que usar un objeto "treedata" incluído en PySimplegui
