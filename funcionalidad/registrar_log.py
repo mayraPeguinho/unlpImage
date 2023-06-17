@@ -28,8 +28,8 @@ def registrar_interaccion(nick, operacion,valores=None,textos=None):
      log = [timestamp, nick, operacion,valores,textos]
 
      #para verificar si el archivo existe o no.
-     archivo_existe = os.path.isfile(ruta_archivo)
-
+     archivo_existe = os.path.exists(ruta_archivo)
+    
      try:
          with open(ruta_archivo, 'a', newline='', encoding='UTF-8') as archivo_csv:
              writer_csv = csv.writer(archivo_csv)
@@ -37,10 +37,12 @@ def registrar_interaccion(nick, operacion,valores=None,textos=None):
              if not archivo_existe:
                  writer_csv.writerow(["Fecha y Hora", "Nick", "Operación","Valores", "Textos"])   
              writer_csv.writerow(log)
-     except (FileNotFoundError):
-         pass
+     except FileNotFoundError:
+         sg.popup_error("""No se encuentra el archivo 'logs.csv'""")
      except PermissionError:
-        sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'logs.csv', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
-        sys.exit()
-
+         sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'logs.csv', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+         sys.exit()
+     except Exception as e:
+         sg.popup_error(f"Se produjo un error al escribir en el archivo: {e}. La aplicación no puede continuar. Se cerrará el programa.")
+         sys.exit()
 
