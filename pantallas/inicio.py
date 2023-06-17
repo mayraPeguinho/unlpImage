@@ -44,14 +44,14 @@ def layout_inicio(datos,no_desplegar=True):
 def mostrar_mas_perfiles(datos):
     '''Esta funcion crea la ventana en donde se muestran los perfiles restantes'''
     layout=layout_inicio(datos,False)
-    return sg.Window("UNLPImage",layout,margins=(200, 150))
+    return sg.Window("Inicio",layout,margins=(200, 150))
 
 def generar_ventana_de_inicio(datos):
     '''Esta funcion muestra hasta un maximo de cuatro perfiles,
     que pasada esa cantidad estara hablitado el boton "Ver mas"
     para ver los restantes perfiles creados'''
     layout=layout_inicio(datos,True)
-    return sg.Window("UNLPImage",layout,margins=(200, 150))
+    return sg.Window("Inicio",layout,margins=(200, 150))
 
 def manejar_eventos_mas_perfiles(datos,keys):
     '''Maneja los eventos de la ventana que muestra todos los perfiles'''

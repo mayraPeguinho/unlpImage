@@ -30,7 +30,7 @@ def ventana_seleccion_collage():
                         key="-DISEÑO 4-")],
               [sg.Button("Volver",key="-VOLVER-")],
              ]
-    return sg.Window("UNLPImage",layout,margins=(150, 150))
+    return sg.Window("Generar Collage",layout,margins=(150, 150))
 
 def eventos_seleccion_collage(usuario):
     '''Maneja los eventos de la ventana de seleccion de collage

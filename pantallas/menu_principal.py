@@ -97,13 +97,13 @@ def ventana_menu(perfil_actual):
     columna3=[[sg.Button('?',tooltip="Ayuda",key="-VENTANA AYUDA-")]]
 
     layout = [[sg.Column(columna1),sg.Column(columna2),sg.Column(columna3)],
-              [sg.Button("Etiquetar Imagenes",key="-VENTANA ETIQUETAR-")],
-              [sg.Button("Generar meme",key="-VENTANA MEME-")],
-              [sg.Button("Generar collage",key="-VENTANA COLLAGE-")],
-              [sg.Button("Salir",key="-SALIR-")]
+              [sg.Text(" "*10),sg.Button("Etiquetar Imagenes",size=(15,1),key="-VENTANA ETIQUETAR-")],
+              [sg.Text(" "*10),sg.Button("   Generar meme   ",size=(15,1),key="-VENTANA MEME-")],
+              [sg.Text(" "*10),sg.Button("  Generar collage ",size=(15,1),key="-VENTANA COLLAGE-")],
+              [sg.Text(" "*10),sg.Button("       Salir      ",size=(15,1),key="-SALIR-")]
              ]
     
-    return sg.Window("UNLPImage",layout,margins=(150, 150),metadata={"perfil_actual":perfil_actual})
+    return sg.Window("Menú",layout,margins=(150, 150),metadata={"perfil_actual":perfil_actual})
 
 def eventos_menu_principal(menu):
     '''Maneja los eventos de la ventana menu prinicipal'''
