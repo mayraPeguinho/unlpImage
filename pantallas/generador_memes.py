@@ -131,6 +131,7 @@ def generar_meme(imagen_seleccionada,meme_json,usuario):
                     
                     crear_meme.guardar_meme(usuario,nombre,nombre_imagen,values,meme_actual)
                     sg.popup("Se generó un meme!")
+                    window.close()
                     break
                 else:
                     sg.popup("Ya existe un archivo con ese nombre. Por favor, ingrese otro nombre")

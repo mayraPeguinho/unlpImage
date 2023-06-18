@@ -47,3 +47,11 @@ def llenar_genero(values,avatar_actual):
         values['-BROWSE-'] = avatar_actual
     if values['Genero'][0] != 'Otro':
         values['Especificar genero'] = '-'
+
+def actualizar_perfil(perfiles, perfil_modificado):
+    
+    for pos, perfil in enumerate(perfiles):
+        if perfil['Usuario'] == perfil_modificado['Usuario']:
+            perfiles[pos] = perfil_modificado
+            break
+    return perfiles

@@ -112,20 +112,15 @@ def ventana_editar_perfil(perfil_actual):
                 sys.exit()
 
             llenar_genero(values,perfil_actual['Avatar'])
-            print(values)
-            print(perfil_actual)
             if not falta_completar_campos(values):
                 if verificar_edad(values["Edad"]):
                     perfil_modificado = modificar_perfil(perfil_actual,values)
 
-                    for pos, perfil in enumerate(perfiles):
-                        if perfil['Usuario'] == perfil_modificado['Usuario']:      
-                            perfiles[pos] = perfil_modificado
-                            break
+                    perfiles_actualizados = actualizar_perfil(perfiles, perfil_modificado)
                     
                     try:
                         with open(ruta_archivo, "w") as archivo:
-                            json.dump(perfiles, archivo, indent=4)
+                            json.dump(perfiles_actualizados, archivo, indent=4)
                             sg.popup('El perfil se edito correctamente!')
                     except PermissionError:
                         sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'nuevo_perfil.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
