@@ -87,7 +87,7 @@ def generar_meme(imagen_seleccionada,meme_json,usuario):
 
     meme_json = [item for item in meme_json if item['image'] == os.path.basename(imagen_seleccionada)]
 
-    cant_cajas = crear_meme.calculo_cajas(meme_json,imagen_seleccionada)
+    cant_cajas = (meme_json[0]['text_boxes'].__len__())
 
     nombre_imagen = os.path.basename(imagen_seleccionada)
 
@@ -140,3 +140,4 @@ def generar_meme(imagen_seleccionada,meme_json,usuario):
 
 if __name__ == "__main__":
     generar_meme(imagen_seleccionada,meme_json,usuario)
+    
