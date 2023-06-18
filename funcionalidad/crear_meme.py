@@ -57,11 +57,12 @@ def actualizar_datos(meme_imagen,meme_json,values):
         try:    
             fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_1-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
             draw.text([top_left_x, top_left_y], values['-TEXTO_1-'], font=fuente_ajustada, fill= color)
-        except(OSError):
-            sg.popup('La fuente debe ser seleecionada desde la carpeta fuentes')
         except(PermissionError):
             sg.popup("No se cuentan con los permisos para acceder al directorio fuentes, por lo que la aplicacion no puede continuar, se cerrará el programa.")
             sys.exit()
+        except(OSError):
+            sg.popup('La fuente debe ser seleecionada desde la carpeta fuentes')
+
         
     if (values.get('-TEXTO_2-', '') != ''):
         coordenadas = obterer_coordenadas(meme_json,1)
@@ -70,11 +71,12 @@ def actualizar_datos(meme_imagen,meme_json,values):
         try:
             fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_2-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
             draw.text([top_left_x, top_left_y], values['-TEXTO_2-'], font=fuente_ajustada, fill= color)
+        except(PermissionError):
+            sg.popup("No se cuentan con los permisos para acceder al directorio fuentes, por lo que la aplicacion no puede continuar, se cerrará el programa.")
+            sys.exit()
         except(OSError):
             sg.popup('La fuente debe ser seleecionada desde la carpeta fuentes')
-        except PermissionError:
-            sg.popup_error("""No se cuentan con los permisos para acceder al directorio 'fuentes', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
-
+      
     if (values.get('-TEXTO_3-', '') != ''):
         coordenadas = obterer_coordenadas(meme_json,2)
 
@@ -82,11 +84,12 @@ def actualizar_datos(meme_imagen,meme_json,values):
         try:
             fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_3-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
             draw.text([top_left_x, top_left_y], values['-TEXTO_3-'], font=fuente_ajustada, fill= color)
+        except(PermissionError):
+            sg.popup("No se cuentan con los permisos para acceder al directorio fuentes, por lo que la aplicacion no puede continuar, se cerrará el programa.")
+            sys.exit()
         except(OSError):
             sg.popup('La fuente debe ser seleecionada desde la carpeta fuentes')
-        except PermissionError:
-            sg.popup_error("""No se cuentan con los permisos para acceder al directorio 'fuentes', por lo que la aplicacion no puede continuar, se cerrará el programa.""")    
-    
+       
     if (values.get('-TEXTO_4-', '') != ''):
         coordenadas = obterer_coordenadas(meme_json,3)
 
@@ -107,11 +110,12 @@ def actualizar_datos(meme_imagen,meme_json,values):
         try: 
             fuente_ajustada = calcular_tam_fuente(draw,values['-TEXTO_5-'],values['-FUENTE-'],(top_left_x,top_left_y,bottom_right_x,bottom_right_y))
             draw.text([top_left_x, top_left_y], values['-TEXTO_5-'], font=fuente_ajustada, fill= color)
+        except(PermissionError):
+            sg.popup("No se cuentan con los permisos para acceder al directorio fuentes, por lo que la aplicacion no puede continuar, se cerrará el programa.")
+            sys.exit()
         except(OSError):
             sg.popup('La fuente debe ser seleecionada desde la carpeta fuentes')
-        except PermissionError:
-            sg.popup_error("""No se cuentan con los permisos para acceder al directorio 'fuentes', por lo que la aplicacion no puede continuar, se cerrará el programa.""")  
-    
+        
     
     return copia
 
