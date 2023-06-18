@@ -1,7 +1,7 @@
 [
     {
-        "image": "Increibles.png",
-        "name": "Some description",
+        "image": "Template_Increibles.png",
+        "name": "Template_Increibles.png",
         "text_boxes": [
             {
                 "top_left_x": 14,
@@ -18,8 +18,8 @@
         ]
     },
     {
-        "image": "nomequemes.jpg",
-        "name": "Some description",
+        "image": "Template_nomequemes.jpg",
+        "name": "Template_nomequemes",
         "text_boxes": [
             {
                 "top_left_x": 22,
@@ -30,8 +30,8 @@
         ]
     },
     {
-        "image": "todo-bien.jpg",
-        "name": "Some description",
+        "image": "Template_todo-bien.jpg",
+        "name": "Template_todo-bien",
         "text_boxes": [
             {
                 "top_left_x": 16,
@@ -48,8 +48,8 @@
         ]
     },
     {
-        "image": "winnie_detraje.png",
-        "name": "Some description",
+        "image": "Template_winnie_detraje.png",
+        "name": "Template_winnie_detraje",
         "text_boxes": [
             {
                 "top_left_x": 373,
@@ -73,8 +73,8 @@
 
         },
     {
-        "image": "cerebro-expansivo.jpg",
-        "name": "Some description",
+        "image": "Template_cerebro-expansivo.jpg",
+        "name": "Template_cerebro-expansivo",
         "text_boxes": [
             {
                 "top_left_x": 20,
@@ -103,8 +103,8 @@
         ]
     },
     {
-        "image": "siguiente-salida.jpg",
-        "name": "Some description",
+        "image": "Template_siguiente-salida.jpg",
+        "name": "Template_siguiente-salida",
         "text_boxes": [
             {
                 "top_left_x": 187,
@@ -121,8 +121,8 @@
         ]
     },
     {
-        "image": "globo.jpg",
-        "name": "Some description",
+        "image": "Template_globo.jpg",
+        "name": "Template_globo",
         "text_boxes": [
             {
                 "top_left_x": 477,
@@ -157,8 +157,8 @@
         ]
     },
     {
-        "image": "dos_botones.jpg",
-        "name": "Some description",
+        "image": "Template_dos_botones.jpg",
+        "name": "Template_dos_botones",
         "text_boxes": [
             {
                 "top_left_x": 40,
@@ -175,8 +175,8 @@
         ]
     },
     {
-        "image": "Estosi_estono.jpg",
-        "name": "Some description",
+        "image": "Template_Estosi_estono.jpg",
+        "name": "Template_Estosi_estono",
         "text_boxes": [
             {
                 "top_left_x": 648,
@@ -193,8 +193,8 @@
         ]
     },
     {
-        "image": "Queclaseesesta.jpg",
-        "name": "Some description",
+        "image": "Template_Queclaseesesta.jpg",
+        "name": "Template_Queclaseesesta",
         "text_boxes": [
             {
                 "top_left_x": 9,
