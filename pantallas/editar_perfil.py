@@ -1,3 +1,4 @@
+
 import sys
 import os
 import json
@@ -11,6 +12,7 @@ from funcionalidad.nuevo_perfil import *
 from funcionalidad.verificar_input import falta_completar_campos
 from rutas import ruta_imagenes_perfil 
 from rutas import archivo_perfiles_json as ruta_archivo
+from funcionalidad import registrar_log
 
 def ventana_editar_perfil(perfil_actual):
 
@@ -128,7 +130,8 @@ def ventana_editar_perfil(perfil_actual):
                     except PermissionError:
                         sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'nuevo_perfil.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
                         sys.exit()
-            
+
+                    registrar_log.registrar_interaccion(perfil_actual['Usuario'],'Edito el perfil')
                     window.close()
                     return perfil_modificado
                 else:
@@ -141,3 +144,4 @@ def ventana_editar_perfil(perfil_actual):
 
 if __name__ == "__main__":
     ventana_editar_perfil()
+

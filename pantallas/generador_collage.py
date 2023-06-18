@@ -1,3 +1,4 @@
+
 import PySimpleGUI as sg
 import sys
 import os
@@ -6,173 +7,138 @@ import PIL.ImageTk
 import PIL.ImageOps
 import PIL.ImageDraw
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from funcionalidad.verificar_input import falta_completar_campos
-from funcionalidad import crear_collage
+import rutas as r
+from funcionalidad import crear_meme
+from funcionalidad import etiquetar_imagenes
+from funcionalidad.crear_collage import es_nombre_valido
+from pantallas import menu_principal 
+import PIL.ImageFont
 
+def definir_layout(cant_cajas):
+    """Se arma de que manera puede ser la interfaz dependiendo la cantidad
+    de cajas de texto se tiene"""
 
-def layout(cant_imagenes,descripciones):
-    '''genera y devuelve el diseño de la interfaz gráfica para la generación de collages.
-       Retorna Una lista que representa el diseño de la interfaz gráfica, que incluye combos para seleccionar las imágenes,
-       un campo de entrada para el título,una sección para visualizarlo y botones para actualizar y guardar el collage.
-       Recibe cant_imagenes para especificar cuantos combos crear y una lista de descripciones de las 
-       imágenes disponibles para seleccionar de los combos.
-    '''
+    
+    if cant_cajas == 1:
+        columna_izquierda = [
+            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-', initial_folder=r.ruta_directorio_fuentes)],
+            [sg.Text('Texto 1:')],[sg.Input(key = '-TEXTO_1-')],
+            [sg.Button("Actualizar", key="-ACTUALIZAR-"), sg.Button('Volver', key= '-VOLVER-')],
+        ]
+    elif cant_cajas == 2:
+        columna_izquierda = [
+            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-', initial_folder=r.ruta_directorio_fuentes)],
+            [sg.Text('Texto 1:')],[sg.Input(key = '-TEXTO_1-')],
+            [sg.Text('Texto 2:')],[sg.Input(key = '-TEXTO_2-')],
+            [sg.Button("Actualizar", key="-ACTUALIZAR-"),sg.Button('Volver', key= '-VOLVER-')],
+        ]
+    elif cant_cajas == 3:
+        columna_izquierda = [
+            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-', initial_folder=r.ruta_directorio_fuentes)],
+            [sg.Text('Texto 1:')],[sg.Input(key = '-TEXTO_1-')],
+            [sg.Text('Texto 2:')],[sg.Input(key = '-TEXTO_2-')],
+            [sg.Text('Texto 3:')],[sg.Input(key = '-TEXTO_3-')],
+            [sg.Button("Actualizar", key="-ACTUALIZAR-"),sg.Button('Volver', key= '-VOLVER-')],
+        ]
+    elif cant_cajas == 4:
+        columna_izquierda = [
+            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-',initial_folder=r.ruta_directorio_fuentes)],
+            [sg.Text('Texto 1:')],[sg.Input(key = '-TEXTO_1-')],
+            [sg.Text('Texto 2:')],[sg.Input(key = '-TEXTO_2-')],
+            [sg.Text('Texto 3:')],[sg.Input(key = '-TEXTO_3-')],
+            [sg.Text('Texto 4:')],[sg.Input(key = '-TEXTO_4-')],
+            [sg.Button("Actualizar", key="-ACTUALIZAR-"),sg.Button('Volver', key= '-VOLVER-')],
+        ]
+    elif cant_cajas == 5:
+        columna_izquierda = [
+            [sg.FileBrowse('Seleccionar fuente', key='-FUENTE-',initial_folder=r.ruta_directorio_fuentes)],
+            [sg.Text('Texto 1:')],[sg.Input(key = '-TEXTO_1-')],
+            [sg.Text('Texto 2:')],[sg.Input(key = '-TEXTO_2-')],
+            [sg.Text('Texto 3:')],[sg.Input(key = '-TEXTO_3-')],
+            [sg.Text('Texto 4:')],[sg.Input(key = '-TEXTO_4-')],
+            [sg.Text('Texto 5:')],[sg.Input(key = '-TEXTO_5-')],
+            [sg.Button("Actualizar", key="-ACTUALIZAR-"), sg.Button('Volver', key= '-VOLVER-')],
+        ]
 
-    column1 = [
-        [sg.Text("Seleccionar imagenes")],
+    columna_derecha = [
+        [sg.Image(key="-IMAGEN-", size=(200, 200))],
+        [
+            sg.Column(
+                [[sg.Button("Generar meme", key="-GENERAR-")]],
+                expand_x=True,
+                element_justification="right",
+            )
+        ],
     ]
-    column1.extend([[sg.Combo(descripciones, key=f"-IMAGEN-{i+1}-",enable_events=True)] for i in range(cant_imagenes)])
 
-    column1.append([sg.Text("Título")])
-    column1.append([sg.Input(key="-TÍTULO-",size=(35))])
-    column1.append([sg.Button("Actualizar", key="-ACTUALIZAR-")])
-
-    column2 = [
-         [sg.Image(key="-IMAGEN-", size=(400, 400))],
-         [sg.Column(
-         [[sg.Button("Guardar", key="-GUARDAR-")]],
-                     expand_x=True,
-                     element_justification="right"
-                   )
-         ],
-    ]
-
-    return [
-        [   [sg.Text("Generar Collage", font=("Helvetica", 20), justification="left"),
-             sg.Column( [[sg.Button("Volver", key="-VOLVER-")]],
-                          expand_x=True,
-                          element_justification="right"
-                      )
-           ],
-        
-            sg.Column(column1,vertical_alignment="center"),
-            sg.Column(column2,vertical_alignment="center"),
+    layout = [
+        [
+            sg.Column(columna_izquierda, element_justification="c"),
+            sg.VSeperator(),
+            sg.Column(columna_derecha, element_justification="c"),
         ]
     ]
 
+    return layout
 
-def generar_collage(usuario,cant_imagenes,diseño):
-     
-     """
-     Genera la interfaz gráfica para crear un collage.
-     Recibe la cantidad de imágenes que tendrá el collage, el número del diseño a usar y el usuario.
-     """
 
-     # Obtengo las imágenes etiquetadas
-     imagenes_diccionario = crear_collage.obtener_imagenes()
+def generar_meme(imagen_seleccionada,meme_json,usuario):
 
-     # En los combos se debe mostrar la descripción de la imagen
-     descripciones = list(imagenes_diccionario.keys())
+    meme_json = [item for item in meme_json if item['image'] == os.path.basename(imagen_seleccionada)]
 
-     imagenes_usadas=[]
+    cant_cajas = (meme_json[0]['text_boxes'].__len__())
 
-     window = sg.Window("Generador de Collages", layout(cant_imagenes,descripciones),margins=(60,30),element_justification="center",resizable=True)
-     window.finalize()
-     
-     # creo una imagen base para el collage
-     size=400,400
-     collage = PIL.Image.new('RGB', size,color='white')
-     image = PIL.ImageTk.PhotoImage(collage)
-     window["-IMAGEN-"].update(data=image)
-    
-     collage_actual = collage.copy()
-     titulo_insertado = False
+    nombre_imagen = os.path.basename(imagen_seleccionada)
 
-     while True:
-         evento, valores = window.read()     
-         if evento == "-VOLVER-":
-             window.close()
-             break
-         elif evento == sg.WIN_CLOSED:
-             sys.exit()
+    layout = definir_layout(cant_cajas)
 
-         elif evento == "-ACTUALIZAR-":    
-             collage_actual= crear_collage.insertar_titulo(valores["-TÍTULO-"],collage)
-             if valores["-TÍTULO-"] != '':
-                 titulo_insertado=True
-             else:
-                 sg.popup("Debe ingresar un título")
-         elif evento == "-GUARDAR-":
-             if not falta_completar_campos(valores):
-                 if titulo_insertado:                    
-                     nombre = sg.popup_get_text("Ingrese un nombre para el collage")
-                     if nombre is not None and crear_collage.es_nombre_valido(nombre) and nombre != '':
-                         if not crear_collage.existe_nombre(f"{nombre}.png"):
-                             crear_collage.guardar_collage(nombre, collage_actual,imagenes_usadas,usuario,valores["-TÍTULO-"],cant_imagenes)
-                             sg.popup("El collage se generó con éxito")
-                             break
-                         else:
-                             sg.popup("Ya existe un archivo con ese nombre. Por favor, ingrese otro nombre")
-                     else:
-                         sg.popup("Debe ingresar un nombre válido para el collage. Caracteres no permitidos : [<>\}/|;*#$%!¡?¿]")
-                 else:
-                     sg.popup("Actualice el collage")
-             else:
-                  sg.popup("Falta completar los campos necesarios")   
-        
-         else:                
-             match diseño:            
-                 case 1:
-                     if evento=="-IMAGEN-1-":                          
-                         collage_actual = crear_collage.crear_collage_diseño_1(imagenes_diccionario.get(valores["-IMAGEN-1-"]),1,collage)
-                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-1-"])))
-                         
-                     elif evento=="-IMAGEN-2-":
-                         collage_actual= crear_collage.crear_collage_diseño_1(imagenes_diccionario.get(valores["-IMAGEN-2-"]),2, collage)
-                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-2-"])))
-                         titulo_insertado=False
-                 case 2:
-                     if evento=="-IMAGEN-1-":                           
-                         collage_actual= crear_collage.crear_collage_diseño_2(imagenes_diccionario.get(valores["-IMAGEN-1-"]),1,collage)
-                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-1-"])))  
+    window = sg.Window(
+        "Generador de memes", layout, margins=(60, 80), finalize=True, resizable=True
+    )
+    """Muestro el meme que se me pasa por parametro"""
 
-                     elif evento=="-IMAGEN-2-":
-                         collage_actual = crear_collage.crear_collage_diseño_2(imagenes_diccionario.get(valores["-IMAGEN-2-"]),2, collage)
-                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-2-"])))
-                         titulo_insertado=False
+    cargar_meme = PIL.Image.open(imagen_seleccionada)
+    imagen_meme = etiquetar_imagenes.mostrar_imagen(imagen_seleccionada)
 
-                     elif evento=="-IMAGEN-3-":
-                         collage_actual = crear_collage.crear_collage_diseño_2(imagenes_diccionario.get(valores["-IMAGEN-3-"]),3, collage)
-                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-3-"])))
-                         
-                 case 3:
-                     if evento=="-IMAGEN-1-":                           
-                         collage_actual= crear_collage.crear_collage_diseño_3(imagenes_diccionario.get(valores["-IMAGEN-1-"]),1,collage)
-                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-1-"])))  
+    window["-IMAGEN-"].update(data=imagen_meme)
 
-                     elif evento=="-IMAGEN-2-":
-                         collage_actual= crear_collage.crear_collage_diseño_3(imagenes_diccionario.get(valores["-IMAGEN-2-"]),2, collage)
-                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-2-"])))
 
-                     elif evento=="-IMAGEN-3-":
-                         collage_actual = crear_collage.crear_collage_diseño_3(imagenes_diccionario.get(valores["-IMAGEN-3-"]),3, collage)
-                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-3-"])))
-                         titulo_insertado=False
+    while True:
+        event, values = window.Read()
 
-                     elif evento=="-IMAGEN-4-":
-                         collage_actual= crear_collage.crear_collage_diseño_3(imagenes_diccionario.get(valores["-IMAGEN-4-"]),4, collage)
-                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-4-"])))
+        window
+        if event == "-VOLVER-":
+            window.close()
+            break
 
-                 case 4:
-                     if evento=="-IMAGEN-1-":                           
-                         collage_actual= crear_collage.crear_collage_diseño_4(imagenes_diccionario.get(valores["-IMAGEN-1-"]),1,collage)
-                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-1-"])))
-                         titulo_insertado=False
-                     elif evento=="-IMAGEN-2-":
-                         collage_actual = crear_collage.crear_collage_diseño_4(imagenes_diccionario.get(valores["-IMAGEN-2-"]),2, collage)
-                         imagenes_usadas.append(os.path.basename(imagenes_diccionario.get(valores["-IMAGEN-2-"])))
-                        
-         #muestro el collage altualizado
-         imagen_actualizada = PIL.ImageTk.PhotoImage(collage_actual)
-         window["-IMAGEN-"].update(data=imagen_actualizada)
-        
-     window.close()
+        elif event == sg.WIN_CLOSED:
+            sys.exit()
+
+        elif event == "-ACTUALIZAR-":
+            meme_actual = crear_meme.actualizar_datos(cargar_meme,meme_json,values)
+
+            cambio_tamanio = meme_actual.resize((350,300))
+
+            data_imagen = PIL.ImageTk.PhotoImage(cambio_tamanio)
+            window["-IMAGEN-"].update(data=data_imagen)
+
+        elif event == "-GENERAR-":
+            crear_meme.asigno_fuente(values)
+            if not falta_completar_campos(values):
+                nombre = sg.popup_get_text("Ingrese un nombre para el meme")
+                if nombre is not None and es_nombre_valido(nombre) and nombre != '':
+                    
+                    crear_meme.guardar_meme(usuario,nombre,nombre_imagen,values,meme_actual)
+                    sg.popup("Se generó un meme!")
+                    break
+                else:
+                    sg.popup("Ya existe un archivo con ese nombre. Por favor, ingrese otro nombre")
+            else:
+                sg.popup("No se completaron los campos necesarios")
 
 
 if __name__ == "__main__":
-     generar_collage(usuario,cant_imagenes, diseño)
-
-
+    generar_meme(imagen_seleccionada,meme_json,usuario)
     

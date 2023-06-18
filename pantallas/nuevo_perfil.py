@@ -10,6 +10,8 @@ from funcionalidad.nuevo_perfil import *
 from pantallas import menu_principal
 from pantallas import inicio
 import rutas as r
+from funcionalidad import registrar_log
+
 
 
 def ventana_nuevo_perfil():
@@ -111,7 +113,8 @@ def ventana_nuevo_perfil():
                                     json.dump(perfil_json, archivo,indent=4)
                             except (FileNotFoundError, PermissionError, json.JSONDecodeError):
                                 pass
-
+                            
+                            registrar_log.registrar_interaccion(values['-USUARIO-'],"Nuevo usuario")
                             sg.popup('Se creo el perfil!')
                             window.close()
                             menu=menu_principal.ventana_menu(usuario_nuevo)
@@ -130,3 +133,4 @@ def ventana_nuevo_perfil():
 
 if __name__ == "__main__":
     ventana_nuevo_perfil()
+
