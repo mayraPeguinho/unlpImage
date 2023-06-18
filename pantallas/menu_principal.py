@@ -86,7 +86,7 @@ def generar_ventana_de_ayuda():
             ventana_de_ayuda.un_hide()
 
 def ventana_menu(perfil_actual):
-    '''Esta funcion define la ventana de menu con sus respectivos botones. '''
+    '''Esta funcion retorna la ventana de menu con sus respectivos botones. '''
     imagen_bytes=act.mostrar_imagen(os.path.join(r.ruta_imagenes_perfil,perfil_actual["Avatar"]))
     columna1=[[sg.Button(image_data=imagen_bytes,
                          key="-VENTANA EDITAR PERFIL-")],

@@ -29,6 +29,10 @@ def actulizar_data():
         sys.exit()
 
 def mostrar_imagen(ruta):
+    '''Esta funcion reajusta la imagen de perfil de un determinado usuario
+    y retorna la variable image_bytes que posee el valor que PySimpleGui puede
+    leer.
+    '''
     imagen = Image.open(ruta)
     new_size=(80,80)
     imagen_redimensionada = imagen.resize(new_size)

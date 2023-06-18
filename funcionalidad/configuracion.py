@@ -30,24 +30,25 @@ def armar_ruta(directorio,subcarpetas):
     return directorio
 
 def obtener_directorio(key):    
-      '''Tiene como objetivo obtener y retornar un directorio del archivo de configuración.json.
-         key es una cadena de texto que representa la clave que indica la ruta del directorio 
-         en el archivo. '''
-      try:
-           with open(r.archivo_configuracion_json, 'r') as archivo:
-                datos = json.load(archivo)
-           directorio = armar_ruta(r.directorio_padre,datos[key].split('/'))
-           return directorio
+    '''Tiene como objetivo obtener y retornar un directorio del archivo de configuración.json.
+    key es una cadena de texto que representa la clave que indica la ruta del directorio 
+    en el archivo.
+    '''
+    try:
+        with open(r.archivo_configuracion_json, 'r') as archivo:
+            datos = json.load(archivo)
+        directorio = armar_ruta(r.directorio_padre,datos[key].split('/'))
+        return directorio
       
-      except(PermissionError):
-           sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
-           sys.exit()
-      except(FileNotFoundError):
-           sg.popup_error("""No se ha encontrado el archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
-           sys.exit()
-      except json.JSONDecodeError:
-           sg.popup_error("""El archivo  configuracion.json no está en formato JSON válido. La aplicación no puede continuar. Se cerrará el programa.""")
-           sys.exit()   
-      except KeyError as e:
-           sg.popup_error(f"Error de clave en el archivo de configuración: {e}. La aplicación no puede continuar. Se cerrará el programa.")
-           sys.exit()
+    except(PermissionError):
+        sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+        sys.exit()
+    except(FileNotFoundError):
+        sg.popup_error("""No se ha encontrado el archivo 'configuracion.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+        sys.exit()
+    except json.JSONDecodeError:
+        sg.popup_error("""El archivo  configuracion.json no está en formato JSON válido. La aplicación no puede continuar. Se cerrará el programa.""")
+        sys.exit()   
+    except KeyError as e:
+        sg.popup_error(f"Error de clave en el archivo de configuración: {e}. La aplicación no puede continuar. Se cerrará el programa.")
+        sys.exit()

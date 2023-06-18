@@ -12,7 +12,11 @@ import rutas as r
 
 def mostrar_perfiles(datos):
     '''Esta funcion carga los diferentes perfiles creados previamente
-       en diferentes botones que seran mostrados luego en la ventana de inicio.'''
+       en diferentes botones que seran mostrados luego en la ventana de inicio.
+       "datos" se trata de una lista de diccionarios con la informacion de los
+       usuarios. Retorna la variable perfiles que contiene los botones para cada
+       usuario en la aplicacion.
+    '''
     perfiles=[]
     for numero,elemento in enumerate(datos): 
         imagen_bytes=act.mostrar_imagen(os.path.join(r.ruta_imagenes_perfil,elemento["Avatar"]))
@@ -24,8 +28,11 @@ def mostrar_perfiles(datos):
     return perfiles
 
 def layout_inicio(datos,no_desplegar=True):
-    '''Esta funcion crea el layout de la ventana de inicio
-       dependiendo de cuantos perfiles cargados previamente haya.'''
+    '''Esta funcion retorna el layout de la ventana de inicio
+       dependiendo de cuantos perfiles cargados haya previamente.
+       "datos" es la lista de diccionarios sacada del json de perfiles
+       y "no_desplegar" el booleano para indicar que tipo de layout se desea
+    '''
     perfiles=mostrar_perfiles(datos)
     if(perfiles==[]):
          layout=[[sg.Button("+",key="-AGREGAR PERFIL-")]]
@@ -42,19 +49,20 @@ def layout_inicio(datos,no_desplegar=True):
     return layout
 
 def mostrar_mas_perfiles(datos):
-    '''Esta funcion crea la ventana en donde se muestran los perfiles restantes'''
+    '''Esta funcion retorna la ventana en donde se muestran los perfiles restantes'''
     layout=layout_inicio(datos,False)
     return sg.Window("Inicio",layout,margins=(200, 150))
 
 def generar_ventana_de_inicio(datos):
-    '''Esta funcion muestra hasta un maximo de cuatro perfiles,
-    que pasada esa cantidad estara hablitado el boton "Ver mas"
+    '''Esta funcion retorna una pantalla con un maximo de cuatro perfiles,
+    que pasada esa cantidad estará hablitado el boton "Ver mas"
     para ver los restantes perfiles creados'''
     layout=layout_inicio(datos,True)
     return sg.Window("Inicio",layout,margins=(200, 150))
 
 def manejar_eventos_mas_perfiles(datos,keys):
-    '''Maneja los eventos de la ventana que muestra todos los perfiles'''
+    '''Maneja los eventos de la ventana que muestra todos los perfiles.
+    "keys" se trata una lista con las llaves de los botones de los perfiles'''
     mas_perfiles=mostrar_mas_perfiles(datos)
     while True:
         evento, valores = mas_perfiles.read()
