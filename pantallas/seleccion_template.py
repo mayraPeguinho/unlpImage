@@ -9,7 +9,6 @@ import PIL
 # Agrego el directorio raiz a la ruta de búsqueda de módulos
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from funcionalidad import etiquetar_imagenes as ei
-from funcionalidad import seleccion_template as st
 from funcionalidad import configuracion as cg
 from rutas import archivo_configuracion_json as ruta_archivo
 from rutas import archivo_tenmplates_json as ruta_templates
