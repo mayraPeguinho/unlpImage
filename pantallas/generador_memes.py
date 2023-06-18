@@ -87,8 +87,6 @@ def generar_meme(imagen_seleccionada,meme_json,usuario):
 
     meme_json = [item for item in meme_json if item['image'] == os.path.basename(imagen_seleccionada)]
 
-    print(meme_json)
-
     cant_cajas = crear_meme.calculo_cajas(meme_json,imagen_seleccionada)
 
     nombre_imagen = os.path.basename(imagen_seleccionada)
@@ -118,7 +116,6 @@ def generar_meme(imagen_seleccionada,meme_json,usuario):
             sys.exit()
 
         elif event == "-ACTUALIZAR-":
-
             meme_actual = crear_meme.actualizar_datos(cargar_meme,meme_json,values)
 
             cambio_tamanio = meme_actual.resize((350,300))
@@ -127,6 +124,7 @@ def generar_meme(imagen_seleccionada,meme_json,usuario):
             window["-IMAGEN-"].update(data=data_imagen)
 
         elif event == "-GENERAR-":
+            crear_meme.asigno_fuente(values)
             if not falta_completar_campos(values):
                 nombre = sg.popup_get_text("Ingrese un nombre para el meme")
                 if nombre is not None and es_nombre_valido(nombre) and nombre != '':

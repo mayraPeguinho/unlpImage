@@ -42,6 +42,7 @@ def modificar_perfil(perfil_actual,cambios_perfil):
     return perfil_actual
 
 def llenar_genero(values,avatar_actual):
+    """Asigno valores que llevan por si no son modificados"""
     if os.path.basename(values['-BROWSE-']) == '':
         values['-BROWSE-'] = avatar_actual
     if values['Genero'][0] != 'Otro':

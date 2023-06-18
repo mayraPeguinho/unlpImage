@@ -57,7 +57,6 @@ def ventana_nuevo_perfil():
                 key=("-BROWSE-"),
                 change_submits=True,
                 enable_events=True,
-                #file_types=(("Archivo de tipos", "*.png;*.jpg;*.jpeg;*.gif"),),
                 size=(20, 2),
             ),
         ],

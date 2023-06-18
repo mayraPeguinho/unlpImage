@@ -97,6 +97,12 @@ def calculo_cajas(meme_json,imagen_seleccionada):
 
     return cant_cajas
 
+def asigno_fuente(values):
+    """Si no se le asigna otro valor se le deja el por defecto"""
+
+    if (values['-FUENTE-'] == ''):
+        values['-FUENTE-'] = fuente_default
+    print(values)
 def guardar_meme(usuario,nombre,nombre_imagen,values,meme_actual):
     """Guardo el meme y actualizo los logs"""
 
