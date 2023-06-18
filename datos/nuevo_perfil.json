@@ -5,5 +5,12 @@
         "Edad": "21",
         "Genero": "Femenino",
         "Avatar": "pokeball.png"
+    },
+    {
+        "Usuario": "efeef",
+        "Nombre": "asd",
+        "Edad": "44",
+        "Genero": "Femenino",
+        "Avatar": "dinosaurio.png"
     }
 ]
