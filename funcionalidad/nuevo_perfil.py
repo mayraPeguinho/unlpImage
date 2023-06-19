@@ -33,11 +33,16 @@ def crear_json(usuario):
     try:
         with open(ruta_archivo, "r", encoding="UTF-8") as archivo:
             datos_agregar = json.load(archivo)
-    except (FileNotFoundError, json.JSONDecodeError):
-        pass
     except PermissionError:
         sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'nuevo_perfil.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
         sys.exit()
+    except(FileNotFoundError):
+        sg.popup("No se encontro el archivo nuevo_perfil.json")
+        sys.exit()
+    except(json.JSONDecodeError):
+        sg.popup("Error fatal: Faltan archivos importante, el programa se cerrará")
+        sys.exit()
+    
     datos_agregar.append(usuario)
     return datos_agregar
 

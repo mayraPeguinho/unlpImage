@@ -111,8 +111,15 @@ def ventana_nuevo_perfil():
                             try:
                                 with open(ruta_archivo, "w") as archivo:
                                     json.dump(perfil_json, archivo,indent=4)
-                            except (FileNotFoundError, PermissionError, json.JSONDecodeError):
-                                pass
+                            except (PermissionError):
+                                sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'nuevo_perfil.json', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+                                sys.exit()
+                            except(FileNotFoundError):
+                                sg.popup("No se encontro el archivo nuevo_perfil.json")
+                                sys.exit()
+                            except(json.JSONDecodeError):
+                                sg.popup("Error fatal: Faltan archivos importante, el programa se cerrará")
+                                sys.exit()
                             
                             registrar_log.registrar_interaccion(values['-USUARIO-'],"Nuevo usuario")
                             sg.popup('Se creo el perfil!')
