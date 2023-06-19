@@ -81,9 +81,7 @@ def pantalla_seleccionartemplate(usuario):
                     sg.popup_error("¡No tienes permisos para acceder a esa carpeta!")
             if event == 'Generar':
                 try:
-                    window.hide() 
                     ge.generar_meme(ruta_imagen, data, usuario)
-                    window.un_hide()
                 except IndexError:
                     sg.popup_error("¡Primero debes elegir una imágen válida!")
                 except PermissionError:

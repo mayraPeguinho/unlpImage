@@ -26,7 +26,10 @@ def obtener_imagenes():
                 next(reader)  
                 for row in reader:
                      descripcion = row[1]
-                     nombre_imagen = row[0]
+                     ruta_repo = conf.obtener_directorio('repositorio_imagenes')
+                     nombre_archivo = os.path.basename(row[0])
+                     nombre_imagen = os.path.join(ruta_repo, nombre_archivo)
+
                      #para que no la sobreescriba la descripción, si ya existe
                      if descripcion in imagenes:
                           # Si la descripción ya existe en el diccionario de repetidas, incrementa el contador correspondiente

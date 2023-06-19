@@ -5,5 +5,12 @@
         "Edad": "23",
         "Genero": "Masculino",
         "Avatar": "dinosaurio.png"
+    },
+    {
+        "Usuario": "Eze",
+        "Nombre": "Ezequiel Pallini",
+        "Edad": "25",
+        "Genero": "Masculino",
+        "Avatar": "pokeball.png"
     }
 ]
