@@ -142,5 +142,5 @@ def generar_meme(imagen_seleccionada,meme_json,usuario):
 
 
 if __name__ == "__main__":
-    generar_meme(imagen_seleccionada,meme_json,usuario)
+    generar_meme()
     
