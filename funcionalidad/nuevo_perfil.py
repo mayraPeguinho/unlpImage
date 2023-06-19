@@ -16,7 +16,7 @@ def crear_perfil(values):
     if values['-GENERO-'][0] != 'Otro':
         genero=values['-GENERO-'][0]
     else: 
-        genero=values["Especificar genero"]
+        genero=values['-ESPECIFICAR_GENERO-']
     perfil = {
         "Usuario": values["-USUARIO-"],
         "Nombre": values["-NOMBRE-"],

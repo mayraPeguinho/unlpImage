@@ -19,5 +19,19 @@
         "Edad": "23",
         "Genero": "Femenino",
         "Avatar": "mujer.png"
+    },
+    {
+        "Usuario": "May",
+        "Nombre": "May",
+        "Edad": "24",
+        "Genero": "Femenino",
+        "Avatar": "dinosaurio.png"
+    },
+    {
+        "Usuario": "Dynamight",
+        "Nombre": "Kat",
+        "Edad": "20",
+        "Genero": "No binario",
+        "Avatar": "hombre_traje.png"
     }
 ]
