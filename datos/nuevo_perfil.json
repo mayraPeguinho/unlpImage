@@ -12,5 +12,12 @@
         "Edad": "25",
         "Genero": "Masculino",
         "Avatar": "pokeball.png"
+    },
+    {
+        "Usuario": "Gaby",
+        "Nombre": "Gabriela Bamba",
+        "Edad": "23",
+        "Genero": "Femenino",
+        "Avatar": "mujer.png"
     }
 ]

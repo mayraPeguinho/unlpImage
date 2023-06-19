@@ -38,7 +38,8 @@ def registrar_interaccion(nick, operacion,valores=None,textos=None):
                  writer_csv.writerow(["Fecha y Hora", "Nick", "Operación","Valores", "Textos"])   
              writer_csv.writerow(log)
      except FileNotFoundError:
-         sg.popup_error("""No se encuentra el archivo 'logs.csv'""")
+         sg.popup_error("""No se encuentra el archivo 'logs.csv', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
+         sys.exit()
      except PermissionError:
          sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'logs.csv', por lo que la aplicacion no puede continuar, se cerrará el programa.""")
          sys.exit()
