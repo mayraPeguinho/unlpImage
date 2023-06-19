@@ -1,16 +1,9 @@
 [
     {
-        "Usuario": "sium",
-        "Nombre": "ajew",
-        "Edad": "54",
-        "Genero": "Femenino",
-        "Avatar": "pokeball.png"
-    },
-    {
-        "Usuario": "efeef",
-        "Nombre": "asd",
-        "Edad": "44",
-        "Genero": "Femenino",
-        "Avatar": "pokeball.png"
+        "Usuario": "fran",
+        "Nombre": "Juan Francisco",
+        "Edad": "23",
+        "Genero": "Masculino",
+        "Avatar": "dinosaurio.png"
     }
 ]

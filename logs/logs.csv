@@ -1,81 +1,10 @@
 Fecha y Hora,Nick,Operación,Valores,Textos
-1686190519.9195,null,Cambio en configuración,,
-1686190555.447748,null,Cambio en configuración,,
-1686190775.178922,null,Cambio en configuración,,
-1686190798.938418,null,Cambio en configuración,,
-1686191369.007084,null,Cambio en configuración,,
-1686191468.38733,null,Cambio en configuración,,
-1686191546.586034,null,Cambio en configuración,,
-1686191585.990908,null,Cambio en configuración,,
-1686191744.348498,null,Cambio en configuración,,
-1686191747.077486,null,Cambio en configuración,,
-1686194080.481919,null,Cambio en configuración,,
-1686194113.449523,null,Cambio en configuración,,
-1686194135.537973,null,Cambio en configuración,,
-1686194164.042747,null,Cambio en configuración,,
-1686195161.556544,null,Cambio en configuración,,
-1686195206.472547,null,Cambio en configuración,,
-1686339420.013584,Martin,Imagen agregada,,
-1686339424.907152,Martin,Imagen editada,,
-1686339452.207552,Martin,Imagen agregada,,
-1686339455.360674,Martin,Imagen editada,,
-1686339465.323645,Martin,Imagen agregada,,
-1686339501.444584,Mariana,Imagen agregada,,
-1686339512.129767,Mariana,Imagen agregada,,
-1686506573.055012,Damacio,Imagen agregada,,
-
-1686758290.639233,usuario,Generación de collage,img7.jpg;blueberries-g908c57b3c_1920.jpg,Perrito
-1686787291.070811,Test,Imagen agregada,,
-1686787313.478648,Test,Generación de collage,strawberry-g0ffa2143b_1920.jpg;strawberry-g0ffa2143b_1920.jpg;strawberry-g0ffa2143b_1920.jpg;strawberry-g0ffa2143b_1920.jpg,frutillas
-1686787361.849994,Test,Generación de collage,strawberry-g0ffa2143b_1920.jpg;strawberry-g0ffa2143b_1920.jpg;strawberry-g0ffa2143b_1920.jpg,asd
-1686798803.692308,Test,Generacion meme,<PIL.Image.Image image mode=RGB size=480x601 at 0x7F45BE306D10>,das
-1686798803.74197,Test,Generacion meme,<PIL.Image.Image image mode=RGB size=480x601 at 0x7F45BE306D10>,qwdq
-1686801385.246317,Test,Generacion meme,todo-bien.jpg,dfsfd
-1686801385.307453,Test,Generacion meme,todo-bien.jpg,adfas
-1686802434.320486,Test,Generacion meme,todo-bien.jpg,asd
-1686802434.369453,Test,Generacion meme,todo-bien.jpg,asd
-1686843359.835413,Test,Generacion meme,todo-bien.jpg,hhjv
-1686843359.867668,Test,Generacion meme,todo-bien.jpg,jhvbjhv
-1686857611.383417,Test,Generacion meme,Queclaseesesta.jpg,uihi ygyu
-1686857611.391792,Test,Generacion meme,Queclaseesesta.jpg,gfyt rdrdmmm
-1686857611.391792,Test,Generacion meme,Queclaseesesta.jpg,"ytfytf yg,l,l,"
-1686859182.960901,Test,Generacion meme,Estosi_estono.jpg,lklkmo
-1686859182.960901,Test,Generacion meme,Estosi_estono.jpg,komo
-1686859277.41375,Test,Imagen agregada,,
-1686859372.013651,Test,Generacion meme,siguiente-salida.jpg,mn n
-1686859372.013651,Test,Generacion meme,siguiente-salida.jpg,nknnj
-1686859404.205617,Test,Generación de collage,strawberry-g0ffa2143b_1920.jpg;Estosi_estono.jpg,oaaa
-1686861117.292851,Test,Generación de collage,Estosi_estono.jpg;strawberry-g0ffa2143b_1920.jpg,dsdf
-1686877760.734117,null,Imagen editada,,
-1686877764.269517,null,Imagen agregada,,
-1686878008.138237,null,Imagen agregada,,
-1686878144.843684,null,Imagen agregada,,
-1686878275.925729,null,Imagen agregada,,
-1686879665.066077,Test,Cambio en configuración,,
-1686879720.358484,Test,Cambio en configuración,,
-1686880033.369104,Test,Cambio en configuración,,
-1686880116.356106,Test,Cambio en configuración,,
-1686880216.426305,Test,Cambio en configuración,,
-1686887006.731187,Test,Generación de collage,strawberry-g0ffa2143b_1920.jpg;img7.jpg,das
-1687061868.64636,sium,Generacion meme,todo-bien.jpg,ff;f
-1687112763.915634,sium,Cambio en configuración,,
-1687112793.410306,sium,Imagen agregada,,
-1687112796.816919,sium,Imagen editada,,
-1687112815.666551,sium,Imagen agregada,,
-1687112826.678597,sium,Imagen agregada,,
-1687112867.722918,sium,Generacion meme,Template_Queclaseesesta.jpg,un examen;una mariposa;que clase de perro es este
-1687113092.304276,sium,Generacion meme,Template_dos_botones.jpg,Tener python Plus;Tener finde largo
-1687119324.600143,efeef,Imagen agregada,,
-1687119331.348852,efeef,Imagen agregada,,
-1687119359.260857,efeef,Imagen agregada,,
-1687119399.352917,efeef,Imagen editada,,
-1687119440.297278,efeef,Imagen agregada,,
-1687119698.255414,sium,Imagen agregada,,
-1687120017.66647,efeef,Imagen editada,,
-1687120034.943755,efeef,Imagen agregada,,
-1687125964.467039,sium,Generacion meme,Template_globo.jpg,ftg;ghjjhg;jhg;jhg;jgh
-1687126065.374576,sium,Generacion meme,Template_Estosi_estono.jpg,i;h
-1687126212.131133,sium,Imagen agregada,,
-1687126234.490845,sium,Imagen agregada,,
-1687126252.588351,sium,Generación de collage,strawberry-g0ffa2143b_1920.jpg;strawberry-g0ffa2143b_1920.jpg,Roja
-1687127596.503009,sium,Edito el perfil,,
+1687143386.686274,fran,Nuevo usuario,,
+1687143432.698823,fran,Imagen agregada,,
+1687143496.910363,fran,Imagen agregada,,
+1687143500.391625,fran,Imagen editada,,
+1687143565.2832,fran,Imagen agregada,,
+1687143607.668776,fran,Generacion meme,Template_dos_botones.jpg,Hacer un meme;No hacer un meme
+1687143641.853426,fran,Generación de collage,img2.jpg;img4.jpg;img3.jpg,Espacio
+1687143664.417737,fran,Edito el perfil,,
+1687143774.022304,fran,Imagen agregada,,
