@@ -45,13 +45,14 @@ def crear_csv(ruta_csv):
 def guardar_data(ruta, data, usuario_actual):
     """Guarda los datos de la imagen en el archivo csv"""
     try:    
+        nombre = os.path.basename(data[0])
         with open(ruta, mode='r+', encoding="utf-8") as file:
             reader = csv.reader(file)
             contenido_csv = list(reader)
         encontre = False
         #Busco la fila en el csv
         for pos, datos_fila in enumerate(contenido_csv):
-            if data[0] in datos_fila:
+            if any(nombre in campo for campo in datos_fila):
                 # me guardo la posicion en el archivo
                 posicion = pos
                 datos_previos_modificar = datos_fila
@@ -98,7 +99,9 @@ def actualizar_tags(csv_archivo, ruta):
         for datos_fila in contenido_csv:
             #si encuentro la fila          
             try: 
-                if (ruta == datos_fila[0]):
+                ruta_corregida = os.path.basename(ruta)
+                ruta_corregida_enarbol = os.path.basename(datos_fila[0])
+                if (ruta_corregida == ruta_corregida_enarbol):
                     # me guardo los datos de la imagen y dejo de recorrer el csv
                     tags = datos_fila[2].split(', ')                    
                     break
@@ -123,11 +126,14 @@ def actualizar_desc(csv_archivo, ruta):
             next(reader)
             contenido_csv = list(reader)
             descripcion = "Sin desripción"
+            
             #Busco la fila en el csv
             for datos_fila in contenido_csv:
                 #si encuentro la fila          
+                ruta_corregida = os.path.basename(ruta)
+                ruta_corregida_enarbol = os.path.basename(datos_fila[0])
                 try: 
-                    if (ruta == datos_fila[0]):
+                    if (ruta_corregida == ruta_corregida_enarbol):
                         # me guardo los datos de la imagen y dejo de recorrer el csv
                         descripcion = datos_fila[1] 
                         break
