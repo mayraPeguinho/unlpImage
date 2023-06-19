@@ -91,10 +91,13 @@ def pantalla_etiquetar(usuario):
                 window['TagList'].update(values=tags)
                 values['TagList'] = tags
             if event == 'Eliminar':
-                tags_seleccionadas = values['TagList'][0] 
-                tags = [tag for tag in tags if tag not in tags_seleccionadas]
-                window['TagList'].update(values=tags)
-                values['TagList'] = tags  
+                try: 
+                    tags_seleccionadas = values['TagList'][0] 
+                    tags = [tag for tag in tags if tag not in tags_seleccionadas]
+                    window['TagList'].update(values=tags)
+                    values['TagList'] = tags  
+                except IndexError: 
+                    sg.PopupError("No hay tag a eliminar")
             if event == 'Modificar':
                 try:
                     imagen_data = ei.traer_data(usuario, values, ruta_csv, "d")
