@@ -1,21 +1,22 @@
 import os
 import sys
+
 import PySimpleGUI as sg
 from PIL import Image
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from funcionalidad.verificar_input import falta_completar_campos
 from funcionalidad.nuevo_perfil import *
+from funcionalidad import registrar_log
 from pantallas import menu_principal
 from pantallas import inicio
 import rutas as r
-from funcionalidad import registrar_log
-
 
 
 def ventana_nuevo_perfil():
-
+    '''Genera la ventana de nuevo perfil, tanto su layout como se manejador
+    de eventos
+    '''
     ruta_archivo=r.archivo_perfiles_json
     ruta_avatares= os.path.join(r.ruta_imagenes_perfil,'avatar.png')
 

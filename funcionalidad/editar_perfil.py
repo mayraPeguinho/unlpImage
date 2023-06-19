@@ -49,7 +49,9 @@ def llenar_genero(values,avatar_actual):
         values['Especificar genero'] = '-'
 
 def actualizar_perfil(perfiles, perfil_modificado):
-    
+    '''Esta función busca el perfil a actualizar (el parametro que recibe como perfil_modificado)
+    en la variable que recibe perfiles, luego retorna esta misma variable de forma actualizada que
+    será cargada en el json de perfiles'''
     for pos, perfil in enumerate(perfiles):
         if perfil['Usuario'] == perfil_modificado['Usuario']:
             perfiles[pos] = perfil_modificado

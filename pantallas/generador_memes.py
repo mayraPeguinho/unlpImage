@@ -84,7 +84,10 @@ def definir_layout(cant_cajas):
 
 
 def generar_meme(imagen_seleccionada,meme_json,usuario):
-
+    """Genera la interfaz gráfica para crear un meme con su manejador de eventos.
+    Recibe el template seleccionado, el json de templates (en este se busca los datos
+    del template especificado) y el usuario.
+    """
     meme_json = [item for item in meme_json if item['image'] == os.path.basename(imagen_seleccionada)]
 
     cant_cajas = (meme_json[0]['text_boxes'].__len__())

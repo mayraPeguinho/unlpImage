@@ -15,7 +15,11 @@ from rutas import archivo_perfiles_json as ruta_archivo
 from funcionalidad import registrar_log
 
 def ventana_editar_perfil(perfil_actual):
-
+    '''Genera la ventana de editar perfil, tanto su layout como se manejador
+    de eventos, recibiendo todos los datos del perfil actual, en la variable
+    perfil_actual que se trata de un diccionario, para que estos sean visualizados
+    en pantalla
+    '''
     image_filename=os.path.join(ruta_imagenes_perfil,perfil_actual["Avatar"])
 
     columna_izquierda = [

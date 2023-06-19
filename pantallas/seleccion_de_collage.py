@@ -61,8 +61,7 @@ def eventos_seleccion_collage(usuario):
                 ventana.hide()
                 generador_collage.generar_collage(usuario,2,4)
                 ventana.un_hide()
-
-
+                
 if __name__ =="__main__":
      eventos_seleccion_collage("usuario")
 

@@ -14,6 +14,8 @@ import sys
 fuente_default = os.path.join(ruta_directorio_fuentes, 'Lato-BoldItalic.ttf')
 
 def obterer_coordenadas(meme_json, pos):
+    '''Esta función obtiene las coordenadas de los textos que se mostraran
+    en el meme, estas estan cargados en el archivo json de templates'''
     top_left_x = meme_json[0]['text_boxes'][pos]['top_left_x']
     top_left_y = meme_json[0]['text_boxes'][pos]['top_left_y']
     bottom_right_x = meme_json[0]['text_boxes'][pos]['bottom_right_x']

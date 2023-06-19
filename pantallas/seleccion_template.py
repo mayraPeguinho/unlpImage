@@ -1,24 +1,22 @@
-#!/usr/bin/env python
 import sys
 import os
 import json
+
 import PySimpleGUI as sg
 import PIL
 
-
-# Agrego el directorio raiz a la ruta de búsqueda de módulos
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from funcionalidad import etiquetar_imagenes as ei
 from funcionalidad import configuracion as cg
 from rutas import archivo_tenmplates_json as ruta_templates
-
 from pantallas import generador_memes as ge
 
 def pantalla_seleccionartemplate(usuario):
-
-    #Leo desde el archivo de configuración, donde ir a buscar mi repositorio de imagenes
+    '''Crea la pantalla de selección template, tanto su layout y su manejador de
+    eventos, recibe como parametro el perfil que esta utilizando actualmente la
+    apliacion'''
     starting_path = cg.obtener_directorio('repositorio_imagenes')
-    #Creo el arbol visual de archivos. 
+
     treedata = ei.add_files_in_folder('', starting_path)
 
     columna_izquierda = [[sg.Text('Seleccionar template')],
@@ -42,15 +40,25 @@ def pantalla_seleccionartemplate(usuario):
 
     layout = [[sg.Column(columna_izquierda, element_justification='c'), sg.VSeperator(),sg.Column(columna_derecha, element_justification='c')]]
 
+    window = sg.Window('Generar meme', layout, resizable=False)
 
-    #agregar en window el manejo de usuarios entre ventanas. 
-    window = sg.Window('Generar meme', layout, resizable=False, finalize=True)
-
-    while True:     # Loop de eventos
-        with open(ruta_templates) as archivo:
-            data = json.load(archivo)
-        rutas_imagenes = [item['image'] for item in data]
-
+    while True:
+        try:
+            with open(ruta_templates) as archivo:
+                data = json.load(archivo)
+            rutas_imagenes = [item['image'] for item in data]
+        except PermissionError:
+            sg.popup_error("""No se cuentan con los permisos para acceder al archivo 'templates.json',
+                            no es posible acceder a la funcion de generar memes. Se volverá al menú""")
+            window.close()
+            break
+        except FileNotFoundError:
+            sg.popup_error("""Parece que has eliminado el archivo 'templates.json' por lo  que no es
+                            posible acceder a la funcion de generar memes. Se recomienda que vuelvas a
+                            descargar la aplicación.
+                            Se volverá al menú""")
+            window.close()
+            break
          
         event, values = window.read()    
         if event == 'Volver':
@@ -60,10 +68,7 @@ def pantalla_seleccionartemplate(usuario):
             sys.exit()           
         else:
             if event == '-TREE-':
-                #Chequear que se pueda abrir y tratar la imagen
                 try:
-                   
-                    # traigo la ruta de la imagen
                     ruta_imagen = values['-TREE-'][0].replace("\\", "/")
                     
                     if os.path.basename(ruta_imagen) in rutas_imagenes:
@@ -71,8 +76,6 @@ def pantalla_seleccionartemplate(usuario):
                         window["-IMAGE-"].update(data=datavisual_imagen)
                     else:
                         sg.popup_error("¡No es un template!")
-                
-
                 except PIL.UnidentifiedImageError:
                     sg.popup_error("¡No es una imagen!")
                 except IsADirectoryError:

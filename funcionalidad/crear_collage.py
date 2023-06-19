@@ -15,7 +15,6 @@ from funcionalidad import configuracion as conf
 
 
 def obtener_imagenes():
-
       """Lee un archivo csv que contiene información sobre imágenes y devuelve un diccionario con las descripciones
       como claves y los nombres de las imágenes como valores. """
       try:
@@ -51,12 +50,10 @@ def obtener_imagenes():
       return imagenes
 
 def crear_collage_diseño_1(imagen, pos, collage):
-    
       """ Crea el collage del diseño 1 utilizando una imagen en una posición específica.
       recibe  la ruta de la imagen a utilizar,la posición de la imagen en el collage (1 o 2) y
       la imagen base sobre la que esta construyendo el collage.
       Retorna el collage actualizado con la nueva imagen. """
-
       image = PIL.Image.open(imagen)
       if pos == 1:
            image = PIL.ImageOps.fit(image, (400, 200))
@@ -70,12 +67,10 @@ def crear_collage_diseño_1(imagen, pos, collage):
 
 
 def crear_collage_diseño_2(imagen,pos,collage):
-      
       """ Crea el collage del diseño 2 utilizando una imagen en una posición específica.
       recibe  la ruta de la imagen a utilizar,la posición de la imagen en el collage (1,2 o 3) y
       la imagen base sobre la que esta construyendo el collage.
       Retorna el collage actualizado con la nueva imagen. """
-      
       image = PIL.Image.open(imagen)
       if pos == 1:
            image  = PIL.ImageOps.fit(image ,(400,200))
@@ -91,12 +86,10 @@ def crear_collage_diseño_2(imagen,pos,collage):
 
 
 def crear_collage_diseño_3(imagen,pos,collage):
-      
       """ Crea el collage del diseño 3 utilizando una imagen en una posición específica.
       recibe  la ruta de la imagen a utilizar,la posición de la imagen en el collage (1,2,3 o 4) y
       la imagen base sobre la que esta construyendo el collage.
       Retorna el collage actualizado con la nueva imagen. """
-
       image = PIL.Image.open(imagen)
       if pos == 1:
            image  = PIL.ImageOps.fit(image ,(200,200))
@@ -116,12 +109,10 @@ def crear_collage_diseño_3(imagen,pos,collage):
 
 
 def crear_collage_diseño_4(imagen,pos,collage):
-      
       """ Crea el collage del diseño 4 utilizando una imagen en una posición especifica.
       recibe  la ruta de la imagen a utilizar,la posición de la imagen en el collage (1 o 2) y
       la imagen base sobre la que esta construyendo el collage.
       Retorna el collage actualizado con la nueva imagen. """
-      
       image = PIL.Image.open(imagen)
       if pos == 1:
            image = PIL.ImageOps.fit(image,(200,400))

@@ -8,9 +8,11 @@ from funcionalidad import etiquetar_imagenes as ei
 from funcionalidad import configuracion as cg
 from rutas import archivo_imagenes_etiquetadas_csv as ruta_csv
 
-#!/usr/bin/env python
 def pantalla_etiquetar(usuario):
- 
+    '''Genera la panatalla de etiquetar, tanto su layout como su manejador de eventos,
+    recibiendo como parametro el usuario actual para poder identificar quien realiza
+    cambios cuando se etiquetan imagenes
+    '''
     starting_path = cg.obtener_directorio('repositorio_imagenes')
     
     #En caso de que el archivo csv de etiquetado de imágenes no exista, lo creo
@@ -119,5 +121,6 @@ def pantalla_etiquetar(usuario):
                     sg.popup_error("¡Debes seleccionar una imágen válida!")    
 
     window.close()
+
 if __name__ =="__main__":
     pantalla_etiquetar("null")

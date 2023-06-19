@@ -8,7 +8,10 @@ from funcionalidad import configuracion as conf
 from rutas import directorio_padre
 
 def pantalla_configuracion(usuario):
-
+    '''Genera la pantalla de configuracion, con su layout y su manejador de eventos,
+    recibiendo como parametro el usuario del perfil actual, para identificar quien
+    realiza cambios en la configuracion
+    '''
     repositorio_imagenes=conf.obtener_directorio('repositorio_imagenes')
     directorio_collage=conf.obtener_directorio('directorio_collages')
     directorio_meme=conf.obtener_directorio('directorio_memes')

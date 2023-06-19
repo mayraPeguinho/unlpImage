@@ -1,6 +1,7 @@
-import PySimpleGUI as sg
 import os
 import sys
+
+import PySimpleGUI as sg
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
