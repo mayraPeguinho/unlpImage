@@ -5,7 +5,6 @@ import PIL.ImageDraw
 import PIL.ImageFont
 import os
 from funcionalidad import registrar_log as log
-from rutas import ruta_directorio_memes
 from rutas import ruta_directorio_fuentes
 from funcionalidad import configuracion
 import PySimpleGUI as sg

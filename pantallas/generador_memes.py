@@ -12,7 +12,6 @@ import rutas as r
 from funcionalidad import crear_meme
 from funcionalidad import etiquetar_imagenes
 from funcionalidad.crear_collage import es_nombre_valido
-from pantallas import menu_principal 
 import PIL.ImageFont
 
 def definir_layout(cant_cajas):
