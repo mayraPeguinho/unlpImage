@@ -4,6 +4,8 @@ directorio_padre = os.path.dirname((os.path.abspath(__file__)))
 
 ruta_imagenes_perfil=os.path.join(directorio_padre,'imagenes','imagenes_perfil')
 
+ruta_imagen_por_defecto= os.path.join(directorio_padre,'imagenes','imagenes_perfil', 'avatar.png')
+
 ruta_directorio_collages=os.path.join(directorio_padre,'imagenes','directorio_collages')
 
 ruta_directorio_memes=os.path.join(directorio_padre,'imagenes','directorio_memes')

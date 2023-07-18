@@ -17,8 +17,6 @@ def ventana_nuevo_perfil():
     '''Genera la ventana de nuevo perfil, tanto su layout como se manejador
     de eventos
     '''
-    ruta_archivo=r.archivo_perfiles_json
-    ruta_avatares= os.path.join(r.ruta_imagenes_perfil,'avatar.png')
 
     columna_izquierda = [
         [sg.Text("Nuevo perfil")],
@@ -46,7 +44,7 @@ def ventana_nuevo_perfil():
     columna_derecha = [
         [
             sg.Image(
-                source=ruta_avatares,
+                source=r.ruta_imagen_por_defecto,
                 key=("-AVATAR-"),
                 size=(300, 300),
                 subsample=3,
@@ -56,7 +54,7 @@ def ventana_nuevo_perfil():
         [
             sg.FileBrowse(
                 "Seleccionar Imagen",
-                initial_folder=ruta_imagenes_perfil,
+                initial_folder=r.ruta_imagenes_perfil,
                 key=("-BROWSE-"),
                 change_submits=True,
                 enable_events=True,

@@ -128,11 +128,16 @@ def asigno_fuente(values):
         values['-FUENTE-'] = fuente_default
 
 
+def formato(nombre):
+    """Chequea que el nombre del arhivo guardado tenga la extencion correcta"""
+    
+    return nombre.endswith('.jpg') or nombre.endswith('.png')
+        
 def guardar_meme(usuario,nombre,nombre_imagen,values,meme_actual):
     """Guardo el meme y actualizo los logs"""
 
     directorio_memes= configuracion.obtener_directorio('directorio_memes')
-    meme_path = os.path.join(directorio_memes, f"{nombre}.png")
+    meme_path = os.path.join(directorio_memes, nombre)
 
     meme_actual.save(meme_path)
 

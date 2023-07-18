@@ -130,11 +130,13 @@ def generar_meme(imagen_seleccionada,meme_json,usuario):
             if not falta_completar_campos(values):
                 nombre = sg.popup_get_text("Ingrese un nombre para el meme")
                 if nombre is not None and es_nombre_valido(nombre) and nombre != '':
-                    
-                    crear_meme.guardar_meme(usuario,nombre,nombre_imagen,values,meme_actual)
-                    sg.popup("Se generó un meme!")
-                    window.close()
-                    break
+                    if (crear_meme.formato(nombre)):
+                        crear_meme.guardar_meme(usuario,nombre,nombre_imagen,values,meme_actual)
+                        sg.popup("Se generó un meme!")
+                        window.close()
+                        break
+                    else:
+                        sg.popup('Debe ingresar la extension de la imagen que desea(.jpg o .png)')
                 else:
                     sg.popup("Ya existe un archivo con ese nombre. Por favor, ingrese otro nombre")
             else:

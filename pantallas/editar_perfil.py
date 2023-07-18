@@ -20,8 +20,6 @@ def ventana_editar_perfil(perfil_actual):
     perfil_actual que se trata de un diccionario, para que estos sean visualizados
     en pantalla
     '''
-    image_filename=os.path.join(ruta_imagenes_perfil,perfil_actual["Avatar"])
-
     columna_izquierda = [
         [sg.Text("Editar perfil")],
         [sg.Text("Nombre:")],
@@ -47,7 +45,7 @@ def ventana_editar_perfil(perfil_actual):
     columna_derecha = [
         [
             sg.Image(
-                source=image_filename,
+                source=os.path.join(ruta_imagenes_perfil, perfil_actual["Avatar"]),
                 key=("Avatar"),
                 size=(300, 300),
                 subsample=3,

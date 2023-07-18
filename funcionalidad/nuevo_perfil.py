@@ -6,9 +6,7 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from rutas import archivo_perfiles_json as ruta_archivo
-from rutas import ruta_imagenes_perfil
-
-ruta_avatares = os.path.join(ruta_imagenes_perfil, 'avatar.png')
+import rutas as r 
 
 def crear_perfil(values):
     """ Creo el perfil para pasarlo por las diferentes ventanas"""
@@ -73,6 +71,6 @@ def verificar_edad(edad):
 def llenar_solo(values):
     """Auto completa valores por defecto """
     if values['-BROWSE-'] == '':
-        values['-BROWSE-'] = ruta_avatares
+        values['-BROWSE-'] = r.ruta_imagen_por_defecto
     if values['-GENERO-'] == ['Masculino'] or values['-GENERO-'] == ['Femenino']:
         values['-ESPECIFICAR_GENERO-'] = '-'
